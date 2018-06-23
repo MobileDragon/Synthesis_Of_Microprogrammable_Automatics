@@ -10,7 +10,7 @@ QVector<uint32_t> Karno::readCSV(QString puth)
     QFile file(puth);
     if (!file.open(QIODevice::ReadOnly))
     {
-        qDebug() << "Ошибка открытия для чтения";
+        qDebug() << "РћС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ РґР»СЏ С‡С‚РµРЅРёСЏ";
         //return;
     }
 
@@ -35,7 +35,7 @@ QVector<uint32_t> Karno::readCSV(QString puth)
     return masOutput;
 }
 
-uint32_t Karno::makeDecOfBin(QString s1)//почти не нужна(неправда)
+uint32_t Karno::makeDecOfBin(QString s1)//РїРѕС‡С‚Рё РЅРµ РЅСѓР¶РЅР°(РЅРµРїСЂР°РІРґР°)
 {
     uint32_t at1 = 0;
     int32_t kol = s1.length()-1;
@@ -198,18 +198,18 @@ QVector<QString> Karno::delExcessJoin(QVector<QString> ansver,QVector<uint32_t> 
     foreach(QString str, ansver)
     {
         bool flag=true;
-        //входит ли в данное объединение "2"
+        //РІС…РѕРґРёС‚ Р»Рё РІ РґР°РЅРЅРѕРµ РѕР±СЉРµРґРёРЅРµРЅРёРµ "2"
         QVector<uint32_t> masGlobal=Karno::searchGlobal(str,masOutput);
         if(Karno::chekNum(masOutput,masGlobal,2))
         {
-            //получить номера всех единиц которые входят в объединение
+            //РїРѕР»СѓС‡РёС‚СЊ РЅРѕРјРµСЂР° РІСЃРµС… РµРґРёРЅРёС† РєРѕС‚РѕСЂС‹Рµ РІС…РѕРґСЏС‚ РІ РѕР±СЉРµРґРёРЅРµРЅРёРµ
             int i=0;
             while(i<masGlobal.size()&&flag)
             {
                 int a=masGlobal[i];
                 if(masOutput[a]=='1')
                 {
-                    //если данный список входит в другие объединения
+                    //РµСЃР»Рё РґР°РЅРЅС‹Р№ СЃРїРёСЃРѕРє РІС…РѕРґРёС‚ РІ РґСЂСѓРіРёРµ РѕР±СЉРµРґРёРЅРµРЅРёСЏ
                     int j=0;
                     while(j<ansver.size()&&flag)
                     {
@@ -235,45 +235,45 @@ QVector<QString> Karno::delExcessJoin(QVector<QString> ansver,QVector<uint32_t> 
 QVector<QString> Karno::buildDNF(QString puth)
 {
     QString result="";
-    QVector<uint32_t> masOutput=Karno::readCSV(puth);//набор выходов
-    uint32_t capacity= pow(masOutput.size(),0.5);//число входных сигналов
+    QVector<uint32_t> masOutput=Karno::readCSV(puth);//РЅР°Р±РѕСЂ РІС‹С…РѕРґРѕРІ
+    uint32_t capacity= pow(masOutput.size(),0.5);//С‡РёСЃР»Рѕ РІС…РѕРґРЅС‹С… СЃРёРіРЅР°Р»РѕРІ
     QVector<QString> temp_global(0);
     for(int i=0; i<masOutput.size();i++)
     {
-        if(masOutput[i]==1)//ищим единицы
+        if(masOutput[i]==1)//РёС‰РёРј РµРґРёРЅРёС†С‹
         {
             QString temp1=Karno::makeBinOfDec(i,capacity);
             QString global=temp1;
-            //с кем можно объединить?
+            //СЃ РєРµРј РјРѕР¶РЅРѕ РѕР±СЉРµРґРёРЅРёС‚СЊ?
             for(int j=i+1; j<masOutput.size();j++)
             {
-                if(masOutput[j]>0)//с единицами или 2 ghb придумать
+                if(masOutput[j]>0)//СЃ РµРґРёРЅРёС†Р°РјРё РёР»Рё 2 ghb РїСЂРёРґСѓРјР°С‚СЊ
                 {
                     QString temp2=Karno::makeBinOfDec(j,capacity);
-                    //проверить на возможность объединения
-                    //(существуют ли с данным условием не единицы)
+                    //РїСЂРѕРІРµСЂРёС‚СЊ РЅР° РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РѕР±СЉРµРґРёРЅРµРЅРёСЏ
+                    //(СЃСѓС‰РµСЃС‚РІСѓСЋС‚ Р»Рё СЃ РґР°РЅРЅС‹Рј СѓСЃР»РѕРІРёРµРј РЅРµ РµРґРёРЅРёС†С‹)
                     global=Karno::getGlobal(temp1,temp2);
 
-                    //кто еще подходит под єто описание?
+                    //РєС‚Рѕ РµС‰Рµ РїРѕРґС…РѕРґРёС‚ РїРѕРґ С”С‚Рѕ РѕРїРёСЃР°РЅРёРµ?
                     QVector<uint32_t> masGlobal=Karno::searchGlobal(global,masOutput);
                     if(masGlobal.size()>0)
                     {
-                        //есть нули?(global=0)
+                        //РµСЃС‚СЊ РЅСѓР»Рё?(global=0)
                         if(Karno::chekNum(masOutput,masGlobal,0))
                         {
                             global=temp1;
                         }
                     }
                 }
-                temp_global.append(global);//массив который нужно отсеять
+                temp_global.append(global);//РјР°СЃСЃРёРІ РєРѕС‚РѕСЂС‹Р№ РЅСѓР¶РЅРѕ РѕС‚СЃРµСЏС‚СЊ
             }
             //result+='+'+temp1;
         }
     }
-    //отсеиваем обьединения входящие в другие
+    //РѕС‚СЃРµРёРІР°РµРј РѕР±СЊРµРґРёРЅРµРЅРёСЏ РІС…РѕРґСЏС‰РёРµ РІ РґСЂСѓРіРёРµ
     QVector<QString> ansver=Karno::separator(temp_global);
-    //удаление обьединений с "2" для тех, кто уже обьединен
-    ansver=Karno::delExcessJoin(ansver,masOutput);//наверное стоит поставить перед separator
+    //СѓРґР°Р»РµРЅРёРµ РѕР±СЊРµРґРёРЅРµРЅРёР№ СЃ "2" РґР»СЏ С‚РµС…, РєС‚Рѕ СѓР¶Рµ РѕР±СЊРµРґРёРЅРµРЅ
+    ansver=Karno::delExcessJoin(ansver,masOutput);//РЅР°РІРµСЂРЅРѕРµ СЃС‚РѕРёС‚ РїРѕСЃС‚Р°РІРёС‚СЊ РїРµСЂРµРґ separator
     foreach(QString str,ansver)
         result+=Karno::convert(str)+"+";
     QString h100=result.left(result.length()-1);

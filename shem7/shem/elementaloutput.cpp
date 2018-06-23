@@ -9,9 +9,9 @@ ElementalOutput::ElementalOutput(QString nameOutput)
     generic(nameOutput);
 }
 
-ElementalOutput::ElementalOutput(QString nameOutput, QString id):Element(nameOutput, id)//добавить всем, а здесь пока к заголовку
+ElementalOutput::ElementalOutput(QString nameOutput, QString id):Element(nameOutput, id)//РґРѕР±Р°РІРёС‚СЊ РІСЃРµРј, Р° Р·РґРµСЃСЊ РїРѕРєР° Рє Р·Р°РіРѕР»РѕРІРєСѓ
 {
-    generic(nameOutput);//id хранить по нему будет взаимодействие работать
+    generic(nameOutput);//id С…СЂР°РЅРёС‚СЊ РїРѕ РЅРµРјСѓ Р±СѓРґРµС‚ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёРµ СЂР°Р±РѕС‚Р°С‚СЊ
     this->id=id;
 }
 
@@ -25,7 +25,7 @@ void ElementalOutput::draw(QPainter *painter)
 
 }
 
-void ElementalOutput::generic(QString nameOutput)//заполняй
+void ElementalOutput::generic(QString nameOutput)//Р·Р°РїРѕР»РЅСЏР№
 {
     posx=10;
     posy=20;

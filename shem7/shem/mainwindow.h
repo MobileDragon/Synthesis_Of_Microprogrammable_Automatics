@@ -4,7 +4,7 @@
 #include <QMainWindow>
 
 #include <QMenu>
-#include <QAction>  //подпункт меню
+#include <QAction>  //РїРѕРґРїСѓРЅРєС‚ РјРµРЅСЋ
 #include <QDebug>
 #include <QFileDialog>
 #include <karno.h>
@@ -37,14 +37,14 @@ public:
     PaintWidget *w;
 private:
     Ui::MainWindow *ui;
-    void createMenus(); //создание меню
+    void createMenus(); //СЃРѕР·РґР°РЅРёРµ РјРµРЅСЋ
     int authomatIndex;
     int shemIndex;
 
 private slots:
     void createFromFunction();
     void createFromTT();
-    void showMessage();//слот для меню
+    void showMessage();//СЃР»РѕС‚ РґР»СЏ РјРµРЅСЋ
     void createAuthomat();
     //void createAuthomatNext(int input, int state);
     void on_tabWidget_tabCloseRequested(int index);

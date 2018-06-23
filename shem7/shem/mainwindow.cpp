@@ -16,7 +16,7 @@
 MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    createMenus();//запуск меню
+    createMenus();//Р·Р°РїСѓСЃРє РјРµРЅСЋ
 
 
     //QGridLayout *l = new QGridLayout();
@@ -54,33 +54,33 @@ void MainWindow::createMenus()
     //PaintWidget *area=new PaintWidget();
     this->setWindowTitle("Shem builder");
 
-    QMenu * mnFile = new QMenu("Файл"); // создаём меню Файл
-    // ----------- здесь добавляем пункт меню и подключаем его к слоту----
-    QAction *msgAction = new QAction("Імпорт функції",mnFile);
+    QMenu * mnFile = new QMenu("Р¤Р°Р№Р»"); // СЃРѕР·РґР°С‘Рј РјРµРЅСЋ Р¤Р°Р№Р»
+    // ----------- Р·РґРµСЃСЊ РґРѕР±Р°РІР»СЏРµРј РїСѓРЅРєС‚ РјРµРЅСЋ Рё РїРѕРґРєР»СЋС‡Р°РµРј РµРіРѕ Рє СЃР»РѕС‚Сѓ----
+    QAction *msgAction = new QAction("Р†РјРїРѕСЂС‚ С„СѓРЅРєС†С–С—",mnFile);
     connect(msgAction, SIGNAL(triggered()), this, SLOT(createFromFunction()));
     mnFile->addAction(msgAction);
 
 
-    QAction *createAction = new QAction("Імпорт таблиці істиності",mnFile);
+    QAction *createAction = new QAction("Р†РјРїРѕСЂС‚ С‚Р°Р±Р»РёС†С– С–СЃС‚РёРЅРѕСЃС‚С–",mnFile);
     connect(createAction, SIGNAL(triggered()), this, SLOT(createFromTT()));
     mnFile->addAction(createAction);
 
 
 
-    QMenu * mnEdit = new QMenu("Налаштування"); // создаём меню Edit
-    QAction *aboutShem = new QAction("Відомості про схему",mnFile);
+    QMenu * mnEdit = new QMenu("РќР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ"); // СЃРѕР·РґР°С‘Рј РјРµРЅСЋ Edit
+    QAction *aboutShem = new QAction("Р’С–РґРѕРјРѕСЃС‚С– РїСЂРѕ СЃС…РµРјСѓ",mnFile);
     aboutShem->setCheckable(true);
-    QAction *visualeName = new QAction("Назви елементів",mnFile);
+    QAction *visualeName = new QAction("РќР°Р·РІРё РµР»РµРјРµРЅС‚С–РІ",mnFile);
     visualeName->setCheckable(true);
-    QAction *visualFunctson = new QAction("Формула побудуваня",mnFile);
+    QAction *visualFunctson = new QAction("Р¤РѕСЂРјСѓР»Р° РїРѕР±СѓРґСѓРІР°РЅСЏ",mnFile);
     visualFunctson->setCheckable(true);
     mnEdit->addAction(aboutShem);
     mnEdit->addAction(visualeName);
     mnEdit->addAction(visualFunctson);
 
-    QMenu * mnHelp = new QMenu("Довідка"); // Меню помощь
-    QAction *aboutP = new QAction("Про продукт",mnFile);
-    QAction *aboutU = new QAction("Довідка користувача",mnFile);
+    QMenu * mnHelp = new QMenu("Р”РѕРІС–РґРєР°"); // РњРµРЅСЋ РїРѕРјРѕС‰СЊ
+    QAction *aboutP = new QAction("РџСЂРѕ РїСЂРѕРґСѓРєС‚",mnFile);
+    QAction *aboutU = new QAction("Р”РѕРІС–РґРєР° РєРѕСЂРёСЃС‚СѓРІР°С‡Р°",mnFile);
     mnHelp->addAction(aboutP);
     mnHelp->addAction(aboutU);
 
@@ -88,7 +88,7 @@ void MainWindow::createMenus()
 
 
 
-    ui->menuBar->addMenu(mnFile); // Добавляем пункты меню в menuBar, т.е. те, которые будут отображаться в гл. окне
+    ui->menuBar->addMenu(mnFile); // Р”РѕР±Р°РІР»СЏРµРј РїСѓРЅРєС‚С‹ РјРµРЅСЋ РІ menuBar, С‚.Рµ. С‚Рµ, РєРѕС‚РѕСЂС‹Рµ Р±СѓРґСѓС‚ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊСЃСЏ РІ РіР». РѕРєРЅРµ
     ui->menuBar->addMenu(mnEdit);
     ui->menuBar->addMenu(mnHelp);
 
@@ -97,7 +97,7 @@ void MainWindow::createMenus()
 void MainWindow::createFromFunction()
 {
     FormInputF* formSetFormul = new FormInputF();
-    formSetFormul->exec(); //запуск формы ввода функции
+    formSetFormul->exec(); //Р·Р°РїСѓСЃРє С„РѕСЂРјС‹ РІРІРѕРґР° С„СѓРЅРєС†РёРё
     if(!formSetFormul->isActivated())
         return;
     QString funk = formSetFormul->getFomul();
@@ -106,7 +106,7 @@ void MainWindow::createFromFunction()
     //
     BDE::getInstance()->clearSelectedE();
     FormSelectElements* form = new FormSelectElements();
-    form->exec(); //запуск формы выбора элементов
+    form->exec(); //Р·Р°РїСѓСЃРє С„РѕСЂРјС‹ РІС‹Р±РѕСЂР° СЌР»РµРјРµРЅС‚РѕРІ
     if(!form->isActivated())
         return;
     BDE::getInstance()->setSelectedE(form->getListSelected() );
@@ -114,11 +114,11 @@ void MainWindow::createFromFunction()
     //
     Shem* sh=new Shem();
     Comply* func=new Comply(sh, ekonomBuild);
-    //формочка для формулы и типа построения оптимал
+    //С„РѕСЂРјРѕС‡РєР° РґР»СЏ С„РѕСЂРјСѓР»С‹ Рё С‚РёРїР° РїРѕСЃС‚СЂРѕРµРЅРёСЏ РѕРїС‚РёРјР°Р»
     QString temp=func->decompositionOfLogicalOperations(funk);
 
     //
-    PaintWidget* s = new PaintWidget;//новая вкладка
+    PaintWidget* s = new PaintWidget;//РЅРѕРІР°СЏ РІРєР»Р°РґРєР°
     s->setShem(sh);
     ui->tabWidget->addTab(s,QString("Shem %1").arg(shemIndex++) );
     ui->tabWidget->setCurrentWidget(s);
@@ -142,30 +142,30 @@ void MainWindow::createFromTT()
     //
     BDE::getInstance()->clearSelectedE();
     FormSelectElements* form = new FormSelectElements();
-    form->exec(); //запуск формы выбора элементов
+    form->exec(); //Р·Р°РїСѓСЃРє С„РѕСЂРјС‹ РІС‹Р±РѕСЂР° СЌР»РµРјРµРЅС‚РѕРІ
     if(!form->isActivated())
         return;
     BDE::getInstance()->setSelectedE(form->getListSelected() );
     //
     Shem* sh=new Shem();
     Comply* func=new Comply(sh, false);
-    //формочка для формулы и типа построения оптимал
+    //С„РѕСЂРјРѕС‡РєР° РґР»СЏ С„РѕСЂРјСѓР»С‹ Рё С‚РёРїР° РїРѕСЃС‚СЂРѕРµРЅРёСЏ РѕРїС‚РёРјР°Р»
     QString temp=func->decompositionOfLogicalOperations(h100);
 
     //
-    PaintWidget* s = new PaintWidget;//новая вкладка
+    PaintWidget* s = new PaintWidget;//РЅРѕРІР°СЏ РІРєР»Р°РґРєР°
     s->setShem(sh);
     ui->tabWidget->addTab(s,QString("Shem %1").arg(shemIndex++) );
     ui->tabWidget->setCurrentWidget(s);
 
 }
 
-void MainWindow::createAuthomat()//создание нового автомата
+void MainWindow::createAuthomat()//СЃРѕР·РґР°РЅРёРµ РЅРѕРІРѕРіРѕ Р°РІС‚РѕРјР°С‚Р°
 {
 
 
     //ElementalE *rtt=new ElementalE("or304");//RS15S
-    //ElementalT *rtt=new ElementalT("RS15S");//временный способ добавления элементов
+    //ElementalT *rtt=new ElementalT("RS15S");//РІСЂРµРјРµРЅРЅС‹Р№ СЃРїРѕСЃРѕР± РґРѕР±Р°РІР»РµРЅРёСЏ СЌР»РµРјРµРЅС‚РѕРІ
     //w->addElement(rtt);
 
 
@@ -175,18 +175,18 @@ void MainWindow::createAuthomat()//создание нового автомата
 
     FormCreateAuthomat_1* form = new FormCreateAuthomat_1();
     //connect(form, SIGNAL(numInput(int,int)), SLOT(createAuthomatNext(int,int)) );
-    form->exec(); //запуск формы выбора элементов
+    form->exec(); //Р·Р°РїСѓСЃРє С„РѕСЂРјС‹ РІС‹Р±РѕСЂР° СЌР»РµРјРµРЅС‚РѕРІ
 
     if(form->isActivated())
     {
         FormCreateAuthomat_2* form2 = new FormCreateAuthomat_2(form->getNumInput(), form->getNumState());
-        form2->exec(); //запуск формы выбора элементов
+        form2->exec(); //Р·Р°РїСѓСЃРє С„РѕСЂРјС‹ РІС‹Р±РѕСЂР° СЌР»РµРјРµРЅС‚РѕРІ
         if(form2->isActivated())
         {
             listTransit=form2->getListTransit();
             resetState=form2->getResetState();
             BuildAuthomat* authomat = new BuildAuthomat(listTransit, resetState);//
-            QMap<int, ShemAtBush> mapBush = authomat->getBush();//списки схем на шинах под номерами int(key)
+            QMap<int, ShemAtBush> mapBush = authomat->getBush();//СЃРїРёСЃРєРё СЃС…РµРј РЅР° С€РёРЅР°С… РїРѕРґ РЅРѕРјРµСЂР°РјРё int(key)
 ///////////////////
             paintAuthomat* a = new paintAuthomat(listTransit);
             ui->tabWidget->addTab(a,QString("Authomat %1").arg(authomatIndex++) );
@@ -203,10 +203,10 @@ void MainWindow::showMessage()
 {
 /*
     FormSelectElements* form = new FormSelectElements();
-    form->exec(); //запуск формы выбора элементов
+    form->exec(); //Р·Р°РїСѓСЃРє С„РѕСЂРјС‹ РІС‹Р±РѕСЂР° СЌР»РµРјРµРЅС‚РѕРІ
 
     FormInputF* form1 = new FormInputF();
-    form1->exec(); //запуск формы выбора элементов
+    form1->exec(); //Р·Р°РїСѓСЃРє С„РѕСЂРјС‹ РІС‹Р±РѕСЂР° СЌР»РµРјРµРЅС‚РѕРІ
     QString jot0 = form1->firstName();
     bool jot = form1->lastName();
 */
@@ -217,10 +217,10 @@ void MainWindow::showMessage()
     //msgBox.setText("First Name:  "+form->firstName());
     //msgBox.exec();
 
-    //Подключаем базу данных
+    //РџРѕРґРєР»СЋС‡Р°РµРј Р±Р°Р·Сѓ РґР°РЅРЅС‹С…
     QSqlQuery *query = BDE::getInstance()->make("SELECT elements.name, idwires, idoperations, time FROM elements");
 
-    //Выводим значения из запроса
+    //Р’С‹РІРѕРґРёРј Р·РЅР°С‡РµРЅРёСЏ РёР· Р·Р°РїСЂРѕСЃР°
     while (query->next())
     {
         //ui->textEdit->insertPlainText("23frd4");
@@ -232,7 +232,7 @@ void MainWindow::showMessage()
     }
 
 
-    ElementalE *rtt=new ElementalE("or304");//временный способ добавления элементов
+    ElementalE *rtt=new ElementalE("or304");//РІСЂРµРјРµРЅРЅС‹Р№ СЃРїРѕСЃРѕР± РґРѕР±Р°РІР»РµРЅРёСЏ СЌР»РµРјРµРЅС‚РѕРІ
     //w->addElement(rtt);
     //
     ElementalWilka *rt=new ElementalWilka("X1", "x1");
@@ -255,9 +255,9 @@ void MainWindow::showMessage()
     Comply* func=new Comply(sh, jot);
 
     //QString temp=func->decompositionOfLogicalOperations(h100);
-    //формочка для формулы и типа построения оптимал
+    //С„РѕСЂРјРѕС‡РєР° РґР»СЏ С„РѕСЂРјСѓР»С‹ Рё С‚РёРїР° РїРѕСЃС‚СЂРѕРµРЅРёСЏ РѕРїС‚РёРјР°Р»
     QString temp=func->decompositionOfLogicalOperations(jot0);
-    //заполнение PaintWidget w
+    //Р·Р°РїРѕР»РЅРµРЅРёРµ PaintWidget w
     w->setShem(sh);
 
     //X1*(X1+X2)+X2*X2

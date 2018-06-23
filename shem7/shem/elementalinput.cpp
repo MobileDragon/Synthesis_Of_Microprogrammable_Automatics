@@ -9,9 +9,9 @@ ElementalInput::ElementalInput(QString nameInput)
     generic(nameInput);
 }
 
-ElementalInput::ElementalInput(QString nameInput, QString id):Element(nameInput, id)//добавить всем, а здесь пока к заголовку
+ElementalInput::ElementalInput(QString nameInput, QString id):Element(nameInput, id)//РґРѕР±Р°РІРёС‚СЊ РІСЃРµРј, Р° Р·РґРµСЃСЊ РїРѕРєР° Рє Р·Р°РіРѕР»РѕРІРєСѓ
 {
-    generic(nameInput);//id хранить по нему будет взаимодействие работать
+    generic(nameInput);//id С…СЂР°РЅРёС‚СЊ РїРѕ РЅРµРјСѓ Р±СѓРґРµС‚ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёРµ СЂР°Р±РѕС‚Р°С‚СЊ
     this->id=id;
 }
 
@@ -25,7 +25,7 @@ void ElementalInput::draw(QPainter *painter)
 
 }
 
-void ElementalInput::generic(QString nameInput)//заполняй
+void ElementalInput::generic(QString nameInput)//Р·Р°РїРѕР»РЅСЏР№
 {
     posx=10;
     posy=20;

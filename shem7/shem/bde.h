@@ -16,7 +16,7 @@ public:
 
     QSqlQuery *make(QString request);
     void insert(QString request);
-    //управление selectedE
+    //СѓРїСЂР°РІР»РµРЅРёРµ selectedE
     void setSelectedE(QList<QString> elements);
     void clearSelectedE();
 
@@ -24,8 +24,8 @@ public:
 protected:
     QSqlDatabase db;
     QSqlQuery *query;
-    QList<QString> selectedE;//элементы что можно выбирать
-    //когда список пустой-значит можно вибирать все
+    QList<QString> selectedE;//СЌР»РµРјРµРЅС‚С‹ С‡С‚Рѕ РјРѕР¶РЅРѕ РІС‹Р±РёСЂР°С‚СЊ
+    //РєРѕРіРґР° СЃРїРёСЃРѕРє РїСѓСЃС‚РѕР№-Р·РЅР°С‡РёС‚ РјРѕР¶РЅРѕ РІРёР±РёСЂР°С‚СЊ РІСЃРµ
     //
     void inicialize();
 private:

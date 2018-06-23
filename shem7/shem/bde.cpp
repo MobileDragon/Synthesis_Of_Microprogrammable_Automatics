@@ -46,7 +46,7 @@ BDE* BDE::getInstance()
     return &instance;
 }
 
-QSqlQuery* BDE::make(QString request)//выборка из базы//учитывает selectedE
+QSqlQuery* BDE::make(QString request)//РІС‹Р±РѕСЂРєР° РёР· Р±Р°Р·С‹//СѓС‡РёС‚С‹РІР°РµС‚ selectedE
 {
     qDebug() << "[>] reqvest";
     qDebug() <<request;

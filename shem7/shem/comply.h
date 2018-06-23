@@ -14,15 +14,15 @@
 
 #include "paintwidget.h"
 #include "elementale.h"
-//РАНГ И ЧИСЛО ВЛОЖЕНИЙ ОДНА И ТАЖЕ ЦИФРА
-struct formulSearch //Объявлена структура для хранения результата подстановки элементов
-{//(для decompose)
-    int numInputs; //число входов у построеной схемы
-    int numInclude; //количество вложений(раг+1)
-    int numElements; //число элементов в схеме
-    QMap<QString,QString> formul; //посроеная формула
-    QMap<QString,int> balanceKey;//список еще незадействованных ключей и уровень//!только для optimimal==false
-    QString main_key;//имя главного ключа, обьеденяющего остальные//!только для optimimal==true
+//Р РђРќР“ Р Р§РРЎР›Рћ Р’Р›РћР–Р•РќРР™ РћР”РќРђ Р РўРђР–Р• Р¦РР¤Р Рђ
+struct formulSearch //РћР±СЉСЏРІР»РµРЅР° СЃС‚СЂСѓРєС‚СѓСЂР° РґР»СЏ С…СЂР°РЅРµРЅРёСЏ СЂРµР·СѓР»СЊС‚Р°С‚Р° РїРѕРґСЃС‚Р°РЅРѕРІРєРё СЌР»РµРјРµРЅС‚РѕРІ
+{//(РґР»СЏ decompose)
+    int numInputs; //С‡РёСЃР»Рѕ РІС…РѕРґРѕРІ Сѓ РїРѕСЃС‚СЂРѕРµРЅРѕР№ СЃС…РµРјС‹
+    int numInclude; //РєРѕР»РёС‡РµСЃС‚РІРѕ РІР»РѕР¶РµРЅРёР№(СЂР°Рі+1)
+    int numElements; //С‡РёСЃР»Рѕ СЌР»РµРјРµРЅС‚РѕРІ РІ СЃС…РµРјРµ
+    QMap<QString,QString> formul; //РїРѕСЃСЂРѕРµРЅР°СЏ С„РѕСЂРјСѓР»Р°
+    QMap<QString,int> balanceKey;//СЃРїРёСЃРѕРє РµС‰Рµ РЅРµР·Р°РґРµР№СЃС‚РІРѕРІР°РЅРЅС‹С… РєР»СЋС‡РµР№ Рё СѓСЂРѕРІРµРЅСЊ//!С‚РѕР»СЊРєРѕ РґР»СЏ optimimal==false
+    QString main_key;//РёРјСЏ РіР»Р°РІРЅРѕРіРѕ РєР»СЋС‡Р°, РѕР±СЊРµРґРµРЅСЏСЋС‰РµРіРѕ РѕСЃС‚Р°Р»СЊРЅС‹Рµ//!С‚РѕР»СЊРєРѕ РґР»СЏ optimimal==true
 };
 /*
 struct rungKey
@@ -36,7 +36,7 @@ class Comply
 public:
     QString broken;
 
-    Comply();//передать список допустимых элементов при создании объекта
+    Comply();//РїРµСЂРµРґР°С‚СЊ СЃРїРёСЃРѕРє РґРѕРїСѓСЃС‚РёРјС‹С… СЌР»РµРјРµРЅС‚РѕРІ РїСЂРё СЃРѕР·РґР°РЅРёРё РѕР±СЉРµРєС‚Р°
     Comply(Shem* shema, bool j, QString out="");
     QString decompositionOfLogicalOperations(QString dnf);
 
@@ -47,52 +47,52 @@ private:
     bool variable();
     bool factor();
     bool brackets();
-    void decompos();//более детальное разбиение для размерности в один элемент //заменяет convert()
+    void decompos();//Р±РѕР»РµРµ РґРµС‚Р°Р»СЊРЅРѕРµ СЂР°Р·Р±РёРµРЅРёРµ РґР»СЏ СЂР°Р·РјРµСЂРЅРѕСЃС‚Рё РІ РѕРґРёРЅ СЌР»РµРјРµРЅС‚ //Р·Р°РјРµРЅСЏРµС‚ convert()
     QString makeKey(int i);
     QChar whotAction(QString key);
-    int whotCountOperations(QString key);//количество действий
-    void inicializeInputs(QString dnf);//инициализирует список переменных(variables )
+    int whotCountOperations(QString key);//РєРѕР»РёС‡РµСЃС‚РІРѕ РґРµР№СЃС‚РІРёР№
+    void inicializeInputs(QString dnf);//РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚ СЃРїРёСЃРѕРє РїРµСЂРµРјРµРЅРЅС‹С…(variables )
 
-    QVector<QString> composInput(QString key);//возвращает список id подаваемых на вход операции
-    //доработать проверки
+    QVector<QString> composInput(QString key);//РІРѕР·РІСЂР°С‰Р°РµС‚ СЃРїРёСЃРѕРє id РїРѕРґР°РІР°РµРјС‹С… РЅР° РІС…РѕРґ РѕРїРµСЂР°С†РёРё
+    //РґРѕСЂР°Р±РѕС‚Р°С‚СЊ РїСЂРѕРІРµСЂРєРё
     //
-    void decomposNegative();//вынос отрицания в отдельное действие
-    void clearInaction();//удаление бездействий из actions
+    void decomposNegative();//РІС‹РЅРѕСЃ РѕС‚СЂРёС†Р°РЅРёСЏ РІ РѕС‚РґРµР»СЊРЅРѕРµ РґРµР№СЃС‚РІРёРµ
+    void clearInaction();//СѓРґР°Р»РµРЅРёРµ Р±РµР·РґРµР№СЃС‚РІРёР№ РёР· actions
     int getMaxInput(int max,QSqlQuery* query);
     //
     void searchElements(int j, QSqlQuery *query, formulSearch* temp,
-                        QVector<QString> balanceSymplList, int cur_num);//создает tempFormul
-    //balance это список переменных которые не задействованы, изначально это elements
-    bool isBest(formulSearch* tempFormul);//записывает в bestFormul tempFormul если лучше подходит
-    //доработал алгоритм? - да
+                        QVector<QString> balanceSymplList, int cur_num);//СЃРѕР·РґР°РµС‚ tempFormul
+    //balance СЌС‚Рѕ СЃРїРёСЃРѕРє РїРµСЂРµРјРµРЅРЅС‹С… РєРѕС‚РѕСЂС‹Рµ РЅРµ Р·Р°РґРµР№СЃС‚РІРѕРІР°РЅС‹, РёР·РЅР°С‡Р°Р»СЊРЅРѕ СЌС‚Рѕ elements
+    bool isBest(formulSearch* tempFormul);//Р·Р°РїРёСЃС‹РІР°РµС‚ РІ bestFormul tempFormul РµСЃР»Рё Р»СѓС‡С€Рµ РїРѕРґС…РѕРґРёС‚
+    //РґРѕСЂР°Р±РѕС‚Р°Р» Р°Р»РіРѕСЂРёС‚Рј? - РґР°
 
-    void fillShema();//записать shema
-    int getKolPovtor(QString search_key);//число входов с данным элементом
-    bool isKnownInputs(QString keyAction, QVector<QString> knownInputs);//проверка выражения
-    QVector<QString> delBrekets(QVector<QString> keys);//возвращает список без скобок
-    ShemE* getFastestElement(QChar typeAction, int kolInput, QString id);//метод для получения самого быстрого элемента
+    void fillShema();//Р·Р°РїРёСЃР°С‚СЊ shema
+    int getKolPovtor(QString search_key);//С‡РёСЃР»Рѕ РІС…РѕРґРѕРІ СЃ РґР°РЅРЅС‹Рј СЌР»РµРјРµРЅС‚РѕРј
+    bool isKnownInputs(QString keyAction, QVector<QString> knownInputs);//РїСЂРѕРІРµСЂРєР° РІС‹СЂР°Р¶РµРЅРёСЏ
+    QVector<QString> delBrekets(QVector<QString> keys);//РІРѕР·РІСЂР°С‰Р°РµС‚ СЃРїРёСЃРѕРє Р±РµР· СЃРєРѕР±РѕРє
+    ShemE* getFastestElement(QChar typeAction, int kolInput, QString id);//РјРµС‚РѕРґ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ СЃР°РјРѕРіРѕ Р±С‹СЃС‚СЂРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
 
     QChar curAction;
-    QVector<QString> elements;//список имен переменных формулы//элементы подаваемые на вход разбиваемого объединения
-    formulSearch* bestFormul;//формкла подходящая под выбранную базу элементов
+    QVector<QString> elements;//СЃРїРёСЃРѕРє РёРјРµРЅ РїРµСЂРµРјРµРЅРЅС‹С… С„РѕСЂРјСѓР»С‹//СЌР»РµРјРµРЅС‚С‹ РїРѕРґР°РІР°РµРјС‹Рµ РЅР° РІС…РѕРґ СЂР°Р·Р±РёРІР°РµРјРѕРіРѕ РѕР±СЉРµРґРёРЅРµРЅРёСЏ
+    formulSearch* bestFormul;//С„РѕСЂРјРєР»Р° РїРѕРґС…РѕРґСЏС‰Р°СЏ РїРѕРґ РІС‹Р±СЂР°РЅРЅСѓСЋ Р±Р°Р·Сѓ СЌР»РµРјРµРЅС‚РѕРІ
     formulSearch* tyi;
     QStack<QChar> formul;
     QStack<QChar> formul2;
     QString formulT;
     QString ftemp;
     bool optimal;
-    QMap<QString,bool> variables;//список переменных
+    QMap<QString,bool> variables;//СЃРїРёСЃРѕРє РїРµСЂРµРјРµРЅРЅС‹С…
     QString currentVariable;
-    QMap<QString,QString> actions;//список поэтапных действий, хранит ("@0","X1*@1")
-    int counter;//текущий номер действия
-    int counterForBest;//counter который сохранен при подворке лчшего варианта построения
-    Shem* shema;//указатель на заполняемую схему
+    QMap<QString,QString> actions;//СЃРїРёСЃРѕРє РїРѕСЌС‚Р°РїРЅС‹С… РґРµР№СЃС‚РІРёР№, С…СЂР°РЅРёС‚ ("@0","X1*@1")
+    int counter;//С‚РµРєСѓС‰РёР№ РЅРѕРјРµСЂ РґРµР№СЃС‚РІРёСЏ
+    int counterForBest;//counter РєРѕС‚РѕСЂС‹Р№ СЃРѕС…СЂР°РЅРµРЅ РїСЂРё РїРѕРґРІРѕСЂРєРµ Р»С‡С€РµРіРѕ РІР°СЂРёР°РЅС‚Р° РїРѕСЃС‚СЂРѕРµРЅРёСЏ
+    Shem* shema;//СѓРєР°Р·Р°С‚РµР»СЊ РЅР° Р·Р°РїРѕР»РЅСЏРµРјСѓСЋ СЃС…РµРјСѓ
 
 
 
 
 
-    //now делать пока построение по actions из всех возможных элементов (расширить базу)
+    //now РґРµР»Р°С‚СЊ РїРѕРєР° РїРѕСЃС‚СЂРѕРµРЅРёРµ РїРѕ actions РёР· РІСЃРµС… РІРѕР·РјРѕР¶РЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ (СЂР°СЃС€РёСЂРёС‚СЊ Р±Р°Р·Сѓ)
 
 
 

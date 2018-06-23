@@ -2,7 +2,7 @@
 #define LOGICSHEM_H
 #include "currentshem.h"
 
-class LogicShem//схема логической функции/автомата с тригерами
+class LogicShem//СЃС…РµРјР° Р»РѕРіРёС‡РµСЃРєРѕР№ С„СѓРЅРєС†РёРё/Р°РІС‚РѕРјР°С‚Р° СЃ С‚СЂРёРіРµСЂР°РјРё
 {
 public:
     LogicShem();

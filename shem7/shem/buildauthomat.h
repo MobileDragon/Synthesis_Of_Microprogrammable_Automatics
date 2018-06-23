@@ -13,7 +13,7 @@ struct trigerIn
     QString R;
 };
 
-struct out//список проводов из шины подаваемых на конкретный выход
+struct out//СЃРїРёСЃРѕРє РїСЂРѕРІРѕРґРѕРІ РёР· С€РёРЅС‹ РїРѕРґР°РІР°РµРјС‹С… РЅР° РєРѕРЅРєСЂРµС‚РЅС‹Р№ РІС‹С…РѕРґ
 {
     QList<QString>in;
 };
@@ -27,25 +27,25 @@ public:
 
     QMap<int, ShemAtBush> getBush();
 
-    QList<QString> getListOutA();//список выходов автомата
+    QList<QString> getListOutA();//СЃРїРёСЃРѕРє РІС‹С…РѕРґРѕРІ Р°РІС‚РѕРјР°С‚Р°
     QList<QString> getListInputA();
 
 protected:
     QString makeKey(int num);
 
-    int idWire;//номер для представления выхода схемы в шине
+    int idWire;//РЅРѕРјРµСЂ РґР»СЏ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ РІС‹С…РѕРґР° СЃС…РµРјС‹ РІ С€РёРЅРµ
     void fielMapBush();
-    QMap<QString,QString> busIn;// номер провода и id триггера, который подается на него из шины
-    //только на какой триггер устанавливается сигнал
-    QMap<QString,QString> busInR;//id reset сигнала установленного на тригер
+    QMap<QString,QString> busIn;// РЅРѕРјРµСЂ РїСЂРѕРІРѕРґР° Рё id С‚СЂРёРіРіРµСЂР°, РєРѕС‚РѕСЂС‹Р№ РїРѕРґР°РµС‚СЃСЏ РЅР° РЅРµРіРѕ РёР· С€РёРЅС‹
+    //С‚РѕР»СЊРєРѕ РЅР° РєР°РєРѕР№ С‚СЂРёРіРіРµСЂ СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚СЃСЏ СЃРёРіРЅР°Р»
+    QMap<QString,QString> busInR;//id reset СЃРёРіРЅР°Р»Р° СѓСЃС‚Р°РЅРѕРІР»РµРЅРЅРѕРіРѕ РЅР° С‚СЂРёРіРµСЂ
 
     void fielMapBush2RS();
     void fielMapBush3RS();
     void fielMapBush4RS();
 
-    QMap<int, ShemAtBush> mapBush;//карта шин
+    QMap<int, ShemAtBush> mapBush;//РєР°СЂС‚Р° С€РёРЅ
 
-    QMap<QString, trigerIn> mapTrigerIn; //карта входов триггеров
+    QMap<QString, trigerIn> mapTrigerIn; //РєР°СЂС‚Р° РІС…РѕРґРѕРІ С‚СЂРёРіРіРµСЂРѕРІ
 
     QMap<QString, out> mapOut;
 

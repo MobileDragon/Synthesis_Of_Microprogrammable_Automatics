@@ -10,9 +10,9 @@ ElementalE::ElementalE(QString nameElementFromBase):Element(nameElementFromBase)
 {
     generic(nameElementFromBase);
 }
-ElementalE::ElementalE(QString nameElementFromBase, QString id):Element(nameElementFromBase, id)//äîáàâèòü âñåì, à çäåñü ïîêà ê çàãîëîâêó
+ElementalE::ElementalE(QString nameElementFromBase, QString id):Element(nameElementFromBase, id)//Ð´Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð²ÑÐµÐ¼, Ð° Ð·Ð´ÐµÑÑŒ Ð¿Ð¾ÐºÐ° Ðº Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²ÐºÑƒ
 {
-    generic(nameElementFromBase);//id õðàíèòü ïî íåìó áóäåò âçàèìîäåéñòâèå ðàáîòàòü
+    generic(nameElementFromBase);//id Ñ…Ñ€Ð°Ð½Ð¸Ñ‚ÑŒ Ð¿Ð¾ Ð½ÐµÐ¼Ñƒ Ð±ÑƒÐ´ÐµÑ‚ Ð²Ð·Ð°Ð¸Ð¼Ð¾Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ðµ Ñ€Ð°Ð±Ð¾Ñ‚Ð°Ñ‚ÑŒ
     this->id=id;
 }
 
@@ -26,7 +26,7 @@ void ElementalE::draw(QPainter *painter)
         int d=yd;
         yd += interval;
         painter->drawLine(posx,posy+d,posx-10,posy+d);
-        wiresPos.insert(i,QPoint(posx-10,posy+d));//êîîðäèíàòû âõîäîâ(òî÷êè ïîäêëþ÷åíèÿ) îò 0
+        wiresPos.insert(i,QPoint(posx-10,posy+d));//ÐºÐ¾Ð¾Ñ€Ð´Ð¸Ð½Ð°Ñ‚Ñ‹ Ð²Ñ…Ð¾Ð´Ð¾Ð²(Ñ‚Ð¾Ñ‡ÐºÐ¸ Ð¿Ð¾Ð´ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ñ) Ð¾Ñ‚ 0
     }
     if(type=="!1" || type=="!&")
     {
@@ -35,16 +35,16 @@ void ElementalE::draw(QPainter *painter)
     }
     else
         painter->drawLine(posx+width,posy+height/2,posx+width+10,posy+height/2);
-    wiresPos.insert(numInput,QPoint(posx+width+10,posy+height/2));//êîîðäèíàòû âûõîäà
+    wiresPos.insert(numInput,QPoint(posx+width+10,posy+height/2));//ÐºÐ¾Ð¾Ñ€Ð´Ð¸Ð½Ð°Ñ‚Ñ‹ Ð²Ñ‹Ñ…Ð¾Ð´Ð°
     painter->drawText(posx+5,posy+height/2,this->type);
 
 
 }
 
-void ElementalE::generic(QString nameElementFromBase)//çàïîëíÿé
+void ElementalE::generic(QString nameElementFromBase)//Ð·Ð°Ð¿Ð¾Ð»Ð½ÑÐ¹
 {
     posx=10;
-    posy=20;//çàäàåòñÿ ïðè ïîñòðîåíèè ñõåìû
+    posy=20;//Ð·Ð°Ð´Ð°ÐµÑ‚ÑÑ Ð¿Ñ€Ð¸ Ð¿Ð¾ÑÑ‚Ñ€Ð¾ÐµÐ½Ð¸Ð¸ ÑÑ…ÐµÐ¼Ñ‹
     width=30;
     height=50;
 
@@ -53,7 +53,7 @@ void ElementalE::generic(QString nameElementFromBase)//çàïîëíÿé
     QString t="";
     QSqlQuery *query = BDE::getInstance()->make(t+"select elements.name, operations.operation, wires.numInput, wires.numOutput from elements, wires, operations where (elements.idwires=wires.id and elements.idoperations=operations.id) and name LIKE '"+nameElementFromBase+"'");
 
-    //Âûâîäèì çíà÷åíèÿ èç çàïðîñà
+    //Ð’Ñ‹Ð²Ð¾Ð´Ð¸Ð¼ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ Ð¸Ð· Ð·Ð°Ð¿Ñ€Ð¾ÑÐ°
     width=30;
     query->next();
 

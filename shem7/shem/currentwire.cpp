@@ -26,7 +26,7 @@ currentWire::~currentWire()
 currentWire::currentWire(currentWire* wire)
 {
     currentWire();
-    //curWire=wire.curWire; â ìàïå óêàçûâàåòñÿ ïî êëþ÷ó ê êàêîìû âûõîäó ïðèíàäëåæèò ïðîâîä
+    //curWire=wire.curWire; Ð² Ð¼Ð°Ð¿Ðµ ÑƒÐºÐ°Ð·Ñ‹Ð²Ð°ÐµÑ‚ÑÑ Ð¿Ð¾ ÐºÐ»ÑŽÑ‡Ñƒ Ðº ÐºÐ°ÐºÐ¾Ð¼Ñ‹ Ð²Ñ‹Ñ…Ð¾Ð´Ñƒ Ð¿Ñ€Ð¸Ð½Ð°Ð´Ð»ÐµÐ¶Ð¸Ñ‚ Ð¿Ñ€Ð¾Ð²Ð¾Ð´
     nextWire=wire->nextWire;
     nextE=wire->nextE;
 }

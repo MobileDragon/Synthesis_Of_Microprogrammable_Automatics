@@ -26,14 +26,14 @@ void BuildAuthomat::fielMapBush()
     foreach(TransitionAuthomat transit, listTransit)
     {
         idWire++;
-        //формировать уравнения для каждой шины
-        //первая шина
+        //С„РѕСЂРјРёСЂРѕРІР°С‚СЊ СѓСЂР°РІРЅРµРЅРёСЏ РґР»СЏ РєР°Р¶РґРѕР№ С€РёРЅС‹
+        //РїРµСЂРІР°СЏ С€РёРЅР°
         QString formul = QString("%1*%2").arg(transit.idInput,transit.prevState);
         qDebug()<<formul;
         Shem* sh=new Shem();
-        Comply* func=new Comply(sh, false,makeKey(idWire) );//добавить указание названия последнего элемента
-        //makeKey(idWire)-выход для отображения в шине
-        busIn.insert(makeKey(idWire),transit.nextState );// какой сигнал, куда должен попасть(триггер)
+        Comply* func=new Comply(sh, false,makeKey(idWire) );//РґРѕР±Р°РІРёС‚СЊ СѓРєР°Р·Р°РЅРёРµ РЅР°Р·РІР°РЅРёСЏ РїРѕСЃР»РµРґРЅРµРіРѕ СЌР»РµРјРµРЅС‚Р°
+        //makeKey(idWire)-РІС‹С…РѕРґ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РІ С€РёРЅРµ
+        busIn.insert(makeKey(idWire),transit.nextState );// РєР°РєРѕР№ СЃРёРіРЅР°Р», РєСѓРґР° РґРѕР»Р¶РµРЅ РїРѕРїР°СЃС‚СЊ(С‚СЂРёРіРіРµСЂ)
         busInR.insert(makeKey(idWire),transit.prevState );
         if(transit.prevState!=resetState)
             busInR.insert("R",transit.prevState );
@@ -41,35 +41,35 @@ void BuildAuthomat::fielMapBush()
         func->decompositionOfLogicalOperations(formul);
         //
         bus.shems.append(sh);
-        //вторую определить отдельно от всех(когда все остальные заполнены)
-        //третяя шина получает на входы выходы из второй шины
-        //четвертая оттображает выходы, но подводит элементы из второй
+        //РІС‚РѕСЂСѓСЋ РѕРїСЂРµРґРµР»РёС‚СЊ РѕС‚РґРµР»СЊРЅРѕ РѕС‚ РІСЃРµС…(РєРѕРіРґР° РІСЃРµ РѕСЃС‚Р°Р»СЊРЅС‹Рµ Р·Р°РїРѕР»РЅРµРЅС‹)
+        //С‚СЂРµС‚СЏСЏ С€РёРЅР° РїРѕР»СѓС‡Р°РµС‚ РЅР° РІС…РѕРґС‹ РІС‹С…РѕРґС‹ РёР· РІС‚РѕСЂРѕР№ С€РёРЅС‹
+        //С‡РµС‚РІРµСЂС‚Р°СЏ РѕС‚С‚РѕР±СЂР°Р¶Р°РµС‚ РІС‹С…РѕРґС‹, РЅРѕ РїРѕРґРІРѕРґРёС‚ СЌР»РµРјРµРЅС‚С‹ РёР· РІС‚РѕСЂРѕР№
 
-        //добавить T и RS тригер
+        //РґРѕР±Р°РІРёС‚СЊ T Рё RS С‚СЂРёРіРµСЂ
     }
     busIn.insert("R",resetState );
     mapBush.insert(1, bus);
 }
 
 void BuildAuthomat::fielMapBush2RS()
-{//выходы этой(второй) шины необходимо сохранить для указав к какому выходу они принадлежат
- //также сохранить их указав на какое состояние(id тригера) они подаются, и на какой вход
-    QMap<QString, QString> formulSetT;//триггер, формулу что должен получить на SET
-    foreach(QString key ,busIn.keys())//key-номер сигнала
-    {//key-номер провода
-        QString treeger=busIn[key];//триггер, что получает этот провод
+{//РІС‹С…РѕРґС‹ СЌС‚РѕР№(РІС‚РѕСЂРѕР№) С€РёРЅС‹ РЅРµРѕР±С…РѕРґРёРјРѕ СЃРѕС…СЂР°РЅРёС‚СЊ РґР»СЏ СѓРєР°Р·Р°РІ Рє РєР°РєРѕРјСѓ РІС‹С…РѕРґСѓ РѕРЅРё РїСЂРёРЅР°РґР»РµР¶Р°С‚
+ //С‚Р°РєР¶Рµ СЃРѕС…СЂР°РЅРёС‚СЊ РёС… СѓРєР°Р·Р°РІ РЅР° РєР°РєРѕРµ СЃРѕСЃС‚РѕСЏРЅРёРµ(id С‚СЂРёРіРµСЂР°) РѕРЅРё РїРѕРґР°СЋС‚СЃСЏ, Рё РЅР° РєР°РєРѕР№ РІС…РѕРґ
+    QMap<QString, QString> formulSetT;//С‚СЂРёРіРіРµСЂ, С„РѕСЂРјСѓР»Сѓ С‡С‚Рѕ РґРѕР»Р¶РµРЅ РїРѕР»СѓС‡РёС‚СЊ РЅР° SET
+    foreach(QString key ,busIn.keys())//key-РЅРѕРјРµСЂ СЃРёРіРЅР°Р»Р°
+    {//key-РЅРѕРјРµСЂ РїСЂРѕРІРѕРґР°
+        QString treeger=busIn[key];//С‚СЂРёРіРіРµСЂ, С‡С‚Рѕ РїРѕР»СѓС‡Р°РµС‚ СЌС‚РѕС‚ РїСЂРѕРІРѕРґ
 
         if(formulSetT[treeger].length() == 0)
-            formulSetT.insert(treeger, key  );//записать первый провод для входа на триггер
+            formulSetT.insert(treeger, key  );//Р·Р°РїРёСЃР°С‚СЊ РїРµСЂРІС‹Р№ РїСЂРѕРІРѕРґ РґР»СЏ РІС…РѕРґР° РЅР° С‚СЂРёРіРіРµСЂ
         else
             formulSetT.insert(treeger, QString("%1+%2").arg(formulSetT[treeger],key   ) );
-        //formulSetT[treeger]-формула для формирования схемы для установки сигнала на SET
+        //formulSetT[treeger]-С„РѕСЂРјСѓР»Р° РґР»СЏ С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ СЃС…РµРјС‹ РґР»СЏ СѓСЃС‚Р°РЅРѕРІРєРё СЃРёРіРЅР°Р»Р° РЅР° SET
     }
 
-    foreach(QString key ,busIn.keys())//key-номер сигнала
-    {//key-номер провода
-        QString treeger=busIn[key];//триггер, что получает этот провод
-        qDebug()<<formulSetT[treeger];//одна из формул
+    foreach(QString key ,busIn.keys())//key-РЅРѕРјРµСЂ СЃРёРіРЅР°Р»Р°
+    {//key-РЅРѕРјРµСЂ РїСЂРѕРІРѕРґР°
+        QString treeger=busIn[key];//С‚СЂРёРіРіРµСЂ, С‡С‚Рѕ РїРѕР»СѓС‡Р°РµС‚ СЌС‚РѕС‚ РїСЂРѕРІРѕРґ
+        qDebug()<<formulSetT[treeger];//РѕРґРЅР° РёР· С„РѕСЂРјСѓР»
     }
 
     ShemAtBush bus;
@@ -88,21 +88,21 @@ void BuildAuthomat::fielMapBush2RS()
             }
         }
 
-        if(flag)//,больше одного элемента
+        if(flag)//,Р±РѕР»СЊС€Рµ РѕРґРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
         {
             qDebug()<<formul;
             qDebug()<<"true";
             idWire++;
             Shem* sh=new Shem();
-            Comply* func=new Comply(sh, false,makeKey(idWire) );//makeKey(idWire)- указание названия последнего элемента
-            //задание выходного сигнала
+            Comply* func=new Comply(sh, false,makeKey(idWire) );//makeKey(idWire)- СѓРєР°Р·Р°РЅРёРµ РЅР°Р·РІР°РЅРёСЏ РїРѕСЃР»РµРґРЅРµРіРѕ СЌР»РµРјРµРЅС‚Р°
+            //Р·Р°РґР°РЅРёРµ РІС‹С…РѕРґРЅРѕРіРѕ СЃРёРіРЅР°Р»Р°
             inAtTreeger.S=makeKey(idWire);
             func->decompositionOfLogicalOperations(formul);
-            //построение структуры по формуле
+            //РїРѕСЃС‚СЂРѕРµРЅРёРµ СЃС‚СЂСѓРєС‚СѓСЂС‹ РїРѕ С„РѕСЂРјСѓР»Рµ
             bus.shems.append(sh);
         }
         else
-        {//сделать sh с единственным входом, которым и есть formul
+        {//СЃРґРµР»Р°С‚СЊ sh СЃ РµРґРёРЅСЃС‚РІРµРЅРЅС‹Рј РІС…РѕРґРѕРј, РєРѕС‚РѕСЂС‹Рј Рё РµСЃС‚СЊ formul
             qDebug()<<formul;
             qDebug()<<"false";
             idWire++;
@@ -110,11 +110,11 @@ void BuildAuthomat::fielMapBush2RS()
 
             ShemE* eIN = new ShemE(formul);
             ShemE* eOUT = new ShemE(1,makeKey(idWire));
-            inAtTreeger.S=makeKey(idWire);//сигнал на триггер что должен установиться
-            //получить пердыдущий триггер невозможно
+            inAtTreeger.S=makeKey(idWire);//СЃРёРіРЅР°Р» РЅР° С‚СЂРёРіРіРµСЂ С‡С‚Рѕ РґРѕР»Р¶РµРЅ СѓСЃС‚Р°РЅРѕРІРёС‚СЊСЃСЏ
+            //РїРѕР»СѓС‡РёС‚СЊ РїРµСЂРґС‹РґСѓС‰РёР№ С‚СЂРёРіРіРµСЂ РЅРµРІРѕР·РјРѕР¶РЅРѕ
             //
 
-            currentWire *wire = new currentWire(eOUT,0);//провод на следующий элемент
+            currentWire *wire = new currentWire(eOUT,0);//РїСЂРѕРІРѕРґ РЅР° СЃР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚
 
             eIN->wire.insert(0,wire);
 
@@ -128,28 +128,28 @@ void BuildAuthomat::fielMapBush2RS()
             sh->end = end;
             bus.shems.append(sh);
         }
-        mapTrigerIn.insert(treeger,inAtTreeger);//сет сигналы
+        mapTrigerIn.insert(treeger,inAtTreeger);//СЃРµС‚ СЃРёРіРЅР°Р»С‹
 
     }//ok
 
     //previous
 
-    QMap<QString, QString> formulSetTR;//триггер, формулу что должен получить на SET
-    foreach(QString key ,busInR.keys())//key-номер сигнала
-    {//key-номер провода
-        QString treeger=busInR[key];//триггер, что получает этот провод
+    QMap<QString, QString> formulSetTR;//С‚СЂРёРіРіРµСЂ, С„РѕСЂРјСѓР»Сѓ С‡С‚Рѕ РґРѕР»Р¶РµРЅ РїРѕР»СѓС‡РёС‚СЊ РЅР° SET
+    foreach(QString key ,busInR.keys())//key-РЅРѕРјРµСЂ СЃРёРіРЅР°Р»Р°
+    {//key-РЅРѕРјРµСЂ РїСЂРѕРІРѕРґР°
+        QString treeger=busInR[key];//С‚СЂРёРіРіРµСЂ, С‡С‚Рѕ РїРѕР»СѓС‡Р°РµС‚ СЌС‚РѕС‚ РїСЂРѕРІРѕРґ
 
         if(formulSetTR[treeger].length() == 0)
-            formulSetTR.insert(treeger, key  );//записать первый провод для входа на триггер
+            formulSetTR.insert(treeger, key  );//Р·Р°РїРёСЃР°С‚СЊ РїРµСЂРІС‹Р№ РїСЂРѕРІРѕРґ РґР»СЏ РІС…РѕРґР° РЅР° С‚СЂРёРіРіРµСЂ
         else
             formulSetTR.insert(treeger, QString("%1+%2").arg(formulSetTR[treeger],key   ) );
-        //formulSetT[treeger]-формула для формирования схемы для установки сигнала на SET
+        //formulSetT[treeger]-С„РѕСЂРјСѓР»Р° РґР»СЏ С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ СЃС…РµРјС‹ РґР»СЏ СѓСЃС‚Р°РЅРѕРІРєРё СЃРёРіРЅР°Р»Р° РЅР° SET
     }
 
-    foreach(QString key ,busInR.keys())//key-номер сигнала
-    {//key-номер провода
-        QString treeger=busInR[key];//триггер, что получает этот провод
-        qDebug()<<formulSetTR[treeger];//одна из формул
+    foreach(QString key ,busInR.keys())//key-РЅРѕРјРµСЂ СЃРёРіРЅР°Р»Р°
+    {//key-РЅРѕРјРµСЂ РїСЂРѕРІРѕРґР°
+        QString treeger=busInR[key];//С‚СЂРёРіРіРµСЂ, С‡С‚Рѕ РїРѕР»СѓС‡Р°РµС‚ СЌС‚РѕС‚ РїСЂРѕРІРѕРґ
+        qDebug()<<formulSetTR[treeger];//РѕРґРЅР° РёР· С„РѕСЂРјСѓР»
     }
 
     //ShemAtBush bus;
@@ -168,21 +168,21 @@ void BuildAuthomat::fielMapBush2RS()
             }
         }
 
-        if(flag)//,больше одного элемента
+        if(flag)//,Р±РѕР»СЊС€Рµ РѕРґРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
         {
             qDebug()<<formul;
             qDebug()<<"true";
             idWire++;
             Shem* sh=new Shem();
-            Comply* func=new Comply(sh, false,makeKey(idWire) );//makeKey(idWire)- указание названия последнего элемента
-            //задание выходного сигнала
+            Comply* func=new Comply(sh, false,makeKey(idWire) );//makeKey(idWire)- СѓРєР°Р·Р°РЅРёРµ РЅР°Р·РІР°РЅРёСЏ РїРѕСЃР»РµРґРЅРµРіРѕ СЌР»РµРјРµРЅС‚Р°
+            //Р·Р°РґР°РЅРёРµ РІС‹С…РѕРґРЅРѕРіРѕ СЃРёРіРЅР°Р»Р°
             mapTrigerIn[treeger].R=makeKey(idWire);
             func->decompositionOfLogicalOperations(formul);
-            //построение структуры по формуле
+            //РїРѕСЃС‚СЂРѕРµРЅРёРµ СЃС‚СЂСѓРєС‚СѓСЂС‹ РїРѕ С„РѕСЂРјСѓР»Рµ
             bus.shems.append(sh);
         }
         else
-        {//сделать sh с единственным входом, которым и есть formul
+        {//СЃРґРµР»Р°С‚СЊ sh СЃ РµРґРёРЅСЃС‚РІРµРЅРЅС‹Рј РІС…РѕРґРѕРј, РєРѕС‚РѕСЂС‹Рј Рё РµСЃС‚СЊ formul
             qDebug()<<formul;
             qDebug()<<"false";
             idWire++;
@@ -190,11 +190,11 @@ void BuildAuthomat::fielMapBush2RS()
 
             ShemE* eIN = new ShemE(formul);
             ShemE* eOUT = new ShemE(1,makeKey(idWire));
-            mapTrigerIn[treeger].R=makeKey(idWire);//сигнал на триггер что должен установиться
-            //получить пердыдущий триггер невозможно
+            mapTrigerIn[treeger].R=makeKey(idWire);//СЃРёРіРЅР°Р» РЅР° С‚СЂРёРіРіРµСЂ С‡С‚Рѕ РґРѕР»Р¶РµРЅ СѓСЃС‚Р°РЅРѕРІРёС‚СЊСЃСЏ
+            //РїРѕР»СѓС‡РёС‚СЊ РїРµСЂРґС‹РґСѓС‰РёР№ С‚СЂРёРіРіРµСЂ РЅРµРІРѕР·РјРѕР¶РЅРѕ
             //
 
-            currentWire *wire = new currentWire(eOUT,0);//провод на следующий элемент
+            currentWire *wire = new currentWire(eOUT,0);//РїСЂРѕРІРѕРґ РЅР° СЃР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚
 
             eIN->wire.insert(0,wire);
 
@@ -208,7 +208,7 @@ void BuildAuthomat::fielMapBush2RS()
             sh->end = end;
             bus.shems.append(sh);
         }
-        //mapTrigerIn.insert(treeger,inAtTreeger);//сет сигналы
+        //mapTrigerIn.insert(treeger,inAtTreeger);//СЃРµС‚ СЃРёРіРЅР°Р»С‹
     }//
 
 
@@ -232,7 +232,7 @@ void BuildAuthomat::fielMapBush2RS()
 
 
 void BuildAuthomat::fielMapBush3RS()
-{//третяя шина
+{//С‚СЂРµС‚СЏСЏ С€РёРЅР°
     ShemAtBush bus;
     foreach(QString treeger, mapTrigerIn.keys())
     {
@@ -243,7 +243,7 @@ void BuildAuthomat::fielMapBush3RS()
         ShemE* eIN = new ShemE(mapTrigerIn[treeger].S);
         ShemE* eIN2 = new ShemE(mapTrigerIn[treeger].R);
 
-        ShemE* eTriger = new ShemE("RS15S",treeger,false);//триггер
+        ShemE* eTriger = new ShemE("RS15S",treeger,false);//С‚СЂРёРіРіРµСЂ
         //QString name,QString id, bool
 
         idWire++;
@@ -252,14 +252,14 @@ void BuildAuthomat::fielMapBush3RS()
         ShemE* eOUT2 = new ShemE(1,makeKey(idWire));//~Q
         //
 
-        currentWire *wire = new currentWire(eTriger,0);//провод на set
-        currentWire *wire2 = new currentWire(eTriger,1);//провод на reset
+        currentWire *wire = new currentWire(eTriger,0);//РїСЂРѕРІРѕРґ РЅР° set
+        currentWire *wire2 = new currentWire(eTriger,1);//РїСЂРѕРІРѕРґ РЅР° reset
 
         eIN->wire.insert(0,wire);
         eIN2->wire.insert(0,wire2);
 
-        currentWire *wireOut = new currentWire(eOUT,0);//провод на set
-        currentWire *wire2Out = new currentWire(eOUT2,0);//провод на reset
+        currentWire *wireOut = new currentWire(eOUT,0);//РїСЂРѕРІРѕРґ РЅР° set
+        currentWire *wire2Out = new currentWire(eOUT2,0);//РїСЂРѕРІРѕРґ РЅР° reset
 
         CurrentShem* start = new CurrentShem;
         start->elements.append(eIN);
@@ -279,13 +279,13 @@ void BuildAuthomat::fielMapBush3RS()
 }
 
 void BuildAuthomat::fielMapBush4RS()
-{//четвертая шина
+{//С‡РµС‚РІРµСЂС‚Р°СЏ С€РёРЅР°
     ShemAtBush bus;
 
     QList<QString> formuls;
     QMap<QString, QString> formulsOuts;
     foreach(TransitionAuthomat value, listTransit)
-    {// заполнение mapOut
+    {// Р·Р°РїРѕР»РЅРµРЅРёРµ mapOut
         //value.idOut;
 
         //value.nextState;
@@ -312,9 +312,9 @@ void BuildAuthomat::fielMapBush4RS()
     {
         Shem* sh=new Shem();
         Comply* func=new Comply(sh, false,outS );
-        //задание выходного сигнала
+        //Р·Р°РґР°РЅРёРµ РІС‹С…РѕРґРЅРѕРіРѕ СЃРёРіРЅР°Р»Р°
         func->decompositionOfLogicalOperations(formulsOuts[outS]);
-        //построение структуры по формуле
+        //РїРѕСЃС‚СЂРѕРµРЅРёРµ СЃС‚СЂСѓРєС‚СѓСЂС‹ РїРѕ С„РѕСЂРјСѓР»Рµ
         bus.shems.append(sh);
     }
     mapBush.insert(4, bus);

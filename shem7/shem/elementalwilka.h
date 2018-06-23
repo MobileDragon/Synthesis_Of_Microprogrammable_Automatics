@@ -2,7 +2,7 @@
 #define ELEMENTALWILKA_H
 #include "element.h"
 
-class ElementalWilka: public Element//разветвляет выходной сигнал на большее число входов(жирная точка)
+class ElementalWilka: public Element//СЂР°Р·РІРµС‚РІР»СЏРµС‚ РІС‹С…РѕРґРЅРѕР№ СЃРёРіРЅР°Р» РЅР° Р±РѕР»СЊС€РµРµ С‡РёСЃР»Рѕ РІС…РѕРґРѕРІ(Р¶РёСЂРЅР°СЏ С‚РѕС‡РєР°)
 {
 public:
     ElementalWilka();

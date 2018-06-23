@@ -5,7 +5,7 @@ paintAuthomat::paintAuthomat(QList<TransitionAuthomat> list_transit, PaintWidget
 {
     listTransit = list_transit;
 
-    //ручная вставка шин
+    //СЂСѓС‡РЅР°СЏ РІСЃС‚Р°РІРєР° С€РёРЅ
     /*
     AuthomatBus* bus = new AuthomatBus(3, QPoint(2,10),150, 250);
     //bus.draw(this->pain);
@@ -14,10 +14,10 @@ paintAuthomat::paintAuthomat(QList<TransitionAuthomat> list_transit, PaintWidget
     AuthomatBus* bus1 = new AuthomatBus(2, QPoint(4,12),150, 250);
     //bus.draw(this->pain);
     bBuffer.insert(2,bus1);*/
-    spaceConnect=25;//расстояние по умолчанию для выводов из шин
+    spaceConnect=25;//СЂР°СЃСЃС‚РѕСЏРЅРёРµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РґР»СЏ РІС‹РІРѕРґРѕРІ РёР· С€РёРЅ
 
 
-    paintMainInputs();//отрисовка входов
+    paintMainInputs();//РѕС‚СЂРёСЃРѕРІРєР° РІС…РѕРґРѕРІ
 }
 
 void paintAuthomat::paintEvent(QPaintEvent *event)
@@ -36,7 +36,7 @@ void paintAuthomat::paintEvent(QPaintEvent *event)
     for(int i=0;i<wBuffer.size();i++)
     {
         wBuffer[i]->draw(&painter);
-        //необходимо будет вызывать другой метод
+        //РЅРµРѕР±С…РѕРґРёРјРѕ Р±СѓРґРµС‚ РІС‹Р·С‹РІР°С‚СЊ РґСЂСѓРіРѕР№ РјРµС‚РѕРґ
     }
     setFont(QFont("Arial", 12, 100, 0));
 
@@ -48,7 +48,7 @@ void paintAuthomat::paintEvent(QPaintEvent *event)
 
 }
 
-QList<QString> paintAuthomat::getListInputs()//входы в автомат
+QList<QString> paintAuthomat::getListInputs()//РІС…РѕРґС‹ РІ Р°РІС‚РѕРјР°С‚
 {
     QList<QString> inputs;
     foreach(TransitionAuthomat transit, listTransit)
@@ -59,31 +59,31 @@ QList<QString> paintAuthomat::getListInputs()//входы в автомат
             inputs.append(in);
         }
     }
-    inputs.append("R");//ресет сигнал
+    inputs.append("R");//СЂРµСЃРµС‚ СЃРёРіРЅР°Р»
     return inputs;
 }
 
 
-void paintAuthomat::paintMainInputs()//отрисовка первой шины(ее позиция) и входы на неё
+void paintAuthomat::paintMainInputs()//РѕС‚СЂРёСЃРѕРІРєР° РїРµСЂРІРѕР№ С€РёРЅС‹(РµРµ РїРѕР·РёС†РёСЏ) Рё РІС…РѕРґС‹ РЅР° РЅРµС‘
 {
     QList<QString> inputs=getListInputs();
-    //создание первой шины U
-    AuthomatBus* bus = new AuthomatBus(2, QPoint(40,20),150, 250);//васота и ширина в дальнейшем корректируется
+    //СЃРѕР·РґР°РЅРёРµ РїРµСЂРІРѕР№ С€РёРЅС‹ U
+    AuthomatBus* bus = new AuthomatBus(2, QPoint(40,20),150, 250);//РІР°СЃРѕС‚Р° Рё С€РёСЂРёРЅР° РІ РґР°Р»СЊРЅРµР№С€РµРј РєРѕСЂСЂРµРєС‚РёСЂСѓРµС‚СЃСЏ
     //bus.draw(this->pain);
-    bBuffer.insert(1,bus);//первая шина
+    bBuffer.insert(1,bus);//РїРµСЂРІР°СЏ С€РёРЅР°
 
 
     int num=0;
     foreach(QString in, inputs)
     {
         if( (num+2) * spaceConnect > bus->getHeight()  )
-            bus->setHeight((num+2) * spaceConnect);//установка новой высоты для размещния входов
+            bus->setHeight((num+2) * spaceConnect);//СѓСЃС‚Р°РЅРѕРІРєР° РЅРѕРІРѕР№ РІС‹СЃРѕС‚С‹ РґР»СЏ СЂР°Р·РјРµС‰РЅРёСЏ РІС…РѕРґРѕРІ
 
         Element* inB = new ElementalInAtBus(in, in, bus, 1, num * spaceConnect);
-        Element* testOut = new ElementalInAtBus("out", "out", bus, 1, num * spaceConnect);//проба
+        Element* testOut = new ElementalInAtBus("out", "out", bus, 1, num * spaceConnect);//РїСЂРѕР±Р°
         addElement(inB);
         num++;
     }
-    Element* testOut = new ElementalOutFromBus("out", "out", bus, 2, num * spaceConnect);//проба
+    Element* testOut = new ElementalOutFromBus("out", "out", bus, 2, num * spaceConnect);//РїСЂРѕР±Р°
     addElement(testOut);
 }

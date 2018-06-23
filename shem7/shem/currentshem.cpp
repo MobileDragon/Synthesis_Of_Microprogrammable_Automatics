@@ -21,9 +21,9 @@ CurrentShem::~CurrentShem()
 bool CurrentShem::operator== (CurrentShem* A)
 {
     int kol_find=0;
-    foreach(ShemE* element, A->elements)//каждый элемент полученого
+    foreach(ShemE* element, A->elements)//РєР°Р¶РґС‹Р№ СЌР»РµРјРµРЅС‚ РїРѕР»СѓС‡РµРЅРѕРіРѕ
     {
-        foreach(ShemE* e, this->elements)//каждый элемент вызывающего
+        foreach(ShemE* e, this->elements)//РєР°Р¶РґС‹Р№ СЌР»РµРјРµРЅС‚ РІС‹Р·С‹РІР°СЋС‰РµРіРѕ
         {
             if(e == element)
             {

@@ -26,7 +26,7 @@ private:
     QTableView* tablePV;
     QPushButton* nextB;
     bool isNext;
-    QList<TransitionAuthomat> listTransit;//таблица значений
+    QList<TransitionAuthomat> listTransit;//С‚Р°Р±Р»РёС†Р° Р·РЅР°С‡РµРЅРёР№
     bool isItemForNextState(QStandardItem* item);
 
 private slots:

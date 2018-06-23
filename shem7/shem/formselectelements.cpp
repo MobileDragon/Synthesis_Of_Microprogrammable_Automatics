@@ -9,7 +9,7 @@ FormSelectElements::FormSelectElements(QWidget *parent) :
 {
     name="";
     isNext=false;
-    this->setWindowTitle("Âèá³ð åëåìåíò³â äëÿ ïîáóäóâàííÿ");
+    this->setWindowTitle("Ð’Ð¸Ð±Ñ–Ñ€ ÐµÐ»ÐµÐ¼ÐµÐ½Ñ‚Ñ–Ð² Ð´Ð»Ñ Ð¿Ð¾Ð±ÑƒÐ´ÑƒÐ²Ð°Ð½Ð½Ñ");
     this->setMinimumWidth(600);
     QPushButton* pcmdOk     = new QPushButton("&Build");
     QPushButton* pcmdCancel = new QPushButton("&Cancel");
@@ -17,8 +17,8 @@ FormSelectElements::FormSelectElements(QWidget *parent) :
     connect(pcmdCancel, SIGNAL(clicked()), SLOT(cancelClk()));
 
 
-    QPushButton* pcmdAdd    = new QPushButton("Äîäàòè>");
-    QPushButton* pcmdDel = new QPushButton("<Âèäàëèòè");
+    QPushButton* pcmdAdd    = new QPushButton("Ð”Ð¾Ð´Ð°Ñ‚Ð¸>");
+    QPushButton* pcmdDel = new QPushButton("<Ð’Ð¸Ð´Ð°Ð»Ð¸Ñ‚Ð¸");
     connect(pcmdAdd, SIGNAL(released()), SLOT(slotAdd()) );
     connect(pcmdDel, SIGNAL(released()), SLOT(slotDel()) );
 
@@ -35,7 +35,7 @@ FormSelectElements::FormSelectElements(QWidget *parent) :
     tableSelected->setEditTriggers(QAbstractItemView::NoEditTriggers);
     QStandardItemModel  *model = new QStandardItemModel;
     QStringList name_table;
-    name_table << "²ì'ÿ" << "Òðèâàë³ñòü" << "Îïåðàö³ÿ";
+    name_table << "Ð†Ð¼'Ñ" << "Ð¢Ñ€Ð¸Ð²Ð°Ð»Ñ–ÑÑ‚ÑŒ" << "ÐžÐ¿ÐµÑ€Ð°Ñ†Ñ–Ñ";
     model->setHorizontalHeaderLabels(name_table);
     tableSelected->setModel(model);
     tableSelected->horizontalHeader()->setResizeMode(0,QHeaderView::ResizeToContents);
@@ -69,14 +69,14 @@ FormSelectElements::FormSelectElements(QWidget *parent) :
 
     connect(editL, SIGNAL(textChanged(QString)), SLOT(editFields()) );
     QVBoxLayout* vBoxBase = new QVBoxLayout;
-    QLabel* base    = new QLabel("Åëåìåíòè ç áàçè");
+    QLabel* base    = new QLabel("Ð•Ð»ÐµÐ¼ÐµÐ½Ñ‚Ð¸ Ð· Ð±Ð°Ð·Ð¸");
     vBoxBase->addWidget(base);
     vBoxBase->addWidget(editL);
     vBoxBase->addWidget(tableBase);
 
 
     QVBoxLayout* vBoxOutLook = new QVBoxLayout;
-    QLabel* OutLook    = new QLabel("Çîâíøí³é âèãëÿä");
+    QLabel* OutLook    = new QLabel("Ð—Ð¾Ð²Ð½ÑˆÐ½Ñ–Ð¹ Ð²Ð¸Ð³Ð»ÑÐ´");
     vBoxOutLook->addWidget(OutLook);
     w= new PaintWidget;
     w->setMinimumSize(70,110);
@@ -89,7 +89,7 @@ FormSelectElements::FormSelectElements(QWidget *parent) :
     vBoxOutLook->addStretch();
     //vBoxOutLook->addWidget(tableBase);
     QVBoxLayout* vBoxSelected = new QVBoxLayout;
-    QLabel* selected    = new QLabel("Äîäàí³ äî ïîáóäóâàííÿ");
+    QLabel* selected    = new QLabel("Ð”Ð¾Ð´Ð°Ð½Ñ– Ð´Ð¾ Ð¿Ð¾Ð±ÑƒÐ´ÑƒÐ²Ð°Ð½Ð½Ñ");
     vBoxSelected->addWidget(selected);
     vBoxSelected->addWidget(tableSelected);
 
@@ -146,9 +146,9 @@ void FormSelectElements::updateListSelected()
 {
     QStandardItemModel  *model = new QStandardItemModel;
     QStringList name_table;
-    name_table << "²ì'ÿ" << "Òðèâàë³ñòü" << "Îïåðàö³ÿ";
+    name_table << "Ð†Ð¼'Ñ" << "Ð¢Ñ€Ð¸Ð²Ð°Ð»Ñ–ÑÑ‚ÑŒ" << "ÐžÐ¿ÐµÑ€Ð°Ñ†Ñ–Ñ";
     model->setHorizontalHeaderLabels(name_table);
-    field_tableOfBase(model,true);//çàïîëíåíå òàáëèöû
+    field_tableOfBase(model,true);//Ð·Ð°Ð¿Ð¾Ð»Ð½ÐµÐ½Ðµ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹
 
     tableSelected->setModel(model);
 }
@@ -158,9 +158,9 @@ void FormSelectElements::updateListBase()//////////////////
 {
     QStandardItemModel  *model = new QStandardItemModel;
     QStringList name_table;
-    name_table << "²ì'ÿ" << "Òðèâàë³ñòü" << "Îïåðàö³ÿ";
+    name_table << "Ð†Ð¼'Ñ" << "Ð¢Ñ€Ð¸Ð²Ð°Ð»Ñ–ÑÑ‚ÑŒ" << "ÐžÐ¿ÐµÑ€Ð°Ñ†Ñ–Ñ";
     model->setHorizontalHeaderLabels(name_table);
-    field_tableOfBase(model,false);//çàïîëíåíå òàáëèöû
+    field_tableOfBase(model,false);//Ð·Ð°Ð¿Ð¾Ð»Ð½ÐµÐ½Ðµ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹
 
     tableBase->setModel(model);
 
@@ -177,14 +177,14 @@ void FormSelectElements::field_tableOfBase(QStandardItemModel *table, bool flag)
 
         int col = 0;
         item->setText(QString("%1").arg(list[row].name ));
-        table->setItem(row, col++, item); // âñòàâêà ÿ÷åéêè
+        table->setItem(row, col++, item); // Ð²ÑÑ‚Ð°Ð²ÐºÐ° ÑÑ‡ÐµÐ¹ÐºÐ¸
         item = new QStandardItem();
         item->setText(QString("%1").arg(list[row].time ));
-        table->setItem(row, col++, item); // âñòàâêà ÿ÷åéêè
+        table->setItem(row, col++, item); // Ð²ÑÑ‚Ð°Ð²ÐºÐ° ÑÑ‡ÐµÐ¹ÐºÐ¸
         item = new QStandardItem();
         item->setText(QString("%1").arg(list[row].operation ));
         //item->setFlags(Qt::ItemIsSelectable);
-        table->setItem(row, col, item); // âñòàâêà ÿ÷åéêè
+        table->setItem(row, col, item); // Ð²ÑÑ‚Ð°Ð²ÐºÐ° ÑÑ‡ÐµÐ¹ÐºÐ¸
     }
 
 }
@@ -260,7 +260,7 @@ void FormSelectElements::slotClik(const QModelIndex &index)
 {
     int row = index.row();
 
-    QTableView* thisTable = ((QTableView*)sender());//ðîäèòåëü
+    QTableView* thisTable = ((QTableView*)sender());//Ñ€Ð¾Ð´Ð¸Ñ‚ÐµÐ»ÑŒ
     QString element_name = (thisTable->model()->data(thisTable->model()->index(row,0))).toString();
 
     baseClik(element_name);

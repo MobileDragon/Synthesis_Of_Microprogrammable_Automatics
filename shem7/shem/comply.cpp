@@ -37,8 +37,8 @@ Comply::Comply(Shem* shema, bool j, QString out)
     this->shema=shema;
 }
 
-int Comply::getMaxInput(int max,QSqlQuery *query)//находит элемент с числом входов == max,меньше его
-{//,либо больше в случае когда нет меньше
+int Comply::getMaxInput(int max,QSqlQuery *query)//РЅР°С…РѕРґРёС‚ СЌР»РµРјРµРЅС‚ СЃ С‡РёСЃР»РѕРј РІС…РѕРґРѕРІ == max,РјРµРЅСЊС€Рµ РµРіРѕ
+{//,Р»РёР±Рѕ Р±РѕР»СЊС€Рµ РІ СЃР»СѓС‡Р°Рµ РєРѕРіРґР° РЅРµС‚ РјРµРЅСЊС€Рµ
     query->first();
     //query->next();
     int maxOfB = query->value(0).toInt();
@@ -63,25 +63,25 @@ int Comply::getMaxInput(int max,QSqlQuery *query)//находит элемент с числом вход
     return maxOfB;
 }
 
-//j-число входов для элемента который следует найти
-//query-список доступных элементов
-//temp-формкла которая генерируется(содержание formul немного изменить)//содержит QMap<QString,QString> formul;
-//balanceSympl-список оставшихся переменных
-//cur_num-номер для генераци нового ключа
+//j-С‡РёСЃР»Рѕ РІС…РѕРґРѕРІ РґР»СЏ СЌР»РµРјРµРЅС‚Р° РєРѕС‚РѕСЂС‹Р№ СЃР»РµРґСѓРµС‚ РЅР°Р№С‚Рё
+//query-СЃРїРёСЃРѕРє РґРѕСЃС‚СѓРїРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ
+//temp-С„РѕСЂРјРєР»Р° РєРѕС‚РѕСЂР°СЏ РіРµРЅРµСЂРёСЂСѓРµС‚СЃСЏ(СЃРѕРґРµСЂР¶Р°РЅРёРµ formul РЅРµРјРЅРѕРіРѕ РёР·РјРµРЅРёС‚СЊ)//СЃРѕРґРµСЂР¶РёС‚ QMap<QString,QString> formul;
+//balanceSympl-СЃРїРёСЃРѕРє РѕСЃС‚Р°РІС€РёС…СЃСЏ РїРµСЂРµРјРµРЅРЅС‹С…
+//cur_num-РЅРѕРјРµСЂ РґР»СЏ РіРµРЅРµСЂР°С†Рё РЅРѕРІРѕРіРѕ РєР»СЋС‡Р°
 void Comply::searchElements(int j, QSqlQuery *query, formulSearch* temp,
                             QVector<QString> balanceSymplList, int cur_num)
 {
     //query->first();
-    QStack<QString> balanceSympl;//копирование в стек для удобства
+    QStack<QString> balanceSympl;//РєРѕРїРёСЂРѕРІР°РЅРёРµ РІ СЃС‚РµРє РґР»СЏ СѓРґРѕР±СЃС‚РІР°
     foreach(QString e, balanceSymplList)
     {
         balanceSympl.push(e);
     }
     //
-    formulSearch* cur_temp=new formulSearch;//заполнить
+    formulSearch* cur_temp=new formulSearch;//Р·Р°РїРѕР»РЅРёС‚СЊ
     int input = getMaxInput(j, query);
     QString str = "";
-    QString lastInut = 0;//последний добавленный элемент
+    QString lastInut = 0;//РїРѕСЃР»РµРґРЅРёР№ РґРѕР±Р°РІР»РµРЅРЅС‹Р№ СЌР»РµРјРµРЅС‚
     if(temp->numInputs == 0)
     {
         for(int i=0; i<input; i++)
@@ -96,10 +96,10 @@ void Comply::searchElements(int j, QSqlQuery *query, formulSearch* temp,
                 str += lastInut;
             str += curAction;//+*
         }
-        //удалить последний символ
+        //СѓРґР°Р»РёС‚СЊ РїРѕСЃР»РµРґРЅРёР№ СЃРёРјРІРѕР»
         str = str.left(str.length()-1);
 
-        cur_temp->formul.insert(makeKey(++cur_num), str);//запись
+        cur_temp->formul.insert(makeKey(++cur_num), str);//Р·Р°РїРёСЃСЊ
         cur_temp->main_key = makeKey(cur_num);
         cur_temp->balanceKey.insert(makeKey(cur_num), 1);
         cur_temp->numElements = 1;
@@ -135,9 +135,9 @@ void Comply::searchElements(int j, QSqlQuery *query, formulSearch* temp,
         }
         else
         {
-            int num_key=0;//количество ключей подаваемых на входы текущего элемента
-            int cur_rung=0;//ранг от 1(это уорвень) элемент только с иксами является первым уровнем
-            foreach(QString key, temp->balanceKey.keys())//временное сохранение(постоянное)
+            int num_key=0;//РєРѕР»РёС‡РµСЃС‚РІРѕ РєР»СЋС‡РµР№ РїРѕРґР°РІР°РµРјС‹С… РЅР° РІС…РѕРґС‹ С‚РµРєСѓС‰РµРіРѕ СЌР»РµРјРµРЅС‚Р°
+            int cur_rung=0;//СЂР°РЅРі РѕС‚ 1(СЌС‚Рѕ СѓРѕСЂРІРµРЅСЊ) СЌР»РµРјРµРЅС‚ С‚РѕР»СЊРєРѕ СЃ РёРєСЃР°РјРё СЏРІР»СЏРµС‚СЃСЏ РїРµСЂРІС‹Рј СѓСЂРѕРІРЅРµРј
+            foreach(QString key, temp->balanceKey.keys())//РІСЂРµРјРµРЅРЅРѕРµ СЃРѕС…СЂР°РЅРµРЅРёРµ(РїРѕСЃС‚РѕСЏРЅРЅРѕРµ)
             {
                 cur_temp->balanceKey.insert(key, temp->balanceKey[key]);
             }
@@ -150,11 +150,11 @@ void Comply::searchElements(int j, QSqlQuery *query, formulSearch* temp,
                     balanceSympl.pop();
                     cur_rung = 1;
                 }
-                else //нужен список уровней для ключей, и использовать их начиная с нижних
+                else //РЅСѓР¶РµРЅ СЃРїРёСЃРѕРє СѓСЂРѕРІРЅРµР№ РґР»СЏ РєР»СЋС‡РµР№, Рё РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РёС… РЅР°С‡РёРЅР°СЏ СЃ РЅРёР¶РЅРёС…
                 {
                     if(!cur_temp->balanceKey.isEmpty())
                     {
-                        int minR = cur_temp->balanceKey.begin().value();//самый высокий ранг на текущий момент
+                        int minR = cur_temp->balanceKey.begin().value();//СЃР°РјС‹Р№ РІС‹СЃРѕРєРёР№ СЂР°РЅРі РЅР° С‚РµРєСѓС‰РёР№ РјРѕРјРµРЅС‚
                         QString minK = cur_temp->balanceKey.begin().key();
                         foreach(QString key, cur_temp->balanceKey.keys())
                         {
@@ -178,19 +178,19 @@ void Comply::searchElements(int j, QSqlQuery *query, formulSearch* temp,
                 }
                 str += curAction;//+*
             }
-            //удалить последний символ
+            //СѓРґР°Р»РёС‚СЊ РїРѕСЃР»РµРґРЅРёР№ СЃРёРјРІРѕР»
             str = str.left(str.length()-1);
 
-            cur_temp->formul.insert(makeKey(++cur_num), str);//запись
+            cur_temp->formul.insert(makeKey(++cur_num), str);//Р·Р°РїРёСЃСЊ
             foreach(QString key, temp->formul.keys())
             {
                 cur_temp->formul.insert(key, temp->formul[key]);
             }
-            cur_temp->balanceKey.insert(makeKey(cur_num), cur_rung);//main_key неиспользуется
+            cur_temp->balanceKey.insert(makeKey(cur_num), cur_rung);//main_key РЅРµРёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ
             //cur_temp->main_key = makeKey(cur_num);//
             cur_temp->numElements = temp->numElements+1;
-            cur_temp->numInclude = cur_rung;//это число вложений для только-что добавленного элемента
-            //проверка в самом начале выйдет если там несколько выходов
+            cur_temp->numInclude = cur_rung;//СЌС‚Рѕ С‡РёСЃР»Рѕ РІР»РѕР¶РµРЅРёР№ РґР»СЏ С‚РѕР»СЊРєРѕ-С‡С‚Рѕ РґРѕР±Р°РІР»РµРЅРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
+            //РїСЂРѕРІРµСЂРєР° РІ СЃР°РјРѕРј РЅР°С‡Р°Р»Рµ РІС‹Р№РґРµС‚ РµСЃР»Рё С‚Р°Рј РЅРµСЃРєРѕР»СЊРєРѕ РІС‹С…РѕРґРѕРІ
             cur_temp->numInputs = temp->numInputs + input - num_key;
 
 
@@ -205,19 +205,19 @@ void Comply::searchElements(int j, QSqlQuery *query, formulSearch* temp,
 
 
 /*
-    //formulSearch cur_temp;//заполнить
+    //formulSearch cur_temp;//Р·Р°РїРѕР»РЅРёС‚СЊ
     if(temp->numInputs != 0)
         cur_temp.formul = "("+temp->formul+curAction+ "("+str+")" +")";
     else
         cur_temp.formul = "("+str+")";
     cur_temp.numElements = temp->numElements + input-1;
     */
-    //какая-то глобальня переменная хранит текущее действие(+ *) ты лентяй
-    //int i = j - input;//число входов Х и balanceKey//строка не нужна
+    //РєР°РєР°СЏ-С‚Рѕ РіР»РѕР±Р°Р»СЊРЅСЏ РїРµСЂРµРјРµРЅРЅР°СЏ С…СЂР°РЅРёС‚ С‚РµРєСѓС‰РµРµ РґРµР№СЃС‚РІРёРµ(+ *) С‚С‹ Р»РµРЅС‚СЏР№
+    //int i = j - input;//С‡РёСЃР»Рѕ РІС…РѕРґРѕРІ РҐ Рё balanceKey//СЃС‚СЂРѕРєР° РЅРµ РЅСѓР¶РЅР°
 
 
 
-    QVector<QString> balanceSymplCur;//дл следующего вызова searchElements
+    QVector<QString> balanceSymplCur;//РґР» СЃР»РµРґСѓСЋС‰РµРіРѕ РІС‹Р·РѕРІР° searchElements
     while(!balanceSympl.isEmpty())
     {
         balanceSymplCur.append(balanceSympl.top());
@@ -226,7 +226,7 @@ void Comply::searchElements(int j, QSqlQuery *query, formulSearch* temp,
 
 
     int i = cur_temp->balanceKey.size() + elements.size() - cur_temp->numInputs;
-    //число входов Х и balanceKey
+    //С‡РёСЃР»Рѕ РІС…РѕРґРѕРІ РҐ Рё balanceKey
     if(optimal)
         i+=1;
     while(i > 1)
@@ -241,7 +241,7 @@ void Comply::searchElements(int j, QSqlQuery *query, formulSearch* temp,
 
 bool Comply::isBest(formulSearch* tempFormul)
 {
-    if(tempFormul->numInputs < elements.size() || tempFormul->balanceKey.size()>1)//добавить случай когда выходов больше 1(сделано)
+    if(tempFormul->numInputs < elements.size() || tempFormul->balanceKey.size()>1)//РґРѕР±Р°РІРёС‚СЊ СЃР»СѓС‡Р°Р№ РєРѕРіРґР° РІС‹С…РѕРґРѕРІ Р±РѕР»СЊС€Рµ 1(СЃРґРµР»Р°РЅРѕ)
         return false;
     if((bestFormul->numInputs) == 0)
     {
@@ -289,16 +289,16 @@ bool Comply::isBest(formulSearch* tempFormul)
     }
 }
 
-void Comply::decompos()//подготовить actions для заполнения схемы
+void Comply::decompos()//РїРѕРґРіРѕС‚РѕРІРёС‚СЊ actions РґР»СЏ Р·Р°РїРѕР»РЅРµРЅРёСЏ СЃС…РµРјС‹
 {
-    clearInaction();//удаление переходов(ничего не содержащих)
+    clearInaction();//СѓРґР°Р»РµРЅРёРµ РїРµСЂРµС…РѕРґРѕРІ(РЅРёС‡РµРіРѕ РЅРµ СЃРѕРґРµСЂР¶Р°С‰РёС…)
 
     QMap<QString,QString> actions_temp;
 
     //optimal=true
     foreach(QString key, actions.keys())
     {
-        elements=composInput(key);//элементы подаваемые на вход разбиваемого объединения
+        elements=composInput(key);//СЌР»РµРјРµРЅС‚С‹ РїРѕРґР°РІР°РµРјС‹Рµ РЅР° РІС…РѕРґ СЂР°Р·Р±РёРІР°РµРјРѕРіРѕ РѕР±СЉРµРґРёРЅРµРЅРёСЏ
         int kolNead = elements.size();
         if(kolNead > 1)
         {
@@ -332,9 +332,9 @@ void Comply::decompos()//подготовить actions для заполнения схемы
             int filled=0;
             int cur_num;
             counterForBest=counter;
-            while(i > 1)//ошибка(исправлено)//добавить еще использ элементов с отрицанием на выходе
-            {//и где-то еще вынос общих действий за скобки(отдельный метод)для optimal=true
-                formulSearch* tempS = new formulSearch;//заполнить
+            while(i > 1)//РѕС€РёР±РєР°(РёСЃРїСЂР°РІР»РµРЅРѕ)//РґРѕР±Р°РІРёС‚СЊ РµС‰Рµ РёСЃРїРѕР»СЊР· СЌР»РµРјРµРЅС‚РѕРІ СЃ РѕС‚СЂРёС†Р°РЅРёРµРј РЅР° РІС‹С…РѕРґРµ
+            {//Рё РіРґРµ-С‚Рѕ РµС‰Рµ РІС‹РЅРѕСЃ РѕР±С‰РёС… РґРµР№СЃС‚РІРёР№ Р·Р° СЃРєРѕР±РєРё(РѕС‚РґРµР»СЊРЅС‹Р№ РјРµС‚РѕРґ)РґР»СЏ optimal=true
+                formulSearch* tempS = new formulSearch;//Р·Р°РїРѕР»РЅРёС‚СЊ
                 QString y="";
                 tempS->main_key="";
                 tempS->numElements=0;
@@ -347,8 +347,8 @@ void Comply::decompos()//подготовить actions для заполнения схемы
             }
             counter=counterForBest;
 
-            // bestFormul хранит уже лучшую формулу
-            //дальше изменение имени формулы для того, чтобы ссылаться по старому ключу
+            // bestFormul С…СЂР°РЅРёС‚ СѓР¶Рµ Р»СѓС‡С€СѓСЋ С„РѕСЂРјСѓР»Сѓ
+            //РґР°Р»СЊС€Рµ РёР·РјРµРЅРµРЅРёРµ РёРјРµРЅРё С„РѕСЂРјСѓР»С‹ РґР»СЏ С‚РѕРіРѕ, С‡С‚РѕР±С‹ СЃСЃС‹Р»Р°С‚СЊСЃСЏ РїРѕ СЃС‚Р°СЂРѕРјСѓ РєР»СЋС‡Сѓ
             if(optimal)
             {
                 QString temp_value = bestFormul->formul.value(bestFormul->main_key);
@@ -363,13 +363,13 @@ void Comply::decompos()//подготовить actions для заполнения схемы
                 bestFormul->formul.erase( bestFormul->formul.find( temp_key ) );
                 bestFormul->formul.insert(key, temp_value);
             }
-            foreach(QString key2, bestFormul->formul.keys())//сохранение списка действий
+            foreach(QString key2, bestFormul->formul.keys())//СЃРѕС…СЂР°РЅРµРЅРёРµ СЃРїРёСЃРєР° РґРµР№СЃС‚РІРёР№
             {
                 actions_temp.insert(key2, bestFormul->formul.value(key2));
 
 
             }
-            this->bestFormul->main_key="";//очищение bestFormul
+            this->bestFormul->main_key="";//РѕС‡РёС‰РµРЅРёРµ bestFormul
             this->bestFormul->numElements=0;
             this->bestFormul->numInclude=0;
             this->bestFormul->numInputs=0;
@@ -389,8 +389,8 @@ void Comply::decompos()//подготовить actions для заполнения схемы
     actions.clear();
     actions=actions_temp;
 
-    fillShema();//заполнить схему
-    //дальше протестировать схему и поставить более медленные элементы, где это можно
+    fillShema();//Р·Р°РїРѕР»РЅРёС‚СЊ СЃС…РµРјСѓ
+    //РґР°Р»СЊС€Рµ РїСЂРѕС‚РµСЃС‚РёСЂРѕРІР°С‚СЊ СЃС…РµРјСѓ Рё РїРѕСЃС‚Р°РІРёС‚СЊ Р±РѕР»РµРµ РјРµРґР»РµРЅРЅС‹Рµ СЌР»РµРјРµРЅС‚С‹, РіРґРµ СЌС‚Рѕ РјРѕР¶РЅРѕ
 }
 
 QChar Comply::whotAction(QString key)
@@ -438,11 +438,11 @@ int Comply::whotCountOperations(QString key)
     return countOperations;
 }
 
-void Comply::inicializeInputs(QString dnf)//инициализация списка переменных пока только true
+void Comply::inicializeInputs(QString dnf)//РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРїРёСЃРєР° РїРµСЂРµРјРµРЅРЅС‹С… РїРѕРєР° С‚РѕР»СЊРєРѕ true
 {
-    for(int i=0;i<dnf.length();i++)//инициализация списка переменных
-                                    //(вызывается для подстановки всех вариантов значений)
-                                    //и заполнения таблици истинности
+    for(int i=0;i<dnf.length();i++)//РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРїРёСЃРєР° РїРµСЂРµРјРµРЅРЅС‹С…
+                                    //(РІС‹Р·С‹РІР°РµС‚СЃСЏ РґР»СЏ РїРѕРґСЃС‚Р°РЅРѕРІРєРё РІСЃРµС… РІР°СЂРёР°РЅС‚РѕРІ Р·РЅР°С‡РµРЅРёР№)
+                                    //Рё Р·Р°РїРѕР»РЅРµРЅРёСЏ С‚Р°Р±Р»РёС†Рё РёСЃС‚РёРЅРЅРѕСЃС‚Рё
     {
         QString temp="";
         if( (dnf[i]).isLetter() )
@@ -456,8 +456,8 @@ void Comply::inicializeInputs(QString dnf)//инициализация списка переменных пока
     }
 }
 
-QVector<QString> Comply::composInput(QString key)//возвращает список id подаваемых на вход операции
-{//должен считать повторения а данном элементе от ключа
+QVector<QString> Comply::composInput(QString key)//РІРѕР·РІСЂР°С‰Р°РµС‚ СЃРїРёСЃРѕРє id РїРѕРґР°РІР°РµРјС‹С… РЅР° РІС…РѕРґ РѕРїРµСЂР°С†РёРё
+{//РґРѕР»Р¶РµРЅ СЃС‡РёС‚Р°С‚СЊ РїРѕРІС‚РѕСЂРµРЅРёСЏ Р° РґР°РЅРЅРѕРј СЌР»РµРјРµРЅС‚Рµ РѕС‚ РєР»СЋС‡Р°
     QVector<QString> masInput(1);
     int length=actions[key].length();
     QString str=actions[key];
@@ -488,7 +488,7 @@ QVector<QString> Comply::composInput(QString key)//возвращает список id подаваем
 void Comply::decomposNegative()
 {
     QMap<QString,QString> tempActions;
-    counter=actions.size()-1;//должно быть иаксимально записаный ранее ключь
+    counter=actions.size()-1;//РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РёР°РєСЃРёРјР°Р»СЊРЅРѕ Р·Р°РїРёСЃР°РЅС‹Р№ СЂР°РЅРµРµ РєР»СЋС‡СЊ
     foreach(QString key, actions.keys())
     {
         QString action = actions[key];
@@ -496,9 +496,9 @@ void Comply::decomposNegative()
         int i=0;
         while(i<length)
         {
-            if(action[i]=='~')//если есть отрацание
+            if(action[i]=='~')//РµСЃР»Рё РµСЃС‚СЊ РѕС‚СЂР°С†Р°РЅРёРµ
             {
-                //строка с переменной
+                //СЃС‚СЂРѕРєР° СЃ РїРµСЂРµРјРµРЅРЅРѕР№
                 QString copy="";
                 while(i<length)
                 {
@@ -511,8 +511,8 @@ void Comply::decomposNegative()
                     copy+=c;
                     i++;
                 }
-                tempActions[makeKey(++counter) ] = copy;  //то вынести это как отдельное дейтвие
-                tempActions[key] += makeKey(counter); //и подставим указатель на это действие
+                tempActions[makeKey(++counter) ] = copy;  //С‚Рѕ РІС‹РЅРµСЃС‚Рё СЌС‚Рѕ РєР°Рє РѕС‚РґРµР»СЊРЅРѕРµ РґРµР№С‚РІРёРµ
+                tempActions[key] += makeKey(counter); //Рё РїРѕРґСЃС‚Р°РІРёРј СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЌС‚Рѕ РґРµР№СЃС‚РІРёРµ
             }
             else
             {
@@ -528,8 +528,8 @@ void Comply::decomposNegative()
 void Comply::clearInaction()
 {
     QMap<QString,QString> tempActions;
-    QMap<QString,QString> links;//бездейтсвующие элементы
-    counter=actions.size()-1;//дальше эту строку использовать нельзя
+    QMap<QString,QString> links;//Р±РµР·РґРµР№С‚СЃРІСѓСЋС‰РёРµ СЌР»РµРјРµРЅС‚С‹
+    counter=actions.size()-1;//РґР°Р»СЊС€Рµ СЌС‚Сѓ СЃС‚СЂРѕРєСѓ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РЅРµР»СЊР·СЏ
     foreach(QString key, actions.keys())
     {
         if(whotCountOperations(key)==0)
@@ -538,11 +538,11 @@ void Comply::clearInaction()
         }
         else
         {
-            //проверка ключа на наличие в links
+            //РїСЂРѕРІРµСЂРєР° РєР»СЋС‡Р° РЅР° РЅР°Р»РёС‡РёРµ РІ links
             bool flag=false;
             foreach(QString keyLink, links.keys())
             {
-                if(key==links[keyLink])//не выдерживает скобок
+                if(key==links[keyLink])//РЅРµ РІС‹РґРµСЂР¶РёРІР°РµС‚ СЃРєРѕР±РѕРє
                 {
                     tempActions[keyLink]+=actions[key];
                     flag=true;
@@ -557,7 +557,7 @@ void Comply::clearInaction()
     actions=tempActions;
 }
 
-int Comply::getKolPovtor(QString search_key)//число входов с данным элементом
+int Comply::getKolPovtor(QString search_key)//С‡РёСЃР»Рѕ РІС…РѕРґРѕРІ СЃ РґР°РЅРЅС‹Рј СЌР»РµРјРµРЅС‚РѕРј
 {
     int kolPovtor=0;
     foreach(QString key, actions.keys())
@@ -572,12 +572,12 @@ int Comply::getKolPovtor(QString search_key)//число входов с данным элементом
     return kolPovtor;
 }
 
-bool Comply::isKnownInputs(QString keyAction, QVector<QString> knownInputs)//проверка выражения
+bool Comply::isKnownInputs(QString keyAction, QVector<QString> knownInputs)//РїСЂРѕРІРµСЂРєР° РІС‹СЂР°Р¶РµРЅРёСЏ
 {
     QVector<QString> cur_input = delBrekets(composInput(keyAction));
     foreach(QString key, cur_input)
     {
-        bool flag = true;//неизвестный вход
+        bool flag = true;//РЅРµРёР·РІРµСЃС‚РЅС‹Р№ РІС…РѕРґ
         foreach(QString key2,knownInputs)
         {
             if(key2 == key)
@@ -594,7 +594,7 @@ bool Comply::isKnownInputs(QString keyAction, QVector<QString> knownInputs)//про
     return true;
 }
 
-QVector<QString> Comply::delBrekets(QVector<QString> keys)//возвращает список без скобок
+QVector<QString> Comply::delBrekets(QVector<QString> keys)//РІРѕР·РІСЂР°С‰Р°РµС‚ СЃРїРёСЃРѕРє Р±РµР· СЃРєРѕР±РѕРє
 {
     QVector<QString> temp;
     foreach(QString value, keys)
@@ -647,35 +647,35 @@ ShemE* Comply::getFastestElement(QChar typeAction, int kolInput, QString id)
             bestName = query->value(0).toString();
         }
     }
-    //инициализировать список выходов
+    //РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°С‚СЊ СЃРїРёСЃРѕРє РІС‹С…РѕРґРѕРІ
     //QVector<int> output;
-    //output.append(query->value(2).toInt());//номер выхода
+    //output.append(query->value(2).toInt());//РЅРѕРјРµСЂ РІС‹С…РѕРґР°
     ShemE* e = new ShemE(bestName, id);
     return e;
 }
 
-void Comply::fillShema()//это делать
+void Comply::fillShema()//СЌС‚Рѕ РґРµР»Р°С‚СЊ
 {
-    QVector<QString> knownKeys;//список известных ключей
-    //может также хранить єлементы до которых недостучаться
-    //запись входящих Х
+    QVector<QString> knownKeys;//СЃРїРёСЃРѕРє РёР·РІРµСЃС‚РЅС‹С… РєР»СЋС‡РµР№
+    //РјРѕР¶РµС‚ С‚Р°РєР¶Рµ С…СЂР°РЅРёС‚СЊ С”Р»РµРјРµРЅС‚С‹ РґРѕ РєРѕС‚РѕСЂС‹С… РЅРµРґРѕСЃС‚СѓС‡Р°С‚СЊСЃСЏ
+    //Р·Р°РїРёСЃСЊ РІС…РѕРґСЏС‰РёС… РҐ
     foreach(QString key, variables.keys() )
     {
-        ShemE* e =new ShemE(key);//Х
+        ShemE* e =new ShemE(key);//РҐ
         shema->addBack(e);
         knownKeys.append(key);
-        //вилки добавлять!!!
+        //РІРёР»РєРё РґРѕР±Р°РІР»СЏС‚СЊ!!!
         int kol = getKolPovtor(key);
         if(kol > 1)
         {
             shema->addWilka(key, kol);
         }
     }
-    //запись элементов actions не содержащих неизвестных ключей
-    QVector<QString> oldKeys;//список уже задействованных ключей
+    //Р·Р°РїРёСЃСЊ СЌР»РµРјРµРЅС‚РѕРІ actions РЅРµ СЃРѕРґРµСЂР¶Р°С‰РёС… РЅРµРёР·РІРµСЃС‚РЅС‹С… РєР»СЋС‡РµР№
+    QVector<QString> oldKeys;//СЃРїРёСЃРѕРє СѓР¶Рµ Р·Р°РґРµР№СЃС‚РІРѕРІР°РЅРЅС‹С… РєР»СЋС‡РµР№
     int i=actions.size();
     QString last_key="";
-    while(i>0)//пока не задействованы все actions
+    while(i>0)//РїРѕРєР° РЅРµ Р·Р°РґРµР№СЃС‚РІРѕРІР°РЅС‹ РІСЃРµ actions
     {
         foreach(QString key, actions.keys())
         {
@@ -695,9 +695,9 @@ void Comply::fillShema()//это делать
                     i--;
                     oldKeys.append(key);
                     QVector<QString> cur_inputs = delBrekets(composInput(key));
-                    //метод для получения самого быстрого элемента
+                    //РјРµС‚РѕРґ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ СЃР°РјРѕРіРѕ Р±С‹СЃС‚СЂРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
                     ShemE* e = getFastestElement(whotAction(key), cur_inputs.size(), key);//elemental
-                    shema->addBack(e, cur_inputs);//запись  элемента(подключение)
+                    shema->addBack(e, cur_inputs);//Р·Р°РїРёСЃСЊ  СЌР»РµРјРµРЅС‚Р°(РїРѕРґРєР»СЋС‡РµРЅРёРµ)
                     knownKeys.append(key);
                     int kol = getKolPovtor(key);
                     if(kol > 1)
@@ -709,24 +709,24 @@ void Comply::fillShema()//это делать
             }
         }
     }
-    //подключение выходаY
+    //РїРѕРґРєР»СЋС‡РµРЅРёРµ РІС‹С…РѕРґР°Y
     QVector<QString> input;
     input.append(last_key);
-    ShemE* e =new ShemE(1,outy);//y1(нумерация для пользователя с 1)
+    ShemE* e =new ShemE(1,outy);//y1(РЅСѓРјРµСЂР°С†РёСЏ РґР»СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ СЃ 1)
 
-    //дочитать схему до конца
+    //РґРѕС‡РёС‚Р°С‚СЊ СЃС…РµРјСѓ РґРѕ РєРѕРЅС†Р°
     while(shema->end->elements.size()>1)
         shema->end=Shem::next(shema->end);
     shema->addBack(e, input);
 
 }
 
-QString Comply::decompositionOfLogicalOperations(QString dnf)//преобразование операций для использования элементов
+QString Comply::decompositionOfLogicalOperations(QString dnf)//РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ РѕРїРµСЂР°С†РёР№ РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ СЌР»РµРјРµРЅС‚РѕРІ
 {
     bool answer;
 
-    inicializeInputs(dnf);//инициализация списка переменных пока только true(пока не важно чем)
-    for(int i=dnf.length()-1; i>=0; i--)//заполнение стека
+    inicializeInputs(dnf);//РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРїРёСЃРєР° РїРµСЂРµРјРµРЅРЅС‹С… РїРѕРєР° С‚РѕР»СЊРєРѕ true(РїРѕРєР° РЅРµ РІР°Р¶РЅРѕ С‡РµРј)
+    for(int i=dnf.length()-1; i>=0; i--)//Р·Р°РїРѕР»РЅРµРЅРёРµ СЃС‚РµРєР°
     {
         formul.push(dnf[i]);
     }
@@ -738,7 +738,7 @@ QString Comply::decompositionOfLogicalOperations(QString dnf)//преобразование оп
     answer = expr();
     decomposNegative();
     //----
-/*ПРИМЕР
+/*РџР РРњР•Р 
     ShemE* e =new ShemE("not12","id1",output);
     shema->addBack(e);
     ShemE* ee =new ShemE("not12","id2",output);
@@ -748,10 +748,10 @@ QString Comply::decompositionOfLogicalOperations(QString dnf)//преобразование оп
 */
 
 
-    //actions разложить на элементарные операции учитывая bool optimal
-    decompos();//более детальное разбиение для размерности в один элемент
+    //actions СЂР°Р·Р»РѕР¶РёС‚СЊ РЅР° СЌР»РµРјРµРЅС‚Р°СЂРЅС‹Рµ РѕРїРµСЂР°С†РёРё СѓС‡РёС‚С‹РІР°СЏ bool optimal
+    decompos();//Р±РѕР»РµРµ РґРµС‚Р°Р»СЊРЅРѕРµ СЂР°Р·Р±РёРµРЅРёРµ РґР»СЏ СЂР°Р·РјРµСЂРЅРѕСЃС‚Рё РІ РѕРґРёРЅ СЌР»РµРјРµРЅС‚
 
-    //заполнение shema
+    //Р·Р°РїРѕР»РЅРµРЅРёРµ shema
 
 
     if(answer)
@@ -768,9 +768,9 @@ QString Comply::makeKey(int i)
     return key;
 }
 
-bool Comply::expr()//сумма
+bool Comply::expr()//СЃСѓРјРјР°
 {
-    //создание новой собаки и запись действий в нее
+    //СЃРѕР·РґР°РЅРёРµ РЅРѕРІРѕР№ СЃРѕР±Р°РєРё Рё Р·Р°РїРёСЃСЊ РґРµР№СЃС‚РІРёР№ РІ РЅРµРµ
     int tempCounter=counter;//
 
     //
@@ -784,7 +784,7 @@ bool Comply::expr()//сумма
         c=formul.top();
         formul.pop();
 
-        while (c == ' ')//пробелы после х
+        while (c == ' ')//РїСЂРѕР±РµР»С‹ РїРѕСЃР»Рµ С…
         {
             c=formul.top();
             formul.pop();
@@ -824,7 +824,7 @@ bool Comply::expr()//сумма
     return result;
 }
 
-bool Comply::variable()//подстановка переменной
+bool Comply::variable()//РїРѕРґСЃС‚Р°РЅРѕРІРєР° РїРµСЂРµРјРµРЅРЅРѕР№
 {
     bool result=false;
     bool sign = true;
@@ -844,9 +844,9 @@ bool Comply::variable()//подстановка переменной
         sign = false;
     }
     else
-        formul.push(c);//в начале цикла сниму
+        formul.push(c);//РІ РЅР°С‡Р°Р»Рµ С†РёРєР»Р° СЃРЅРёРјСѓ
 
-    if(c.isNumber())//нет уборки пробелов
+    if(c.isNumber())//РЅРµС‚ СѓР±РѕСЂРєРё РїСЂРѕР±РµР»РѕРІ
     {
         formul.pop();
         if(c=='0')
@@ -891,7 +891,7 @@ bool Comply::variable()//подстановка переменной
     return result;
 }
 
-bool Comply::factor()//произведение
+bool Comply::factor()//РїСЂРѕРёР·РІРµРґРµРЅРёРµ
 {
     bool result = brackets();
     QChar c;
@@ -946,7 +946,7 @@ bool Comply::factor()//произведение
     return result;
 }
 
-bool Comply::brackets()//скобки
+bool Comply::brackets()//СЃРєРѕР±РєРё
 {
     bool result;
     bool sign = true;
@@ -996,7 +996,7 @@ bool Comply::brackets()//скобки
             broken="The wrong placement of brackets \")\"! ";
             return false;
         }
-        //создать дальше currentVariable
+        //СЃРѕР·РґР°С‚СЊ РґР°Р»СЊС€Рµ currentVariable
 
 
         return result;

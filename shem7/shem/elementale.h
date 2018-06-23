@@ -2,7 +2,7 @@
 #define ELEMENTALE_H
 #include "element.h"
 
-class ElementalE : public Element//отрисовка элементарных логических элементов
+class ElementalE : public Element//РѕС‚СЂРёСЃРѕРІРєР° СЌР»РµРјРµРЅС‚Р°СЂРЅС‹С… Р»РѕРіРёС‡РµСЃРєРёС… СЌР»РµРјРµРЅС‚РѕРІ
 {
 public:
     ElementalE();

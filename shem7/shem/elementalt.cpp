@@ -9,9 +9,9 @@ ElementalT::ElementalT(QString nameElementFromBase):Element(nameElementFromBase)
 {
     generic(nameElementFromBase);
 }
-ElementalT::ElementalT(QString nameElementFromBase, QString id):Element(nameElementFromBase, id)//äîáàâèòü âñåì, à çäåñü ïîêà ê çàãîëîâêó
+ElementalT::ElementalT(QString nameElementFromBase, QString id):Element(nameElementFromBase, id)//Ð´Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð²ÑÐµÐ¼, Ð° Ð·Ð´ÐµÑÑŒ Ð¿Ð¾ÐºÐ° Ðº Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²ÐºÑƒ
 {
-    generic(nameElementFromBase);//id õðàíèòü ïî íåìó áóäåò âçàèìîäåéñòâèå ðàáîòàòü
+    generic(nameElementFromBase);//id Ñ…Ñ€Ð°Ð½Ð¸Ñ‚ÑŒ Ð¿Ð¾ Ð½ÐµÐ¼Ñƒ Ð±ÑƒÐ´ÐµÑ‚ Ð²Ð·Ð°Ð¸Ð¼Ð¾Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ðµ Ñ€Ð°Ð±Ð¾Ñ‚Ð°Ñ‚ÑŒ
     this->id=id;
 }
 
@@ -28,7 +28,7 @@ void ElementalT::draw(QPainter *painter)
         int d=yd;
         yd += interval;
         painter->drawLine(posx,posy+d,posx-10,posy+d);
-        wiresPos.insert(i,QPoint(posx-10,posy+d));//êîîðäèíàòû âõîäîâ(òî÷êè ïîäêëþ÷åíèÿ) îò 0
+        wiresPos.insert(i,QPoint(posx-10,posy+d));//ÐºÐ¾Ð¾Ñ€Ð´Ð¸Ð½Ð°Ñ‚Ñ‹ Ð²Ñ…Ð¾Ð´Ð¾Ð²(Ñ‚Ð¾Ñ‡ÐºÐ¸ Ð¿Ð¾Ð´ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ñ) Ð¾Ñ‚ 0
         if(type=="RS")
         {
             QString in = "S";
@@ -56,18 +56,18 @@ void ElementalT::draw(QPainter *painter)
     int d=yd;
     yd += interval;
     painter->drawLine(posx+width,posy+d,posx+width+10,posy+d);
-    wiresPos.insert( numInput,QPoint(posx+width+10,posy+d) );//êîîðäèíàòû âõîäîâ(òî÷êè ïîäêëþ÷åíèÿ) îò 0
+    wiresPos.insert( numInput,QPoint(posx+width+10,posy+d) );//ÐºÐ¾Ð¾Ñ€Ð´Ð¸Ð½Ð°Ñ‚Ñ‹ Ð²Ñ…Ð¾Ð´Ð¾Ð²(Ñ‚Ð¾Ñ‡ÐºÐ¸ Ð¿Ð¾Ð´ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ñ) Ð¾Ñ‚ 0
 
     d=yd;
     painter->drawEllipse(posx+width-2,posy+d-4,7,7);
     painter->drawLine(posx+width+5,posy+d,posx+width+10,posy+d);
-    wiresPos.insert( 1+numInput,QPoint(posx+width+10,posy+d) );//êîîðäèíàòû âõîäîâ(òî÷êè ïîäêëþ÷åíèÿ) îò 0
+    wiresPos.insert( 1+numInput,QPoint(posx+width+10,posy+d) );//ÐºÐ¾Ð¾Ñ€Ð´Ð¸Ð½Ð°Ñ‚Ñ‹ Ð²Ñ…Ð¾Ð´Ð¾Ð²(Ñ‚Ð¾Ñ‡ÐºÐ¸ Ð¿Ð¾Ð´ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ñ) Ð¾Ñ‚ 0
 }
 
-void ElementalT::generic(QString nameElementFromBase)//çàïîëíÿé
+void ElementalT::generic(QString nameElementFromBase)//Ð·Ð°Ð¿Ð¾Ð»Ð½ÑÐ¹
 {
     posx=10;
-    posy=20;//çàäàåòñÿ ïðè ïîñòðîåíèè ñõåìû
+    posy=20;//Ð·Ð°Ð´Ð°ÐµÑ‚ÑÑ Ð¿Ñ€Ð¸ Ð¿Ð¾ÑÑ‚Ñ€Ð¾ÐµÐ½Ð¸Ð¸ ÑÑ…ÐµÐ¼Ñ‹
     width=30;
     height=50;
 
@@ -76,7 +76,7 @@ void ElementalT::generic(QString nameElementFromBase)//çàïîëíÿé
 
     QSqlQuery *query = BDE::getInstance()->make(QString("select elements.name, operations.operation, wires.numInput, wires.numOutput from elements, wires, operations where (elements.idwires=wires.id and elements.idoperations=operations.id) and name LIKE '%1'").arg(nameElementFromBase));
 
-    //Âûâîäèì çíà÷åíèÿ èç çàïðîñà
+    //Ð’Ñ‹Ð²Ð¾Ð´Ð¸Ð¼ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ Ð¸Ð· Ð·Ð°Ð¿Ñ€Ð¾ÑÐ°
     width=45;
     height=70;
     query->next();

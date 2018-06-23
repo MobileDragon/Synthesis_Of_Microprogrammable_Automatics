@@ -3,7 +3,7 @@
 #include <QVector>
 #include "sheme.h"
 
-class CurrentShem//хранит массив указателей на элементы схемы
+class CurrentShem//С…СЂР°РЅРёС‚ РјР°СЃСЃРёРІ СѓРєР°Р·Р°С‚РµР»РµР№ РЅР° СЌР»РµРјРµРЅС‚С‹ СЃС…РµРјС‹
 {
 public:
     CurrentShem();
@@ -13,7 +13,7 @@ public:
     bool operator!= (CurrentShem* A);
 
 
-    QVector<ShemE*> elements;//массив указателей на элементы
+    QVector<ShemE*> elements;//РјР°СЃСЃРёРІ СѓРєР°Р·Р°С‚РµР»РµР№ РЅР° СЌР»РµРјРµРЅС‚С‹
 };
 
 #endif // CURRENTSHEM_H

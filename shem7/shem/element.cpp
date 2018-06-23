@@ -64,7 +64,7 @@ void Element::setId(QString id)
 }
 
 //
-QPoint Element::getPosInput(int numIn)//подсчеет начинается с 0
+QPoint Element::getPosInput(int numIn)//РїРѕРґСЃС‡РµРµС‚ РЅР°С‡РёРЅР°РµС‚СЃСЏ СЃ 0
 {
     QPoint dot=wiresPos[numIn];
     return dot;

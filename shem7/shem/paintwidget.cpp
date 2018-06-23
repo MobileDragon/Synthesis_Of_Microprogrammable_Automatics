@@ -9,8 +9,8 @@ PaintWidget::PaintWidget(QWidget *parent) : QWidget(parent)
     mDrawMode = false;
     activE=-1;
     activW=-1;
-    dh=40;//промежуток между элементами в высоту 20
-    dw=70;//промежуток между рангами элементов в ширину 40 80
+    dh=40;//РїСЂРѕРјРµР¶СѓС‚РѕРє РјРµР¶РґСѓ СЌР»РµРјРµРЅС‚Р°РјРё РІ РІС‹СЃРѕС‚Сѓ 20
+    dw=70;//РїСЂРѕРјРµР¶СѓС‚РѕРє РјРµР¶РґСѓ СЂР°РЅРіР°РјРё СЌР»РµРјРµРЅС‚РѕРІ РІ С€РёСЂРёРЅСѓ 40 80
     //this->update();
     //this->setToolTip("qw\nr/ner\nww");
     this->setMouseTracking(true);
@@ -28,17 +28,17 @@ PaintWidget::~PaintWidget()
 int PaintWidget::whotElement(ShemE* element)
 {
     if(element->wire.size() == 0)
-        return 2;//выход
+        return 2;//РІС‹С…РѕРґ
 
     QRegExp reg("[0-9]+");
-    if(reg.exactMatch(element->name) )//имя содержит только цифры
-        return 3;//вилка
+    if(reg.exactMatch(element->name) )//РёРјСЏ СЃРѕРґРµСЂР¶РёС‚ С‚РѕР»СЊРєРѕ С†РёС„СЂС‹
+        return 3;//РІРёР»РєР°
 
     if(element->name == element->id)
-        return 0;//вход
+        return 0;//РІС…РѕРґ
 
     if(element->wire.size() == 1)
-        return 1;//простой элемент с одним выходом
+        return 1;//РїСЂРѕСЃС‚РѕР№ СЌР»РµРјРµРЅС‚ СЃ РѕРґРЅРёРј РІС‹С…РѕРґРѕРј
 }
 
 bool PaintWidget::isEntryBridge(QPoint newBre)
@@ -54,21 +54,21 @@ bool PaintWidget::isEntryBridge(QPoint newBre)
     }
 }
 
-void PaintWidget::setShem(Shem* sh)//установка Shem
+void PaintWidget::setShem(Shem* sh)//СѓСЃС‚Р°РЅРѕРІРєР° Shem
 {
     shem=sh;
     CurrentShem* current = sh->start;
     CurrentShem* previous = 0;
 
-    QMap<QString, Element*> mapElement;//для быстрого обращения
-    int rung=1;//везде от единицы//ранг элементов
+    QMap<QString, Element*> mapElement;//РґР»СЏ Р±С‹СЃС‚СЂРѕРіРѕ РѕР±СЂР°С‰РµРЅРёСЏ
+    int rung=1;//РІРµР·РґРµ РѕС‚ РµРґРёРЅРёС†С‹//СЂР°РЅРі СЌР»РµРјРµРЅС‚РѕРІ
     do
     {
 
-        foreach(ShemE* element, current->elements)//каждый элемент текущего указателя
-        {//подключение элементов
+        foreach(ShemE* element, current->elements)//РєР°Р¶РґС‹Р№ СЌР»РµРјРµРЅС‚ С‚РµРєСѓС‰РµРіРѕ СѓРєР°Р·Р°С‚РµР»СЏ
+        {//РїРѕРґРєР»СЋС‡РµРЅРёРµ СЌР»РµРјРµРЅС‚РѕРІ
             Element* obj=0;
-            switch(whotElement(element))//возвращает номер типа элемента
+            switch(whotElement(element))//РІРѕР·РІСЂР°С‰Р°РµС‚ РЅРѕРјРµСЂ С‚РёРїР° СЌР»РµРјРµРЅС‚Р°
             {
                 case 0:obj = new ElementalInput(element->name,element->id);
                 break;
@@ -78,8 +78,8 @@ void PaintWidget::setShem(Shem* sh)//установка Shem
                 break;
                 case 3:obj = new ElementalWilka(element->name,element->id);
             }
-            //нет ли уже элемента с данным id и name
-            //если есть то obj=тот_что_найден и addElement отменяется
+            //РЅРµС‚ Р»Рё СѓР¶Рµ СЌР»РµРјРµРЅС‚Р° СЃ РґР°РЅРЅС‹Рј id Рё name
+            //РµСЃР»Рё РµСЃС‚СЊ С‚Рѕ obj=С‚РѕС‚_С‡С‚Рѕ_РЅР°Р№РґРµРЅ Рё addElement РѕС‚РјРµРЅСЏРµС‚СЃСЏ
             bool alredyC=false;
             foreach(Element* objT, eBuffer)
             {
@@ -92,24 +92,24 @@ void PaintWidget::setShem(Shem* sh)//установка Shem
             }
             if(!alredyC)
                 addElement(obj);
-            MapRung.insert(obj,rung);//подпись рангов
+            MapRung.insert(obj,rung);//РїРѕРґРїРёСЃСЊ СЂР°РЅРіРѕРІ
 
 
 
-            //создание проводов
+            //СЃРѕР·РґР°РЅРёРµ РїСЂРѕРІРѕРґРѕРІ
 
             if(previous != 0)
-            {//подключение провода к текущему элементу
+            {//РїРѕРґРєР»СЋС‡РµРЅРёРµ РїСЂРѕРІРѕРґР° Рє С‚РµРєСѓС‰РµРјСѓ СЌР»РµРјРµРЅС‚Сѓ
 
-                foreach(ShemE* element2, previous->elements)//каждый элемент предыдущего указателя
+                foreach(ShemE* element2, previous->elements)//РєР°Р¶РґС‹Р№ СЌР»РµРјРµРЅС‚ РїСЂРµРґС‹РґСѓС‰РµРіРѕ СѓРєР°Р·Р°С‚РµР»СЏ
                 {
-                    //если этот элемент содержит провод на добавленый элемент
-                    foreach(int key, element2->wire.keys())//номера выходов
+                    //РµСЃР»Рё СЌС‚РѕС‚ СЌР»РµРјРµРЅС‚ СЃРѕРґРµСЂР¶РёС‚ РїСЂРѕРІРѕРґ РЅР° РґРѕР±Р°РІР»РµРЅС‹Р№ СЌР»РµРјРµРЅС‚
+                    foreach(int key, element2->wire.keys())//РЅРѕРјРµСЂР° РІС‹С…РѕРґРѕРІ
                     {
                         if(element2->wire[key]->nextE->id == obj->id)
                         {
-                            //из предыдущего указателя найден провод на текущий элемент
-                            //нужен указатель на obj содержащий данный провод
+                            //РёР· РїСЂРµРґС‹РґСѓС‰РµРіРѕ СѓРєР°Р·Р°С‚РµР»СЏ РЅР°Р№РґРµРЅ РїСЂРѕРІРѕРґ РЅР° С‚РµРєСѓС‰РёР№ СЌР»РµРјРµРЅС‚
+                            //РЅСѓР¶РµРЅ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° obj СЃРѕРґРµСЂР¶Р°С‰РёР№ РґР°РЅРЅС‹Р№ РїСЂРѕРІРѕРґ
 
                             Element* start = mapElement[element2->id];
                             int startNumOut = key;
@@ -118,39 +118,39 @@ void PaintWidget::setShem(Shem* sh)//установка Shem
                             Element* end = obj;
                             int endNumInput = element2->wire[key]->nextWire;
                             WireOfE *w = new WireOfE(start,end,startNumOut,endNumInput);
-                            //был ли уже такой провод?
+                            //Р±С‹Р» Р»Рё СѓР¶Рµ С‚Р°РєРѕР№ РїСЂРѕРІРѕРґ?
                             bool flag = false;
                             foreach(WireOfE *wire, wBuffer)
                             {
                                 if(wire->startP == w->startP && wire->endP == w->endP)
-                                {//номер выхода из элемента
+                                {//РЅРѕРјРµСЂ РІС‹С…РѕРґР° РёР· СЌР»РµРјРµРЅС‚Р°
                                     if(wire->startN == w->startN && wire->endN == w->endN)
-                                    {//номер входа в следующий
+                                    {//РЅРѕРјРµСЂ РІС…РѕРґР° РІ СЃР»РµРґСѓСЋС‰РёР№
                                         flag = true;
                                         break;
                                     }
                                 }
                             }
                             if(!flag)
-                                addWire(w);//провод установлен
+                                addWire(w);//РїСЂРѕРІРѕРґ СѓСЃС‚Р°РЅРѕРІР»РµРЅ
                         }
                     }
                 }
             }
-            mapElement.insert(obj->id ,obj);//добавляются в коце чтобы вилки не затерли предшествинников раньше времени
-                                                //чтобы предшественники могли сослаться на свои вилки
+            mapElement.insert(obj->id ,obj);//РґРѕР±Р°РІР»СЏСЋС‚СЃСЏ РІ РєРѕС†Рµ С‡С‚РѕР±С‹ РІРёР»РєРё РЅРµ Р·Р°С‚РµСЂР»Рё РїСЂРµРґС€РµСЃС‚РІРёРЅРЅРёРєРѕРІ СЂР°РЅСЊС€Рµ РІСЂРµРјРµРЅРё
+                                                //С‡С‚РѕР±С‹ РїСЂРµРґС€РµСЃС‚РІРµРЅРЅРёРєРё РјРѕРіР»Рё СЃРѕСЃР»Р°С‚СЊСЃСЏ РЅР° СЃРІРѕРё РІРёР»РєРё
         }
         previous = current;
         current = Shem::next(current);
         rung++;
-    }while(current->elements.size()>0);//работает
+    }while(current->elements.size()>0);//СЂР°Р±РѕС‚Р°РµС‚
     //setAutoposityon();
-    setGrid();//установка позиций для росстановки элементов
+    setGrid();//СѓСЃС‚Р°РЅРѕРІРєР° РїРѕР·РёС†РёР№ РґР»СЏ СЂРѕСЃСЃС‚Р°РЅРѕРІРєРё СЌР»РµРјРµРЅС‚РѕРІ
     paintFirst();
     //
     QList<Element *> curListE;
-    foreach(ShemE* n_e, sh->start->elements)//вытягивать элементы и провода(выходы элементов)
-    {//заполнение списком начальных элементов
+    foreach(ShemE* n_e, sh->start->elements)//РІС‹С‚СЏРіРёРІР°С‚СЊ СЌР»РµРјРµРЅС‚С‹ Рё РїСЂРѕРІРѕРґР°(РІС‹С…РѕРґС‹ СЌР»РµРјРµРЅС‚РѕРІ)
+    {//Р·Р°РїРѕР»РЅРµРЅРёРµ СЃРїРёСЃРєРѕРј РЅР°С‡Р°Р»СЊРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ
         curListE.append(getELink(n_e->id) );
     }
     autoCorrected(curListE, QList<Line>() );//++++++++++++++++++++++
@@ -169,9 +169,9 @@ void PaintWidget::addWire(WireOfE *obj)
     wBuffer.append(obj);
 }
 
-void PaintWidget::setAutoVerticalLayout()//mapLevel должен быть проинициализирован
+void PaintWidget::setAutoVerticalLayout()//mapLevel РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РїСЂРѕРёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ
 {
-    QMap<int,int> hightAtRung;//вспомогательная, текущая высота столба в ранге
+    QMap<int,int> hightAtRung;//РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅР°СЏ, С‚РµРєСѓС‰Р°СЏ РІС‹СЃРѕС‚Р° СЃС‚РѕР»Р±Р° РІ СЂР°РЅРіРµ
     foreach(Element* e, mapLevel.keys())
     {
         int posX=10;
@@ -190,7 +190,7 @@ void PaintWidget::setAutoVerticalLayout()//mapLevel должен быть проинициализиров
 
 
     /*
-    QMap<int,int> hightAtRung;//вспомогательная, текущая высота столба в ранге
+    QMap<int,int> hightAtRung;//РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅР°СЏ, С‚РµРєСѓС‰Р°СЏ РІС‹СЃРѕС‚Р° СЃС‚РѕР»Р±Р° РІ СЂР°РЅРіРµ
     for(int i=0;i<eBuffer.size();i++)/////////////////////////////////////////////
     {
         int curRung = MapRung[eBuffer[i]];
@@ -204,35 +204,35 @@ void PaintWidget::setAutoVerticalLayout()//mapLevel должен быть проинициализиров
 
 void PaintWidget::setGrid()
 {
-    QMap<int,int> kolAtRung;//вспомогательная, хранит номер ранга и число элемнтов которые уже были с данным рангом
-    //QMap<int,int> hightAtRung;//вспомогательная, высота столба в ранге
+    QMap<int,int> kolAtRung;//РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅР°СЏ, С…СЂР°РЅРёС‚ РЅРѕРјРµСЂ СЂР°РЅРіР° Рё С‡РёСЃР»Рѕ СЌР»РµРјРЅС‚РѕРІ РєРѕС‚РѕСЂС‹Рµ СѓР¶Рµ Р±С‹Р»Рё СЃ РґР°РЅРЅС‹Рј СЂР°РЅРіРѕРј
+    //QMap<int,int> hightAtRung;//РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅР°СЏ, РІС‹СЃРѕС‚Р° СЃС‚РѕР»Р±Р° РІ СЂР°РЅРіРµ
     int rung=0;
     foreach(Element* eR,MapRung.keys())
     {
         rung = MapRung[eR];
-        kolAtRung.insert(rung,kolAtRung[rung]+1 );//увеличивает число элементов которые уже расставлены
-        mapLevel.insert(eR,kolAtRung[rung]);//вставка элемента с его уровнем(в высоту)
+        kolAtRung.insert(rung,kolAtRung[rung]+1 );//СѓРІРµР»РёС‡РёРІР°РµС‚ С‡РёСЃР»Рѕ СЌР»РµРјРµРЅС‚РѕРІ РєРѕС‚РѕСЂС‹Рµ СѓР¶Рµ СЂР°СЃСЃС‚Р°РІР»РµРЅС‹
+        mapLevel.insert(eR,kolAtRung[rung]);//РІСЃС‚Р°РІРєР° СЌР»РµРјРµРЅС‚Р° СЃ РµРіРѕ СѓСЂРѕРІРЅРµРј(РІ РІС‹СЃРѕС‚Сѓ)
     }
-    QMap<int,int> map_width;//ключ-ранг, значение-ширина
-    //запись ширин столбцов
+    QMap<int,int> map_width;//РєР»СЋС‡-СЂР°РЅРі, Р·РЅР°С‡РµРЅРёРµ-С€РёСЂРёРЅР°
+    //Р·Р°РїРёСЃСЊ С€РёСЂРёРЅ СЃС‚РѕР»Р±С†РѕРІ
     foreach(Element* eR,MapRung.keys())
     {
         rung = MapRung[eR];
         if(map_width[rung] < eR->getWidth() )
             map_width[rung] = eR->getWidth();
     }
-    QMap<int,int> map_posX;//ключ-ранг, значение-позиция столба по У
-    map_posX.insert(1,dw);//установка позиции для элементов первого столба
+    QMap<int,int> map_posX;//РєР»СЋС‡-СЂР°РЅРі, Р·РЅР°С‡РµРЅРёРµ-РїРѕР·РёС†РёСЏ СЃС‚РѕР»Р±Р° РїРѕ РЈ
+    map_posX.insert(1,dw);//СѓСЃС‚Р°РЅРѕРІРєР° РїРѕР·РёС†РёРё РґР»СЏ СЌР»РµРјРµРЅС‚РѕРІ РїРµСЂРІРѕРіРѕ СЃС‚РѕР»Р±Р°
     foreach(int curRung, map_width.keys())
     {
         map_posX.insert(curRung+1, map_posX[curRung]+map_width[curRung]+dw);
-    }//map_posY хранит позицию позицию для элемента после последнего(неиспользуется)
+    }//map_posY С…СЂР°РЅРёС‚ РїРѕР·РёС†РёСЋ РїРѕР·РёС†РёСЋ РґР»СЏ СЌР»РµРјРµРЅС‚Р° РїРѕСЃР»Рµ РїРѕСЃР»РµРґРЅРµРіРѕ(РЅРµРёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ)
 
-    for(int i=0;i<eBuffer.size();i++)//установка позиции
+    for(int i=0;i<eBuffer.size();i++)//СѓСЃС‚Р°РЅРѕРІРєР° РїРѕР·РёС†РёРё
     {
         int curRung = MapRung[eBuffer[i]];
 
-        eBuffer[i]->setPosX(map_posX[curRung]);//установка позиции
+        eBuffer[i]->setPosX(map_posX[curRung]);//СѓСЃС‚Р°РЅРѕРІРєР° РїРѕР·РёС†РёРё
     }
     setAutoVerticalLayout();
 
@@ -263,13 +263,13 @@ void PaintWidget::paintFirst()
             }
         if(!flag)
         {
-            wBuffer[i]->defaultW();//задать вызов только для не статичных(static_wire)
+            wBuffer[i]->defaultW();//Р·Р°РґР°С‚СЊ РІС‹Р·РѕРІ С‚РѕР»СЊРєРѕ РґР»СЏ РЅРµ СЃС‚Р°С‚РёС‡РЅС‹С…(static_wire)
         }
         else
         {
-            //поскольку провод уже статичен
+            //РїРѕСЃРєРѕР»СЊРєСѓ РїСЂРѕРІРѕРґ СѓР¶Рµ СЃС‚Р°С‚РёС‡РµРЅ
             int kol=0;
-            QList<Line> lines=wBuffer[i]->getLines();//линии статичного провода
+            QList<Line> lines=wBuffer[i]->getLines();//Р»РёРЅРёРё СЃС‚Р°С‚РёС‡РЅРѕРіРѕ РїСЂРѕРІРѕРґР°
             int j=0;
             while(kol < lines.size())
             {
@@ -310,16 +310,16 @@ Element* PaintWidget::getELink(QString id)
 }
 
 QList<WireOfE *> PaintWidget::getWLink(ShemE* n_e)
-{//вернуть массив ссылок на провода отрисовки
-    QList<WireOfE *> wires;//провода на выходах элементов
+{//РІРµСЂРЅСѓС‚СЊ РјР°СЃСЃРёРІ СЃСЃС‹Р»РѕРє РЅР° РїСЂРѕРІРѕРґР° РѕС‚СЂРёСЃРѕРІРєРё
+    QList<WireOfE *> wires;//РїСЂРѕРІРѕРґР° РЅР° РІС‹С…РѕРґР°С… СЌР»РµРјРµРЅС‚РѕРІ
 
-        //ссылка на начальный и конечный элемент совпадает, а еще номера ывхода и входа тоже
-        foreach(int numW, n_e->wire.keys() )//каждый выход на схеме
+        //СЃСЃС‹Р»РєР° РЅР° РЅР°С‡Р°Р»СЊРЅС‹Р№ Рё РєРѕРЅРµС‡РЅС‹Р№ СЌР»РµРјРµРЅС‚ СЃРѕРІРїР°РґР°РµС‚, Р° РµС‰Рµ РЅРѕРјРµСЂР° С‹РІС…РѕРґР° Рё РІС…РѕРґР° С‚РѕР¶Рµ
+        foreach(int numW, n_e->wire.keys() )//РєР°Р¶РґС‹Р№ РІС‹С…РѕРґ РЅР° СЃС…РµРјРµ
         {
             currentWire* wireS = n_e->wire[numW];
             ShemE* startS=n_e;
             ShemE* endS=wireS->nextE;
-            //данные об искомом проводе
+            //РґР°РЅРЅС‹Рµ РѕР± РёСЃРєРѕРјРѕРј РїСЂРѕРІРѕРґРµ
             Element* startP = getELink(startS->id);
             Element* endP = getELink(endS->id);
             int startNumOut = numW;
@@ -340,9 +340,9 @@ QList<WireOfE *> PaintWidget::getWLink(ShemE* n_e)
 
 Element * PaintWidget::chenge_level(Element *wire, QList<int> old_numbers)
 {
-    //в shem номера выходов не меняются
-        //номера входов в элементе к уоторому подключается провод
-        //номера входов начинаются с 0
+    //РІ shem РЅРѕРјРµСЂР° РІС‹С…РѕРґРѕРІ РЅРµ РјРµРЅСЏСЋС‚СЃСЏ
+        //РЅРѕРјРµСЂР° РІС…РѕРґРѕРІ РІ СЌР»РµРјРµРЅС‚Рµ Рє СѓРѕС‚РѕСЂРѕРјСѓ РїРѕРґРєР»СЋС‡Р°РµС‚СЃСЏ РїСЂРѕРІРѕРґ
+        //РЅРѕРјРµСЂР° РІС…РѕРґРѕРІ РЅР°С‡РёРЅР°СЋС‚СЃСЏ СЃ 0
         //QList<int> listNum;
         Element* W2=0;
 
@@ -350,7 +350,7 @@ Element * PaintWidget::chenge_level(Element *wire, QList<int> old_numbers)
         int curNumEnd = mapLevel[wire];
         /*if(curNumEnd==1)
             return false;*/
-        //количество
+        //РєРѕР»РёС‡РµСЃС‚РІРѕ
         int rungt=MapRung[wire];
         int kol=0;
         foreach(Element *w, MapRung.keys())
@@ -360,7 +360,7 @@ Element * PaintWidget::chenge_level(Element *wire, QList<int> old_numbers)
         }
 
         //int kol = wire->endP->getNumInput();
-        for(int i=1; i <= kol; i++)//входы элемента
+        for(int i=1; i <= kol; i++)//РІС…РѕРґС‹ СЌР»РµРјРµРЅС‚Р°
         {
             bool flag = false;
             foreach(int num ,old_numbers)
@@ -372,11 +372,11 @@ Element * PaintWidget::chenge_level(Element *wire, QList<int> old_numbers)
                 }
             }
             if(!flag && i!=curNumEnd)
-            {//усть вход для этого элемента, который раньше не использовался
+            {//СѓСЃС‚СЊ РІС…РѕРґ РґР»СЏ СЌС‚РѕРіРѕ СЌР»РµРјРµРЅС‚Р°, РєРѕС‚РѕСЂС‹Р№ СЂР°РЅСЊС€Рµ РЅРµ РёСЃРїРѕР»СЊР·РѕРІР°Р»СЃСЏ
 
                 //
                 foreach(Element *curW, eBuffer)
-                {//провд который подключен на этот вход
+                {//РїСЂРѕРІРґ РєРѕС‚РѕСЂС‹Р№ РїРѕРґРєР»СЋС‡РµРЅ РЅР° СЌС‚РѕС‚ РІС…РѕРґ
                     if(mapLevel[curW]==i && MapRung[curW]==rungt )
                     {
                         mapLevel[curW] = curNumEnd;
@@ -394,10 +394,10 @@ Element * PaintWidget::chenge_level(Element *wire, QList<int> old_numbers)
         return W2;
 }
 
-WireOfE * PaintWidget::chenge_out(WireOfE *wire, QList<int> old_numbers)//возвращает ссылку на второй провод
-{//в shem номера выходов не меняются
-    //номера входов в элементе к уоторому подключается провод
-    //номера входов начинаются с 0
+WireOfE * PaintWidget::chenge_out(WireOfE *wire, QList<int> old_numbers)//РІРѕР·РІСЂР°С‰Р°РµС‚ СЃСЃС‹Р»РєСѓ РЅР° РІС‚РѕСЂРѕР№ РїСЂРѕРІРѕРґ
+{//РІ shem РЅРѕРјРµСЂР° РІС‹С…РѕРґРѕРІ РЅРµ РјРµРЅСЏСЋС‚СЃСЏ
+    //РЅРѕРјРµСЂР° РІС…РѕРґРѕРІ РІ СЌР»РµРјРµРЅС‚Рµ Рє СѓРѕС‚РѕСЂРѕРјСѓ РїРѕРґРєР»СЋС‡Р°РµС‚СЃСЏ РїСЂРѕРІРѕРґ
+    //РЅРѕРјРµСЂР° РІС…РѕРґРѕРІ РЅР°С‡РёРЅР°СЋС‚СЃСЏ СЃ 0
     //QList<int> listNum;
     WireOfE* W2=0;
 
@@ -406,7 +406,7 @@ WireOfE * PaintWidget::chenge_out(WireOfE *wire, QList<int> old_numbers)//возвра
       //  return false;
 
     int kol = wire->endP->getNumInput();
-    for(int i=0; i < kol; i++)//входы элемента
+    for(int i=0; i < kol; i++)//РІС…РѕРґС‹ СЌР»РµРјРµРЅС‚Р°
     {
         bool flag = false;
         foreach(int num ,old_numbers)
@@ -418,11 +418,11 @@ WireOfE * PaintWidget::chenge_out(WireOfE *wire, QList<int> old_numbers)//возвра
             }
         }
         if(!flag && i!=curNumEnd)
-        {//усть вход для этого элемента, который раньше не использовался
+        {//СѓСЃС‚СЊ РІС…РѕРґ РґР»СЏ СЌС‚РѕРіРѕ СЌР»РµРјРµРЅС‚Р°, РєРѕС‚РѕСЂС‹Р№ СЂР°РЅСЊС€Рµ РЅРµ РёСЃРїРѕР»СЊР·РѕРІР°Р»СЃСЏ
 
             //
             foreach(WireOfE *curW, wBuffer)
-            {//провд который подключен на этот вход
+            {//РїСЂРѕРІРґ РєРѕС‚РѕСЂС‹Р№ РїРѕРґРєР»СЋС‡РµРЅ РЅР° СЌС‚РѕС‚ РІС…РѕРґ
                 if(curW->endP ==  wire->endP && curW->endN == i)
                 {
                     curW->endN = curNumEnd;
@@ -446,8 +446,8 @@ int PaintWidget::chengeElementsLevel(int i,int search,QList<LevelsElement> &usin
         qDebug()<<"| "<< usingOuts[n].cur_old_levels.size();
         //usingOuts[n].cur_old_levels.clear();
     }
-    //i-номер текущего провода в списке
-        int cur_n_for_chenge=search;//номер изменяемого провода
+    //i-РЅРѕРјРµСЂ С‚РµРєСѓС‰РµРіРѕ РїСЂРѕРІРѕРґР° РІ СЃРїРёСЃРєРµ
+        int cur_n_for_chenge=search;//РЅРѕРјРµСЂ РёР·РјРµРЅСЏРµРјРѕРіРѕ РїСЂРѕРІРѕРґР°
         if(search > i)
         {
             cur_n_for_chenge = chengeElementsLevel(i+1, search, usingOuts );
@@ -456,16 +456,16 @@ int PaintWidget::chengeElementsLevel(int i,int search,QList<LevelsElement> &usin
         }
         if(cur_n_for_chenge == i)
         {
-            int oldOut =mapLevel[usingOuts[i].e];//номер выхода который заменится
+            int oldOut =mapLevel[usingOuts[i].e];//РЅРѕРјРµСЂ РІС‹С…РѕРґР° РєРѕС‚РѕСЂС‹Р№ Р·Р°РјРµРЅРёС‚СЃСЏ
 
             Element* W2=chenge_level(usingOuts[i].e, usingOuts[i].cur_old_levels);
-            if(W2!=0 )//выход удалось помеять
-            {//удалось поменять выход
+            if(W2!=0 )//РІС‹С…РѕРґ СѓРґР°Р»РѕСЃСЊ РїРѕРјРµСЏС‚СЊ
+            {//СѓРґР°Р»РѕСЃСЊ РїРѕРјРµРЅСЏС‚СЊ РІС‹С…РѕРґ
                 usingOuts[i].cur_old_levels.append(oldOut);
-                //также записать старый выход для провода с которым произошла замена
+                //С‚Р°РєР¶Рµ Р·Р°РїРёСЃР°С‚СЊ СЃС‚Р°СЂС‹Р№ РІС‹С…РѕРґ РґР»СЏ РїСЂРѕРІРѕРґР° СЃ РєРѕС‚РѕСЂС‹Рј РїСЂРѕРёР·РѕС€Р»Р° Р·Р°РјРµРЅР°
 
                 for(int n=0; n < usingOuts.size(); n++)
-                {//если элемента нет то он и не записывается
+                {//РµСЃР»Рё СЌР»РµРјРµРЅС‚Р° РЅРµС‚ С‚Рѕ РѕРЅ Рё РЅРµ Р·Р°РїРёСЃС‹РІР°РµС‚СЃСЏ
                     LevelsElement outWire=usingOuts[n];
                     if(outWire.e == W2)
                     {
@@ -476,19 +476,19 @@ int PaintWidget::chengeElementsLevel(int i,int search,QList<LevelsElement> &usin
                 return (i);
             }
             else
-            {//уже перебраны все варианты подключений
-             //нижестоящих(в списке) проводов  //рангов
+            {//СѓР¶Рµ РїРµСЂРµР±СЂР°РЅС‹ РІСЃРµ РІР°СЂРёР°РЅС‚С‹ РїРѕРґРєР»СЋС‡РµРЅРёР№
+             //РЅРёР¶РµСЃС‚РѕСЏС‰РёС…(РІ СЃРїРёСЃРєРµ) РїСЂРѕРІРѕРґРѕРІ  //СЂР°РЅРіРѕРІ
                 for(int n = i; n < usingOuts.size(); n++)
                 {
                     usingOuts[n].cur_old_levels.clear();
                 }
-                //изменить положение вышестоящего элемента
+                //РёР·РјРµРЅРёС‚СЊ РїРѕР»РѕР¶РµРЅРёРµ РІС‹С€РµСЃС‚РѕСЏС‰РµРіРѕ СЌР»РµРјРµРЅС‚Р°
                 return (i-1);//search
             }
         }
 
 /*
-        if(cur_n_for_chenge == search)//это была самая вложеная
+        if(cur_n_for_chenge == search)//СЌС‚Рѕ Р±С‹Р»Р° СЃР°РјР°СЏ РІР»РѕР¶РµРЅР°СЏ
             return search;
         else//*/
             return (search);
@@ -497,8 +497,8 @@ int PaintWidget::chengeElementsLevel(int i,int search,QList<LevelsElement> &usin
 
 
 int PaintWidget::chengeWiresConnected(int i,int search,QList<OutsWire>& usingOuts )
-{//i-номер текущего провода в списке
-    int cur_n_for_chenge=search;//номер изменяемого провода
+{//i-РЅРѕРјРµСЂ С‚РµРєСѓС‰РµРіРѕ РїСЂРѕРІРѕРґР° РІ СЃРїРёСЃРєРµ
+    int cur_n_for_chenge=search;//РЅРѕРјРµСЂ РёР·РјРµРЅСЏРµРјРѕРіРѕ РїСЂРѕРІРѕРґР°
     if(search > i)
     {
         cur_n_for_chenge = chengeWiresConnected(i+1, search, usingOuts );
@@ -507,13 +507,13 @@ int PaintWidget::chengeWiresConnected(int i,int search,QList<OutsWire>& usingOut
     }
     if(cur_n_for_chenge == i)
     {
-        int oldOut = usingOuts[i].wire->endN;//номер выхода который заменится
+        int oldOut = usingOuts[i].wire->endN;//РЅРѕРјРµСЂ РІС‹С…РѕРґР° РєРѕС‚РѕСЂС‹Р№ Р·Р°РјРµРЅРёС‚СЃСЏ
 
         WireOfE* W2=chenge_out(usingOuts[i].wire, usingOuts[i].cur_old_outs);
-        if(W2!=0 )//выход удалось помеять
-        {//удалось поменять выход
+        if(W2!=0 )//РІС‹С…РѕРґ СѓРґР°Р»РѕСЃСЊ РїРѕРјРµСЏС‚СЊ
+        {//СѓРґР°Р»РѕСЃСЊ РїРѕРјРµРЅСЏС‚СЊ РІС‹С…РѕРґ
             usingOuts[i].cur_old_outs.append(oldOut);
-            //также записать старый выход для провода с которым произошла замена
+            //С‚Р°РєР¶Рµ Р·Р°РїРёСЃР°С‚СЊ СЃС‚Р°СЂС‹Р№ РІС‹С…РѕРґ РґР»СЏ РїСЂРѕРІРѕРґР° СЃ РєРѕС‚РѕСЂС‹Рј РїСЂРѕРёР·РѕС€Р»Р° Р·Р°РјРµРЅР°
 
             for(int n=0; n < usingOuts.size(); n++)
             {
@@ -527,19 +527,19 @@ int PaintWidget::chengeWiresConnected(int i,int search,QList<OutsWire>& usingOut
             return (i);
         }
         else
-        {//уже перебраны все варианты подключений
-         //нижестоящих(в списке) проводов
+        {//СѓР¶Рµ РїРµСЂРµР±СЂР°РЅС‹ РІСЃРµ РІР°СЂРёР°РЅС‚С‹ РїРѕРґРєР»СЋС‡РµРЅРёР№
+         //РЅРёР¶РµСЃС‚РѕСЏС‰РёС…(РІ СЃРїРёСЃРєРµ) РїСЂРѕРІРѕРґРѕРІ
             for(int n = i; n < usingOuts.size(); n++)
             {
                 usingOuts[n].cur_old_outs.clear();
             }
-            //изменить положение вышестоящего элемента
+            //РёР·РјРµРЅРёС‚СЊ РїРѕР»РѕР¶РµРЅРёРµ РІС‹С€РµСЃС‚РѕСЏС‰РµРіРѕ СЌР»РµРјРµРЅС‚Р°
             return (i-1);//search
         }
     }
 
 /*
-    if(cur_n_for_chenge == search)//это была самая вложеная
+    if(cur_n_for_chenge == search)//СЌС‚Рѕ Р±С‹Р»Р° СЃР°РјР°СЏ РІР»РѕР¶РµРЅР°СЏ
         return search;
     else//*/
         return (search);
@@ -563,7 +563,7 @@ QList<Element*> PaintWidget::next(QList<Element*> curListE)
 {
     QList<WireOfE*> wires_out;
     QList<Element*> nextListE;
-    QMap<Element*, int> numInput;//хранит число проводов которые сейчас найдены
+    QMap<Element*, int> numInput;//С…СЂР°РЅРёС‚ С‡РёСЃР»Рѕ РїСЂРѕРІРѕРґРѕРІ РєРѕС‚РѕСЂС‹Рµ СЃРµР№С‡Р°СЃ РЅР°Р№РґРµРЅС‹
     foreach(WireOfE*wire, wBuffer)
     {
         foreach(Element* curElement, curListE)
@@ -578,14 +578,14 @@ QList<Element*> PaintWidget::next(QList<Element*> curListE)
         if(numInput[curElement] == curElement->getNumInput() )
             nextListE.append(curElement);
         else
-        {//найдены не все входы
+        {//РЅР°Р№РґРµРЅС‹ РЅРµ РІСЃРµ РІС…РѕРґС‹
             foreach(WireOfE*wire, wires_out)
             {
                 if(wire->endP == curElement)
-                {//провод который указывает на этот элемент
+                {//РїСЂРѕРІРѕРґ РєРѕС‚РѕСЂС‹Р№ СѓРєР°Р·С‹РІР°РµС‚ РЅР° СЌС‚РѕС‚ СЌР»РµРјРµРЅС‚
                     bool flag=false;
                     foreach(Element* e, nextListE)
-                    {//если элемента что ссылается eще небыло
+                    {//РµСЃР»Рё СЌР»РµРјРµРЅС‚Р° С‡С‚Рѕ СЃСЃС‹Р»Р°РµС‚СЃСЏ eС‰Рµ РЅРµР±С‹Р»Рѕ
                         if(e == wire->startP)
                         {
                             flag = true;
@@ -593,7 +593,7 @@ QList<Element*> PaintWidget::next(QList<Element*> curListE)
                         }
                     }
                     if(!flag)
-                        nextListE.append(wire->startP);//элемент в начале этого провода
+                        nextListE.append(wire->startP);//СЌР»РµРјРµРЅС‚ РІ РЅР°С‡Р°Р»Рµ СЌС‚РѕРіРѕ РїСЂРѕРІРѕРґР°
                 }
             }
         }
@@ -602,7 +602,7 @@ QList<Element*> PaintWidget::next(QList<Element*> curListE)
 }*/
 
 //--
-void PaintWidget::autoCorrected(QList<Element*> curListER, QList<Line>linesToPrevE)//рекурсия
+void PaintWidget::autoCorrected(QList<Element*> curListER, QList<Line>linesToPrevE)//СЂРµРєСѓСЂСЃРёСЏ
 {
     QList<Element*> curListE;
     //
@@ -610,7 +610,7 @@ void PaintWidget::autoCorrected(QList<Element*> curListER, QList<Line>linesToPre
     foreach(Element* n_e, curListER)
     {
         foreach(WireOfE* w ,wBuffer)//
-        {//элементы что указывают на текущий элемент
+        {//СЌР»РµРјРµРЅС‚С‹ С‡С‚Рѕ СѓРєР°Р·С‹РІР°СЋС‚ РЅР° С‚РµРєСѓС‰РёР№ СЌР»РµРјРµРЅС‚
             if(w->endP == n_e)
             {
                 bool isFind = false;
@@ -633,18 +633,18 @@ void PaintWidget::autoCorrected(QList<Element*> curListER, QList<Line>linesToPre
     //
     if(curListE.size()==0)
         return;
-    QList<OutsWire> usingOuts;//список проводов и выходов ими используемых
-    QList<LevelsElement> usingLevels;//список элементов и уровней ими используемых
+    QList<OutsWire> usingOuts;//СЃРїРёСЃРѕРє РїСЂРѕРІРѕРґРѕРІ Рё РІС‹С…РѕРґРѕРІ РёРјРё РёСЃРїРѕР»СЊР·СѓРµРјС‹С…
+    QList<LevelsElement> usingLevels;//СЃРїРёСЃРѕРє СЌР»РµРјРµРЅС‚РѕРІ Рё СѓСЂРѕРІРЅРµР№ РёРјРё РёСЃРїРѕР»СЊР·СѓРµРјС‹С…
     //
 
-    QList<Line> temp_Line;//список линий для элементов расположеных на текущем cur(элементы могут потом менять уровень)
-    QList<WireOfE *> temp_Wire;//провода длякорректировки
+    QList<Line> temp_Line;//СЃРїРёСЃРѕРє Р»РёРЅРёР№ РґР»СЏ СЌР»РµРјРµРЅС‚РѕРІ СЂР°СЃРїРѕР»РѕР¶РµРЅС‹С… РЅР° С‚РµРєСѓС‰РµРј cur(СЌР»РµРјРµРЅС‚С‹ РјРѕРіСѓС‚ РїРѕС‚РѕРј РјРµРЅСЏС‚СЊ СѓСЂРѕРІРµРЅСЊ)
+    QList<WireOfE *> temp_Wire;//РїСЂРѕРІРѕРґР° РґР»СЏРєРѕСЂСЂРµРєС‚РёСЂРѕРІРєРё
 
-    QMap<int,int> list_rungs;//номер ранга
-    QMap<Element*,int>next_elements;//список элементов на которые можно попасть из текущих
-    //он может быть не таким как next если имеются элементы с более одним выходом
-    foreach(Element* n_e, curListE)//вытягивать элементы и провода(выходы элементов)
-    {//заполнение
+    QMap<int,int> list_rungs;//РЅРѕРјРµСЂ СЂР°РЅРіР°
+    QMap<Element*,int>next_elements;//СЃРїРёСЃРѕРє СЌР»РµРјРµРЅС‚РѕРІ РЅР° РєРѕС‚РѕСЂС‹Рµ РјРѕР¶РЅРѕ РїРѕРїР°СЃС‚СЊ РёР· С‚РµРєСѓС‰РёС…
+    //РѕРЅ РјРѕР¶РµС‚ Р±С‹С‚СЊ РЅРµ С‚Р°РєРёРј РєР°Рє next РµСЃР»Рё РёРјРµСЋС‚СЃСЏ СЌР»РµРјРµРЅС‚С‹ СЃ Р±РѕР»РµРµ РѕРґРЅРёРј РІС‹С…РѕРґРѕРј
+    foreach(Element* n_e, curListE)//РІС‹С‚СЏРіРёРІР°С‚СЊ СЌР»РµРјРµРЅС‚С‹ Рё РїСЂРѕРІРѕРґР°(РІС‹С…РѕРґС‹ СЌР»РµРјРµРЅС‚РѕРІ)
+    {//Р·Р°РїРѕР»РЅРµРЅРёРµ
         QList<Line> e_Line=descriptElementLike3Line(n_e );//
         temp_Line.append(e_Line[0]);
         temp_Line.append(e_Line[1]);
@@ -654,14 +654,14 @@ void PaintWidget::autoCorrected(QList<Element*> curListER, QList<Line>linesToPre
         //
         foreach(WireOfE * w, wBuffer)
         {
-            if(w->startP == n_e)//вилки тоже отлавливаются
+            if(w->startP == n_e)//РІРёР»РєРё С‚РѕР¶Рµ РѕС‚Р»Р°РІР»РёРІР°СЋС‚СЃСЏ
                 next_elements.insert(w->endP,0);
         }
 
 
         QList<WireOfE *> tempw;
         foreach(WireOfE* wire, wBuffer)
-        {//провода что выходят из элементов
+        {//РїСЂРѕРІРѕРґР° С‡С‚Рѕ РІС‹С…РѕРґСЏС‚ РёР· СЌР»РµРјРµРЅС‚РѕРІ
             if(wire->startP == n_e)
                 tempw.append(wire);
         }
@@ -691,7 +691,7 @@ void PaintWidget::autoCorrected(QList<Element*> curListER, QList<Line>linesToPre
     }
     //
 
-    foreach(Element *e, next_elements.keys())//что-то не так---------------------------------------------------
+    foreach(Element *e, next_elements.keys())//С‡С‚Рѕ-С‚Рѕ РЅРµ С‚Р°Рє---------------------------------------------------
     {
         foreach(WireOfE * w, wBuffer)
         {
@@ -707,8 +707,8 @@ void PaintWidget::autoCorrected(QList<Element*> curListER, QList<Line>linesToPre
 
     //
     int cur_n_e=usingLevels.size()-1;
-    int cur_n_w=usingOuts.size()-1;//провод который первый сменит положение
-    //проверка если не удается проложить провода
+    int cur_n_w=usingOuts.size()-1;//РїСЂРѕРІРѕРґ РєРѕС‚РѕСЂС‹Р№ РїРµСЂРІС‹Р№ СЃРјРµРЅРёС‚ РїРѕР»РѕР¶РµРЅРёРµ
+    //РїСЂРѕРІРµСЂРєР° РµСЃР»Рё РЅРµ СѓРґР°РµС‚СЃСЏ РїСЂРѕР»РѕР¶РёС‚СЊ РїСЂРѕРІРѕРґР°
     bool flag =true;
     //
     /*
@@ -733,7 +733,7 @@ void PaintWidget::autoCorrected(QList<Element*> curListER, QList<Line>linesToPre
             static_LineTemp.append(L4);
         foreach(Line L5, static_Line)
             static_LineTemp.append(L5);
-        foreach(Line L6, temp_Line)//при перестановки элементов менять список синий описыв текущ элементы
+        foreach(Line L6, temp_Line)//РїСЂРё РїРµСЂРµСЃС‚Р°РЅРѕРІРєРё СЌР»РµРјРµРЅС‚РѕРІ РјРµРЅСЏС‚СЊ СЃРїРёСЃРѕРє СЃРёРЅРёР№ РѕРїРёСЃС‹РІ С‚РµРєСѓС‰ СЌР»РµРјРµРЅС‚С‹
             static_LineTemp.append(L6);
         foreach(WireOfE * w, temp_Wire)
         {
@@ -745,8 +745,8 @@ void PaintWidget::autoCorrected(QList<Element*> curListER, QList<Line>linesToPre
             }
             //
             QList<Line> wireL=w->getLines();
-            foreach(Line L, wireL)//линии проводов
-            {//не стыковаться с проводом после его размещения
+            foreach(Line L, wireL)//Р»РёРЅРёРё РїСЂРѕРІРѕРґРѕРІ
+            {//РЅРµ СЃС‚С‹РєРѕРІР°С‚СЊСЃСЏ СЃ РїСЂРѕРІРѕРґРѕРј РїРѕСЃР»Рµ РµРіРѕ СЂР°Р·РјРµС‰РµРЅРёСЏ
                 static_LineTemp.append(L);
             }
         }
@@ -764,7 +764,7 @@ void PaintWidget::autoCorrected(QList<Element*> curListER, QList<Line>linesToPre
             levelsG.append(QString(":%1 ").arg(cur_n_e) );
 
 /*
-            if(cur_n_e==-1)//перебор завершен
+            if(cur_n_e==-1)//РїРµСЂРµР±РѕСЂ Р·Р°РІРµСЂС€РµРЅ
             {
 
 
@@ -791,10 +791,10 @@ void PaintWidget::autoCorrected(QList<Element*> curListER, QList<Line>linesToPre
             }*/
             if(cur_n_e==-1)
                 flag = true;
-            setAutoVerticalLayout();//обновление позиции элементов из-за смены уровней
-            paintFirst();//переподключение проводов по новым номерам
+            setAutoVerticalLayout();//РѕР±РЅРѕРІР»РµРЅРёРµ РїРѕР·РёС†РёРё СЌР»РµРјРµРЅС‚РѕРІ РёР·-Р·Р° СЃРјРµРЅС‹ СѓСЂРѕРІРЅРµР№
+            paintFirst();//РїРµСЂРµРїРѕРґРєР»СЋС‡РµРЅРёРµ РїСЂРѕРІРѕРґРѕРІ РїРѕ РЅРѕРІС‹Рј РЅРѕРјРµСЂР°Рј
         }
-        //flag =false //менять выходы местами//менять входы местами(Level элементов)++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        //flag =false //РјРµРЅСЏС‚СЊ РІС‹С…РѕРґС‹ РјРµСЃС‚Р°РјРё//РјРµРЅСЏС‚СЊ РІС…РѕРґС‹ РјРµСЃС‚Р°РјРё(Level СЌР»РµРјРµРЅС‚РѕРІ)++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     }while(!flag);
 
 
@@ -805,25 +805,25 @@ void PaintWidget::autoCorrected(QList<Element*> curListER, QList<Line>linesToPre
     msgBox.exec();*/
     //
 
-    //запись объектов для проверки следующих
+    //Р·Р°РїРёСЃСЊ РѕР±СЉРµРєС‚РѕРІ РґР»СЏ РїСЂРѕРІРµСЂРєРё СЃР»РµРґСѓСЋС‰РёС…
     foreach(WireOfE * w, temp_Wire)
     {
         static_wire.append(w);
 
         QList<Line> wire=w->getLines();
-        foreach(Line L, wire)//линии проводов
+        foreach(Line L, wire)//Р»РёРЅРёРё РїСЂРѕРІРѕРґРѕРІ
         {
             static_Line.append(L);
         }
     }
-    foreach(Line L, temp_Line)//линии элементов
+    foreach(Line L, temp_Line)//Р»РёРЅРёРё СЌР»РµРјРµРЅС‚РѕРІ
     {
         static_Line.append(L);
     }
-    //запись окончена рекурсия переходит на уровень выше
+    //Р·Р°РїРёСЃСЊ РѕРєРѕРЅС‡РµРЅР° СЂРµРєСѓСЂСЃРёСЏ РїРµСЂРµС…РѕРґРёС‚ РЅР° СѓСЂРѕРІРµРЅСЊ РІС‹С€Рµ
 }
 QList<Line> PaintWidget::descriptElementLike3Line(Element* e)
-{//добавить 3-ю линию
+{//РґРѕР±Р°РІРёС‚СЊ 3-СЋ Р»РёРЅРёСЋ
 
     QList <Line> lines;
     Line L1;
@@ -843,19 +843,19 @@ QList<Line> PaintWidget::descriptElementLike3Line(Element* e)
 
 //------------------------------------------------------------
 
-void PaintWidget::setAutoposityon()//старо
+void PaintWidget::setAutoposityon()//СЃС‚Р°СЂРѕ
 {
-    //нужна карта хранящая указатель и уроверь(в вниз спукаясь какой это элемент по счету в ранге данного элемента)
-    //mapLevel;//Level тоже с 1 начинается как и Rung
-    QMap<int,int> kolAtRung;//вспомогательная, хранит номер ранга и число элемнтов которые уже были с данным рангом
+    //РЅСѓР¶РЅР° РєР°СЂС‚Р° С…СЂР°РЅСЏС‰Р°СЏ СѓРєР°Р·Р°С‚РµР»СЊ Рё СѓСЂРѕРІРµСЂСЊ(РІ РІРЅРёР· СЃРїСѓРєР°СЏСЃСЊ РєР°РєРѕР№ СЌС‚Рѕ СЌР»РµРјРµРЅС‚ РїРѕ СЃС‡РµС‚Сѓ РІ СЂР°РЅРіРµ РґР°РЅРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р°)
+    //mapLevel;//Level С‚РѕР¶Рµ СЃ 1 РЅР°С‡РёРЅР°РµС‚СЃСЏ РєР°Рє Рё Rung
+    QMap<int,int> kolAtRung;//РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅР°СЏ, С…СЂР°РЅРёС‚ РЅРѕРјРµСЂ СЂР°РЅРіР° Рё С‡РёСЃР»Рѕ СЌР»РµРјРЅС‚РѕРІ РєРѕС‚РѕСЂС‹Рµ СѓР¶Рµ Р±С‹Р»Рё СЃ РґР°РЅРЅС‹Рј СЂР°РЅРіРѕРј
     int rung=0;
     foreach(Element* eR,MapRung.keys())
     {
         rung = MapRung[eR];
-        kolAtRung.insert(rung,kolAtRung[rung]+1 );//увелисивает число элементов которые уже расставлены
-        mapLevel.insert(eR,kolAtRung[rung]);//вставка элемента с его уровнем(в высоту), который нужно еще изменить
+        kolAtRung.insert(rung,kolAtRung[rung]+1 );//СѓРІРµР»РёСЃРёРІР°РµС‚ С‡РёСЃР»Рѕ СЌР»РµРјРµРЅС‚РѕРІ РєРѕС‚РѕСЂС‹Рµ СѓР¶Рµ СЂР°СЃСЃС‚Р°РІР»РµРЅС‹
+        mapLevel.insert(eR,kolAtRung[rung]);//РІСЃС‚Р°РІРєР° СЌР»РµРјРµРЅС‚Р° СЃ РµРіРѕ СѓСЂРѕРІРЅРµРј(РІ РІС‹СЃРѕС‚Сѓ), РєРѕС‚РѕСЂС‹Р№ РЅСѓР¶РЅРѕ РµС‰Рµ РёР·РјРµРЅРёС‚СЊ
     }
-    for(int i=0;i<eBuffer.size();i++)//установка позиции
+    for(int i=0;i<eBuffer.size();i++)//СѓСЃС‚Р°РЅРѕРІРєР° РїРѕР·РёС†РёРё
     {
         eBuffer[i]->setPos(MapRung[eBuffer[i]]*50, mapLevel[eBuffer[i]]*50);
         //eBuffer.insert();
@@ -866,7 +866,7 @@ void PaintWidget::mousePressEvent(QMouseEvent *event)
 {
 
     setWhatsThis("dsf");
-    //QWhatsThis::showText(event->pos(),"текст сообщения");
+    //QWhatsThis::showText(event->pos(),"С‚РµРєСЃС‚ СЃРѕРѕР±С‰РµРЅРёСЏ");
     // //
     bool flag = false;
     for(int i=0;i<eBuffer.size();i++)
@@ -932,88 +932,68 @@ void PaintWidget::mouseMoveEvent(QMouseEvent *event)
 
 bool PaintWidget::eventFilter( QObject *obj, QEvent *evt )
 {
-    //this->setMouseTracking(true);
-    if(evt->type() == QEvent::MouseTrackingChange)
-    {
-        this->setToolTip( QString("nww %1").arg(time++) );
-    }
-    //this->setMouseTracking(true);
-    return false;
-    //return PaintWidget::eventFilter( obj, evt );
-}
-/*
-void PaintWidget::changeEvent(QEvent * e)
-{
-    this->setToolTip( QString("nwwvb %1").arg(time++) );
-    if(e->type() == QEvent::MouseTrackingChange)
-    {
-        this->setToolTip("n");
-        QMouseEvent *event = (QMouseEvent*)e;
-
-        for(int i=0;i<eBuffer.size();i++)
-        {
-            //this->setToolTip( QString("nww %1").arg(QCursor::pos().x()) );
-            if(eBuffer[i]->isOnclic(QCursor::pos().x(), QCursor::pos().y()))
-            {
-                this->setToolTip("qw\nr/ner\nww");
-                break;
-            }
-        }
-        this->setToolTip( QString("nww %1").arg(time++) );
-        //this->setToolTip("");
-
-    }
-    this->setToolTip( QString("nww %1").arg(time++) );
-}*/
-
-void PaintWidget::paintEvent(QPaintEvent *event)
-{
-    QPainter painter(this);
-    painter.setPen(QPen(Qt::black,2,Qt::SolidLine));
-    setFont(QFont("Arial", 12, 100, 0));
+  gBox.exec();*/
     //
-    for(int i=0;i<eBuffer.size();i++)
-    {
 
-        //eBuffer[i]->setPos(MapRung[eBuffer[i]]*50, 30);
-        eBuffer[i]->draw(&painter);
-    }
-    setFont(QFont("Arial", 12, 100, 0));
-    for(int i=0;i<wBuffer.size();i++)
+    //Р В·Р В°Р С—Р С‘РЎРѓРЎРЉ Р С•Р В±РЎР‰Р ВµР С”РЎвЂљР С•Р Р† Р Т‘Р В»РЎРЏ Р С—РЎР‚Р С•Р Р†Р ВµРЎР‚Р С”Р С‘ РЎРѓР В»Р ВµР Т‘РЎС“РЎР‹РЎвЂ°Р С‘РЎвЂ¦
+    foreach(WireOfE * w, temp_Wire)
     {
-        wBuffer[i]->update();
-        //wBuffer[i]->updateStart();
-        //блин
-        //пер
-        wBuffer[i]->draw(&painter, getCollisionPoints(wBuffer[i]) );
-        //необходимо будет вызывать другой метод
-    }
-    setFont(QFont("Arial", 12, 100, 0));
+        static_wire.append(w);
 
+        QList<Line> wire=w->getLines();
+        foreach(Line L, wire)//Р В»Р С‘Р Р…Р С‘Р С‘ Р С—РЎР‚Р С•Р Р†Р С•Р Т‘Р С•Р Р†
+        {
+            static_Line.append(L);
+        }
+    }
+    foreach(Line L, temp_Line)//Р В»Р С‘Р Р…Р С‘Р С‘ РЎРЊР В»Р ВµР СР ВµР Р…РЎвЂљР С•Р Р†
+    {
+        static_Line.append(L);
+    }
+    //Р В·Р В°Р С—Р С‘РЎРѓРЎРЉ Р С•Р С”Р С•Р Р…РЎвЂЎР ВµР Р…Р В° РЎР‚Р ВµР С”РЎС“РЎР‚РЎРѓР С‘РЎРЏ Р С—Р ВµРЎР‚Р ВµРЎвЂ¦Р С•Р Т‘Р С‘РЎвЂљ Р Р…Р В° РЎС“РЎР‚Р С•Р Р†Р ВµР Р…РЎРЉ Р Р†РЎвЂ№РЎв‚¬Р Вµ
+}
+QList<Line> PaintWidget::descriptElementLike3Line(Element* e)
+{//Р Т‘Р С•Р В±Р В°Р Р†Р С‘РЎвЂљРЎРЉ 3-РЎР‹ Р В»Р С‘Р Р…Р С‘РЎР‹
+
+    QList <Line> lines;
+    Line L1;
+    L1.start = QPoint(e->getX(), e->getY() );
+    L1.end = QPoint(e->getX() + e->getWidth()+10, e->getY());
+    lines.append(L1);
+    Line L2;
+    L2.start = QPoint(e->getX() + e->getWidth()+3, e->getY() );
+    L2.end = QPoint(e->getX() + e->getWidth()+3, e->getY() + e->getHeight() );
+    lines.append(L2);
+    Line L3;
+    L3.start = QPoint(e->getX(), e->getY() + e->getHeight() );
+    L3.end = QPoint(e->getX() + e->getWidth()+10, e->getY() + e->getHeight() );
+    lines.append(L3);
+    return lines;
 }
 
+//------------------------------------------------------------
 
-QList<QPoint> PaintWidget::getCollisionPoints(WireOfE* wire)
+void PaintWidget::setAutoposityon()//РЎРѓРЎвЂљР В°РЎР‚Р С•
 {
-    QList<QPoint> tempL;
-    foreach(WireOfE* w ,wBuffer)
+    //Р Р…РЎС“Р В¶Р Р…Р В° Р С”Р В°РЎР‚РЎвЂљР В° РЎвЂ¦РЎР‚Р В°Р Р…РЎРЏРЎвЂ°Р В°РЎРЏ РЎС“Р С”Р В°Р В·Р В°РЎвЂљР ВµР В»РЎРЉ Р С‘ РЎС“РЎР‚Р С•Р Р†Р ВµРЎР‚РЎРЉ(Р Р† Р Р†Р Р…Р С‘Р В· РЎРѓР С—РЎС“Р С”Р В°РЎРЏРЎРѓРЎРЉ Р С”Р В°Р С”Р С•Р в„– РЎРЊРЎвЂљР С• РЎРЊР В»Р ВµР СР ВµР Р…РЎвЂљ Р С—Р С• РЎРѓРЎвЂЎР ВµРЎвЂљРЎС“ Р Р† РЎР‚Р В°Р Р…Р С–Р Вµ Р Т‘Р В°Р Р…Р Р…Р С•Р С–Р С• РЎРЊР В»Р ВµР СР ВµР Р…РЎвЂљР В°)
+    //mapLevel;//Level РЎвЂљР С•Р В¶Р Вµ РЎРѓ 1 Р Р…Р В°РЎвЂЎР С‘Р Р…Р В°Р ВµРЎвЂљРЎРѓРЎРЏ Р С”Р В°Р С” Р С‘ Rung
+    QMap<int,int> kolAtRung;//Р Р†РЎРѓР С—Р С•Р СР С•Р С–Р В°РЎвЂљР ВµР В»РЎРЉР Р…Р В°РЎРЏ, РЎвЂ¦РЎР‚Р В°Р Р…Р С‘РЎвЂљ Р Р…Р С•Р СР ВµРЎР‚ РЎР‚Р В°Р Р…Р С–Р В° Р С‘ РЎвЂЎР С‘РЎРѓР В»Р С• РЎРЊР В»Р ВµР СР Р…РЎвЂљР С•Р Р† Р С”Р С•РЎвЂљР С•РЎР‚РЎвЂ№Р Вµ РЎС“Р В¶Р Вµ Р В±РЎвЂ№Р В»Р С‘ РЎРѓ Р Т‘Р В°Р Р…Р Р…РЎвЂ№Р С РЎР‚Р В°Р Р…Р С–Р С•Р С
+    int rung=0;
+    foreach(Element* eR,MapRung.keys())
     {
-        if(w == wire) continue;
-        Line ml = wire->getLines()[1];
-        Line ll = w->getLines()[0];
-        if(ml.start.x() > ll.start.x() == ml.end.x() < ll.end.x() &&
-           ml.start.y() > ll.start.y() == ml.end.y() < ll.end.y())
-        {
-            tempL.append(QPoint(ml.start.x(),ll.start.y()) );
-            continue;
-        }
-        Line rl = w->getLines()[2];
-        if(ml.start.x() > rl.start.x() == ml.end.x() < rl.end.x() &&
-           ml.start.y() > rl.start.y() == ml.end.y() < rl.end.y())
-        {
-            tempL.append(QPoint(ml.start.x(),rl.start.y()) );
-        }
+        rung = MapRung[eR];
+        kolAtRung.insert(rung,kolAtRung[rung]+1 );//РЎС“Р Р†Р ВµР В»Р С‘РЎРѓР С‘Р Р†Р В°Р ВµРЎвЂљ РЎвЂЎР С‘РЎРѓР В»Р С• РЎРЊР В»Р ВµР СР ВµР Р…РЎвЂљР С•Р Р† Р С”Р С•РЎвЂљР С•РЎР‚РЎвЂ№Р Вµ РЎС“Р В¶Р Вµ РЎР‚Р В°РЎРѓРЎРѓРЎвЂљР В°Р Р†Р В»Р ВµР Р…РЎвЂ№
+        mapLevel.insert(eR,kolAtRung[rung]);//Р Р†РЎРѓРЎвЂљР В°Р Р†Р С”Р В° РЎРЊР В»Р ВµР СР ВµР Р…РЎвЂљР В° РЎРѓ Р ВµР С–Р С• РЎС“РЎР‚Р С•Р Р†Р Р…Р ВµР С(Р Р† Р Р†РЎвЂ№РЎРѓР С•РЎвЂљРЎС“), Р С”Р С•РЎвЂљР С•РЎР‚РЎвЂ№Р в„– Р Р…РЎС“Р В¶Р Р…Р С• Р ВµРЎвЂ°Р Вµ Р С‘Р В·Р СР ВµР Р…Р С‘РЎвЂљРЎРЉ
     }
-    qDebug()<<"UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU"<<tempL.size();
-    return tempL;
+    for(int i=0;i<eBuffer.size();i++)//РЎС“РЎРѓРЎвЂљР В°Р Р…Р С•Р Р†Р С”Р В° Р С—Р С•Р В·Р С‘РЎвЂ Р С‘Р С‘
+    {
+        eBuffer[i]->setPos(MapRung[eBuffer[i]]*50, mapLevel[eBuffer[i]]*50);
+        //eBuffer.insert();
+    }
 }
+
+void PaintWidget::mousePressEvent(QMouseEvent *event)
+{
+
+    setWhatsThis("dsf");
+    //QWhatsThis::showText(event->p

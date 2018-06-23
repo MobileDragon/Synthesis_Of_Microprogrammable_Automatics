@@ -17,29 +17,29 @@ FormCreateAuthomat_2::FormCreateAuthomat_2(int num_input, int num_state, QWidget
     vBox->setSpacing(10);
 
     QHBoxLayout* hBox = new QHBoxLayout;
-    hBox->addStretch();//заполнение оставшегося пространства
-    hBox->addWidget(cancelB,1);//выход
-    hBox->addWidget(nextB,2);//продолжить создание ватомата(выбор набора элементов)
+    hBox->addStretch();//Р·Р°РїРѕР»РЅРµРЅРёРµ РѕСЃС‚Р°РІС€РµРіРѕСЃСЏ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР°
+    hBox->addWidget(cancelB,1);//РІС‹С…РѕРґ
+    hBox->addWidget(nextB,2);//РїСЂРѕРґРѕР»Р¶РёС‚СЊ СЃРѕР·РґР°РЅРёРµ РІР°С‚РѕРјР°С‚Р°(РІС‹Р±РѕСЂ РЅР°Р±РѕСЂР° СЌР»РµРјРµРЅС‚РѕРІ)
     connect(nextB, SIGNAL(clicked()), SLOT(nextClk()));
     connect(cancelB, SIGNAL(clicked()), SLOT(cancelClk()));
 
-//генерируй по input и state таблицу заголовки выдели остальной позволь заполнять QTableView
+//РіРµРЅРµСЂРёСЂСѓР№ РїРѕ input Рё state С‚Р°Р±Р»РёС†Сѓ Р·Р°РіРѕР»РѕРІРєРё РІС‹РґРµР»Рё РѕСЃС‚Р°Р»СЊРЅРѕР№ РїРѕР·РІРѕР»СЊ Р·Р°РїРѕР»РЅСЏС‚СЊ QTableView
 
     tablePV =new QTableView;
     tablePV->setFont(QFont("Arial",10,5000));
     tablePV->verticalHeader()->hide();
     tablePV->horizontalHeader()->hide();
-//генерация модели таблицы(шапка)
+//РіРµРЅРµСЂР°С†РёСЏ РјРѕРґРµР»Рё С‚Р°Р±Р»РёС†С‹(С€Р°РїРєР°)
     QStandardItemModel  *model = new QStandardItemModel;
     QStandardItem *item;
-    //горизонтальная
+    //РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅР°СЏ
     item = new QStandardItem("Current" );
     item->setEditable(false);
     item->setBackground(QBrush(QColor(250,240,180)) );
     item->setFont(QFont("Arial",11,8000));
-    model->setItem(0, 0, item);//первая ячкйка
+    model->setItem(0, 0, item);//РїРµСЂРІР°СЏ СЏС‡РєР№РєР°
     int numState=1;
-    for(int i=1; i<state*2; i+=2)//список всех состояний
+    for(int i=1; i<state*2; i+=2)//СЃРїРёСЃРѕРє РІСЃРµС… СЃРѕСЃС‚РѕСЏРЅРёР№
     {
         item = new QStandardItem(QString("State A%1").arg(numState));
         item->setTextAlignment(Qt::AlignCenter);
@@ -53,8 +53,8 @@ FormCreateAuthomat_2::FormCreateAuthomat_2(int num_input, int num_state, QWidget
     item->setEditable(false);
     item->setBackground(QBrush(QColor(250,230,170)) );
     item->setFont(QFont("Arial",10,6500));
-    model->setItem(1, 0, item);//первая ячкйка
-    for(int i=1; i <= state*2; i++)//шапка переключений и выходов
+    model->setItem(1, 0, item);//РїРµСЂРІР°СЏ СЏС‡РєР№РєР°
+    for(int i=1; i <= state*2; i++)//С€Р°РїРєР° РїРµСЂРµРєР»СЋС‡РµРЅРёР№ Рё РІС‹С…РѕРґРѕРІ
     {
         QString typeHeader;
         if(i%2==0)
@@ -68,7 +68,7 @@ FormCreateAuthomat_2::FormCreateAuthomat_2(int num_input, int num_state, QWidget
         model->setItem(1, i, item);
     }
     numState=1;
-    for(int i=2; i<input+2; i++)//список всех входов
+    for(int i=2; i<input+2; i++)//СЃРїРёСЃРѕРє РІСЃРµС… РІС…РѕРґРѕРІ
     {
         item = new QStandardItem(QString("Input Z%1 ").arg(numState) );
         item->setEditable(false);
@@ -77,13 +77,13 @@ FormCreateAuthomat_2::FormCreateAuthomat_2(int num_input, int num_state, QWidget
         model->setItem(i, 0, item);
         numState++;
     }
-    connect(model, SIGNAL(itemChanged(QStandardItem*)) ,this,SLOT(tabChanged(QStandardItem*) ));//изменение
+    connect(model, SIGNAL(itemChanged(QStandardItem*)) ,this,SLOT(tabChanged(QStandardItem*) ));//РёР·РјРµРЅРµРЅРёРµ
     tablePV->setModel(model);
-    for(int i=1; i<=state*2; i+=2)//объединение шапки состояний
+    for(int i=1; i<=state*2; i+=2)//РѕР±СЉРµРґРёРЅРµРЅРёРµ С€Р°РїРєРё СЃРѕСЃС‚РѕСЏРЅРёР№
     {
         tablePV->setSpan(0,i,1,2);
     }
-    for(int i=0; i < state*2+1; i++)//ширина столбцов
+    for(int i=0; i < state*2+1; i++)//С€РёСЂРёРЅР° СЃС‚РѕР»Р±С†РѕРІ
     {
         tablePV->horizontalHeader()->setResizeMode(i,QHeaderView::ResizeToContents);
     }
@@ -99,14 +99,14 @@ FormCreateAuthomat_2::FormCreateAuthomat_2(int num_input, int num_state, QWidget
     resetAtSignal->setMaximumWidth(40);
     resetAtSignal->setFont(QFont("Arial",9));
     hBox0->addWidget(resetAtSignal,1);
-    hBox0->addStretch();//заполнение оставшегося пространства
-    connect(resetAtSignal, SIGNAL(editingFinished()) ,this,SLOT(resetChanged() ));//изменение
-    //connect(resetAtSignal, SIGNAL(selectionChanged()) ,this,SLOT(resetSelect() ));//выбрано
-    //connect(resetAtSignal, SIGNAL(editingFinished()) ,this,SLOT(resetUnSelect() ));//не выбрано
+    hBox0->addStretch();//Р·Р°РїРѕР»РЅРµРЅРёРµ РѕСЃС‚Р°РІС€РµРіРѕСЃСЏ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР°
+    connect(resetAtSignal, SIGNAL(editingFinished()) ,this,SLOT(resetChanged() ));//РёР·РјРµРЅРµРЅРёРµ
+    //connect(resetAtSignal, SIGNAL(selectionChanged()) ,this,SLOT(resetSelect() ));//РІС‹Р±СЂР°РЅРѕ
+    //connect(resetAtSignal, SIGNAL(editingFinished()) ,this,SLOT(resetUnSelect() ));//РЅРµ РІС‹Р±СЂР°РЅРѕ
 
     vBox->addLayout(hBox0,1);
     vBox->addWidget(tablePV,1);
-    vBox->addLayout(hBox,2);//добавление кнопок
+    vBox->addLayout(hBox,2);//РґРѕР±Р°РІР»РµРЅРёРµ РєРЅРѕРїРѕРє
 
     this->setLayout(vBox);
 }
@@ -124,7 +124,7 @@ void FormCreateAuthomat_2::nextClk()//slot
 {
     isNext=true;
     resetSignal=resetAtSignal->text();
-    //сформировать лист структуры
+    //СЃС„РѕСЂРјРёСЂРѕРІР°С‚СЊ Р»РёСЃС‚ СЃС‚СЂСѓРєС‚СѓСЂС‹
 
     for(int row=2; row < input+2; row++)
     {
@@ -175,7 +175,7 @@ void FormCreateAuthomat_2::cancelClk()//slot
 
 void FormCreateAuthomat_2::tabChanged(QStandardItem* item)
 {
-    //если это состояние автомата
+    //РµСЃР»Рё СЌС‚Рѕ СЃРѕСЃС‚РѕСЏРЅРёРµ Р°РІС‚РѕРјР°С‚Р°
     int numState=0;
     if(isItemForNextState(item) )
     {

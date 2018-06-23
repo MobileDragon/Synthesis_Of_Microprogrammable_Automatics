@@ -9,9 +9,9 @@ ElementalWilka::ElementalWilka(QString name)
     generic(name);
 }
 
-ElementalWilka::ElementalWilka(QString name, QString id):Element(name, id)//добавить всем, а здесь пока к заголовку
+ElementalWilka::ElementalWilka(QString name, QString id):Element(name, id)//РґРѕР±Р°РІРёС‚СЊ РІСЃРµРј, Р° Р·РґРµСЃСЊ РїРѕРєР° Рє Р·Р°РіРѕР»РѕРІРєСѓ
 {
-    generic(name);//id хранить по нему будет взаимодействие работать
+    generic(name);//id С…СЂР°РЅРёС‚СЊ РїРѕ РЅРµРјСѓ Р±СѓРґРµС‚ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёРµ СЂР°Р±РѕС‚Р°С‚СЊ
     this->id=id;
 }
 
@@ -23,14 +23,14 @@ void ElementalWilka::draw(QPainter *painter)
 
     painter->drawLine(posx+6/2-4,posy+width/2+3,posx+6/2, posy+width/2+3 );
     painter->drawLine(posx+6, posy+width/2,posx+6, posy+width/2 + interval*(numOutput-1) );
-    wiresPos.insert(0,QPoint(posx+6/2-4,posy+width/2+3) );//вход
+    wiresPos.insert(0,QPoint(posx+6/2-4,posy+width/2+3) );//РІС…РѕРґ
     int kol=0;
     for(int i=1;i<=numOutput;i++)
     {
         painter->setBrush(QBrush (Qt::black));
         painter->drawEllipse(posx+6/2, posy+width/2 + interval*(i-1), width, 6);
         painter->setBrush( QBrush (Qt::transparent) );
-        wiresPos.insert(i,QPoint(posx+6,posy+width/2 + interval*(i-1)+3 ) );//выходы
+        wiresPos.insert(i,QPoint(posx+6,posy+width/2 + interval*(i-1)+3 ) );//РІС‹С…РѕРґС‹
         kol++;
     }
 
@@ -38,7 +38,7 @@ void ElementalWilka::draw(QPainter *painter)
 
 }
 
-void ElementalWilka::generic(QString name)//заполняй name-это число выходов
+void ElementalWilka::generic(QString name)//Р·Р°РїРѕР»РЅСЏР№ name-СЌС‚Рѕ С‡РёСЃР»Рѕ РІС‹С…РѕРґРѕРІ
 {
     posx=10;
     posy=20;
@@ -46,7 +46,7 @@ void ElementalWilka::generic(QString name)//заполняй name-это число выходов
 
     type=name;
     this->name=name;
-    numOutput=type.toInt();//Comply::fillShema() задает число выходов
+    numOutput=type.toInt();//Comply::fillShema() Р·Р°РґР°РµС‚ С‡РёСЃР»Рѕ РІС‹С…РѕРґРѕРІ
     height=interval*numOutput;
     qDebug()<<"RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRY"<<numOutput;
     numInput=1;

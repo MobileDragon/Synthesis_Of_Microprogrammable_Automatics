@@ -3,11 +3,11 @@
 #include <QDebug>
 
 #include <QMessageBox>
-WireOfE::WireOfE(Element *start, Element *end, int startN, int endN)//номера начала и конца(выхода и входа)
+WireOfE::WireOfE(Element *start, Element *end, int startN, int endN)//РЅРѕРјРµСЂР° РЅР°С‡Р°Р»Р° Рё РєРѕРЅС†Р°(РІС‹С…РѕРґР° Рё РІС…РѕРґР°)
 {
     activatedX = false;
 
-    d=3;//расстояние до других линий
+    d=3;//СЂР°СЃСЃС‚РѕСЏРЅРёРµ РґРѕ РґСЂСѓРіРёС… Р»РёРЅРёР№
     sizeBright = 5;
     this->startP=start;
     this->endP=end;
@@ -19,7 +19,7 @@ WireOfE::WireOfE(Element *start, Element *end, int startN, int endN)//номера нач
     defaultW();
 
 }
-void WireOfE::draw(QPainter *painter, QList<QPoint> lcp)//lcp список точек где лолжні біть миости
+void WireOfE::draw(QPainter *painter, QList<QPoint> lcp)//lcp СЃРїРёСЃРѕРє С‚РѕС‡РµРє РіРґРµ Р»РѕР»Р¶РЅС– Р±С–С‚СЊ РјРёРѕСЃС‚Рё
 {
 
     //defaultW();
@@ -152,7 +152,7 @@ bool WireOfE::generic(QList<Line> linesL)
 
     QList<Line> wire=getLines();
     int size=wire.size();
-    for(int i=0; i<size; i++)//перемешать 1-й провод
+    for(int i=0; i<size; i++)//РїРµСЂРµРјРµС€Р°С‚СЊ 1-Р№ РїСЂРѕРІРѕРґ
     {
         Line curL=wire[i];
         //bool znak=true;
@@ -182,13 +182,13 @@ bool WireOfE::generic(QList<Line> linesL)
             else
             {
                 mowLine(1, offset, 0);
-                if(dotLine[1].x() < dotLine[0].x() )//ширина бега
+                if(dotLine[1].x() < dotLine[0].x() )//С€РёСЂРёРЅР° Р±РµРіР°
                     return false;
             }
             wire=getLines();
             curL=wire[i];
 
-            //i=0;//проверить предыдущие линии//
+            //i=0;//РїСЂРѕРІРµСЂРёС‚СЊ РїСЂРµРґС‹РґСѓС‰РёРµ Р»РёРЅРёРё//
         }
         //
         //
@@ -215,14 +215,14 @@ bool WireOfE::addX()
 
     QPoint point1;
     point1.setX( dotLine[1].x() );
-    point1.setY(  dotLine[2].y() );//установка линии в верхней позиции
+    point1.setY(  dotLine[2].y() );//СѓСЃС‚Р°РЅРѕРІРєР° Р»РёРЅРёРё РІ РІРµСЂС…РЅРµР№ РїРѕР·РёС†РёРё
     QPoint point2;
     point2.setX( dotLine[1].x() );
     point2.setY(  dotLine[2].y() );
 
     dotLine.insert(2, point1);
     dotLine.insert(3, point2);
-    return true;//провод расширен
+    return true;//РїСЂРѕРІРѕРґ СЂР°СЃС€РёСЂРµРЅ
 }
 
 bool  WireOfE::mowX()
@@ -235,7 +235,7 @@ bool  WireOfE::mowX()
         lowLimit=dotLine[0].y();
     else
         lowLimit=dotLine[5].y();
-    //для каждого левого все правые
+    //РґР»СЏ РєР°Р¶РґРѕРіРѕ Р»РµРІРѕРіРѕ РІСЃРµ РїСЂР°РІС‹Рµ
     if(dotLine[3].x() < rightMax)
     {
         dotLine[3].setX( dotLine[3].x() + 3 );
@@ -247,8 +247,8 @@ bool  WireOfE::mowX()
     else
         if(dotLine[2].x() > leftMax )
         {
-            dotLine[3].setX(startXvalue);//умолчание
-            dotLine[4].setX(startXvalue);//умолчание
+            dotLine[3].setX(startXvalue);//СѓРјРѕР»С‡Р°РЅРёРµ
+            dotLine[4].setX(startXvalue);//СѓРјРѕР»С‡Р°РЅРёРµ
             dotLine[2].setX( dotLine[2].x() - 3 );
             //
             qDebug()<<"left<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
@@ -258,14 +258,14 @@ bool  WireOfE::mowX()
         else
             if(dotLine[2].y() < lowLimit )
             {
-                dotLine[3].setX(startXvalue);//умолчание
-                dotLine[4].setX(startXvalue);//умолчание
-                dotLine[2].setX(startXvalue);//умолчание
-                dotLine[1].setX(startXvalue);//умолчание
+                dotLine[3].setX(startXvalue);//СѓРјРѕР»С‡Р°РЅРёРµ
+                dotLine[4].setX(startXvalue);//СѓРјРѕР»С‡Р°РЅРёРµ
+                dotLine[2].setX(startXvalue);//СѓРјРѕР»С‡Р°РЅРёРµ
+                dotLine[1].setX(startXvalue);//СѓРјРѕР»С‡Р°РЅРёРµ
 
                 qDebug()<<"down<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
                 dotLine[2].setY(dotLine[2].y()+3);
-                dotLine[3].setY(dotLine[2].y());//горизонтальная линия
+                dotLine[3].setY(dotLine[2].y());//РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅР°СЏ Р»РёРЅРёСЏ
 
 /*
                 if(dotLine[1].x()-dotLine[0].x()>1 && dotLine[1].x()-dotLine[0].x()<5 && dotLine[2].y() > 80)
@@ -284,12 +284,12 @@ bool WireOfE::isContact(QList<Line> lines, Line line)
 {
     foreach(Line cur, lines)
     {
-        bool contact1=false;//хотябы одна из линий содержит точку пересечения,
-        //или есть нахлест для паралельных
+        bool contact1=false;//С…РѕС‚СЏР±С‹ РѕРґРЅР° РёР· Р»РёРЅРёР№ СЃРѕРґРµСЂР¶РёС‚ С‚РѕС‡РєСѓ РїРµСЂРµСЃРµС‡РµРЅРёСЏ,
+        //РёР»Рё РµСЃС‚СЊ РЅР°С…Р»РµСЃС‚ РґР»СЏ РїР°СЂР°Р»РµР»СЊРЅС‹С…
         if(cur.start.x() == cur.end.x())
-        {//вертикальная
+        {//РІРµСЂС‚РёРєР°Р»СЊРЅР°СЏ
             if(line.start.x() == line.end.x())
-            {//также вертикальная
+            {//С‚Р°РєР¶Рµ РІРµСЂС‚РёРєР°Р»СЊРЅР°СЏ
                 bool flag=false;
                 if( (cur.start.y() - line.start.y()) * (cur.start.y() - line.end.y() )<=0 )
                     flag = true;
@@ -309,22 +309,22 @@ bool WireOfE::isContact(QList<Line> lines, Line line)
                 }
             }
             else
-            {//горизонтальная, линии перпендикулярны
-                QPoint H(cur.start.x(), line.start.y());//точка пересечения
+            {//РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅР°СЏ, Р»РёРЅРёРё РїРµСЂРїРµРЅРґРёРєСѓР»СЏСЂРЅС‹
+                QPoint H(cur.start.x(), line.start.y());//С‚РѕС‡РєР° РїРµСЂРµСЃРµС‡РµРЅРёСЏ
                 if( (H.x() - line.start.x()) * (H.x() - line.end.x() )<=0 )
-                {//H находится на line
+                {//H РЅР°С…РѕРґРёС‚СЃСЏ РЅР° line
                     contact1=true;
                     if( (H.y() - cur.start.y()) * (H.y() - cur.end.y() )<=0 )
-                    {//H находится на cur
+                    {//H РЅР°С…РѕРґРёС‚СЃСЏ РЅР° cur
                         return false;
                     }
                     else if( abs(H.y() - cur.start.y() ) <= d || abs(H.y() - cur.end.y() ) <= d)
-                    {//H не находится на cur
+                    {//H РЅРµ РЅР°С…РѕРґРёС‚СЃСЏ РЅР° cur
                         return false;
                     }
                 }
                 else if( (H.y() - cur.start.y()) * (H.y() - cur.end.y() )<=0 )
-                {//H находится на cur
+                {//H РЅР°С…РѕРґРёС‚СЃСЏ РЅР° cur
                     contact1=true;
                     if( abs(H.x() - line.start.x() ) <= d || abs(H.x() - line.end.x() ) <= d)
                         return false;
@@ -333,9 +333,9 @@ bool WireOfE::isContact(QList<Line> lines, Line line)
         }
         //--
         else
-        {//горизонтальная
+        {//РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅР°СЏ
             if(line.start.y() == line.end.y())
-            {//также горизонтальная
+            {//С‚Р°РєР¶Рµ РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅР°СЏ
                 bool flag=false;
                 if( (cur.start.x() - line.start.x()) * (cur.start.x() - line.end.x() )<=0 )
                     flag = true;
@@ -355,19 +355,19 @@ bool WireOfE::isContact(QList<Line> lines, Line line)
                 }
             }
             else
-            {//вертикальная, линии перпендикулярны
-                QPoint H(line.start.x(), cur.start.y());//точка пересечения
+            {//РІРµСЂС‚РёРєР°Р»СЊРЅР°СЏ, Р»РёРЅРёРё РїРµСЂРїРµРЅРґРёРєСѓР»СЏСЂРЅС‹
+                QPoint H(line.start.x(), cur.start.y());//С‚РѕС‡РєР° РїРµСЂРµСЃРµС‡РµРЅРёСЏ
                 if( (H.y() - line.start.y()) * (H.y() - line.end.y() )<=0 )
-                {//H находится на line
+                {//H РЅР°С…РѕРґРёС‚СЃСЏ РЅР° line
                     contact1=true;
                     if( (H.x() - cur.start.x()) * (H.x() - cur.end.x() )<=0 )
-                    {//H находится на cur
+                    {//H РЅР°С…РѕРґРёС‚СЃСЏ РЅР° cur
                         return false;
                     }
                     else
                     {
                         if( (abs(H.x() - cur.start.x() )) <= d || (abs(H.x() - cur.end.x() )) <= d)
-                        {//H не находится на cur, проверка расстояния
+                        {//H РЅРµ РЅР°С…РѕРґРёС‚СЃСЏ РЅР° cur, РїСЂРѕРІРµСЂРєР° СЂР°СЃСЃС‚РѕСЏРЅРёСЏ
                             qDebug()<<abs(H.x() - cur.start.x() );
                             qDebug()<<abs(H.x() - cur.end.x() );
                             qDebug()<<"joi2";
@@ -376,7 +376,7 @@ bool WireOfE::isContact(QList<Line> lines, Line line)
                     }
                 }
                 else if( (H.x() - cur.start.x()) * (H.x() - cur.end.x() )<=0 )//
-                {//H находится на cur
+                {//H РЅР°С…РѕРґРёС‚СЃСЏ РЅР° cur
                     contact1=true;
                     if( abs(H.y() - line.start.y() ) <= d || abs(H.y() - line.end.y() ) <= d)
                         return false;
@@ -401,7 +401,7 @@ bool WireOfE::isContact(QList<Line> lines, Line line)
     return true;
 }
 
-void WireOfE::mowLine(int num, int h, int w)//сдвиг линии по Х(h)
+void WireOfE::mowLine(int num, int h, int w)//СЃРґРІРёРі Р»РёРЅРёРё РїРѕ РҐ(h)
 {
     w=0;
     num=1;

@@ -35,16 +35,16 @@ void Shem::addBack(ShemE* element)
         return;
     }
     start->elements.append(element);
-    if(start!=end)//если кроме начальных уже добавлены элементы
+    if(start!=end)//РµСЃР»Рё РєСЂРѕРјРµ РЅР°С‡Р°Р»СЊРЅС‹С… СѓР¶Рµ РґРѕР±Р°РІР»РµРЅС‹ СЌР»РµРјРµРЅС‚С‹
         end->elements.append(element);
 }
 
-void Shem::addBack(ShemE* element, QVector<QString> inputs)//inputs - список подключаемых входов
+void Shem::addBack(ShemE* element, QVector<QString> inputs)//inputs - СЃРїРёСЃРѕРє РїРѕРґРєР»СЋС‡Р°РµРјС‹С… РІС…РѕРґРѕРІ
 {
     QString name = element->name;
-    QVector<int> numInputs=ShemE::getInput(name);//входы в добавляемом элементе
+    QVector<int> numInputs=ShemE::getInput(name);//РІС…РѕРґС‹ РІ РґРѕР±Р°РІР»СЏРµРјРѕРј СЌР»РµРјРµРЅС‚Рµ
     int num=0;
-    foreach(QString input, inputs)//входы которые необходимо подключить
+    foreach(QString input, inputs)//РІС…РѕРґС‹ РєРѕС‚РѕСЂС‹Рµ РЅРµРѕР±С…РѕРґРёРјРѕ РїРѕРґРєР»СЋС‡РёС‚СЊ
     {
         int kolOut = end -> elements.size();
         for(int i = 0;i < kolOut;i++)
@@ -56,11 +56,11 @@ void Shem::addBack(ShemE* element, QVector<QString> inputs)//inputs - список под
                 int numOut = ShemE::getFreeOut(end -> elements[i] );
                 end -> elements[i] -> wire[numOut] = wire;
                 num++;
-                break;//вилка не будет плностью вся указывать на данный элемент
+                break;//РІРёР»РєР° РЅРµ Р±СѓРґРµС‚ РїР»РЅРѕСЃС‚СЊСЋ РІСЃСЏ СѓРєР°Р·С‹РІР°С‚СЊ РЅР° РґР°РЅРЅС‹Р№ СЌР»РµРјРµРЅС‚
             }
         }
     }
-    end=Shem::next(end);//установка end в конец
+    end=Shem::next(end);//СѓСЃС‚Р°РЅРѕРІРєР° end РІ РєРѕРЅРµС†
 }
 
 void Shem::addWilka(QString id, int numOuts)
@@ -71,13 +71,13 @@ void Shem::addWilka(QString id, int numOuts)
         if(end -> elements[i]->id == id )
         {
             ShemE* e =new ShemE(id, numOuts);
-            currentWire* wire = new currentWire(e, 0);//указатель на вилку
+            currentWire* wire = new currentWire(e, 0);//СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РІРёР»РєСѓ
             int numOut = ShemE::getFreeOut(end -> elements[i] );
             end -> elements[i] -> wire[numOut] = wire;
-            //currentWire* out=getFreeOut(end -> elements[i] );//вместо свободного провода записывается тот что подключен
-                                                   //к добавляемому
+            //currentWire* out=getFreeOut(end -> elements[i] );//РІРјРµСЃС‚Рѕ СЃРІРѕР±РѕРґРЅРѕРіРѕ РїСЂРѕРІРѕРґР° Р·Р°РїРёСЃС‹РІР°РµС‚СЃСЏ С‚РѕС‚ С‡С‚Рѕ РїРѕРґРєР»СЋС‡РµРЅ
+                                                   //Рє РґРѕР±Р°РІР»СЏРµРјРѕРјСѓ
             //out = wire;
-            end=Shem::next(end);//установка end в конец
+            end=Shem::next(end);//СѓСЃС‚Р°РЅРѕРІРєР° end РІ РєРѕРЅРµС†
             return;
         }
     }
@@ -90,24 +90,24 @@ void Shem::addWilka(QString id, int numOuts)
 CurrentShem* Shem::next(CurrentShem * curent)
 {
     QVector<ShemE*> tempElements;
-    foreach(ShemE* element, curent->elements)//каждый элемент
+    foreach(ShemE* element, curent->elements)//РєР°Р¶РґС‹Р№ СЌР»РµРјРµРЅС‚
     {
 
         int maxKol=element->wire.size();
         int tempKol=0;
-        foreach(currentWire* value, element->wire.values())//каждый выход
+        foreach(currentWire* value, element->wire.values())//РєР°Р¶РґС‹Р№ РІС‹С…РѕРґ
         {
             bool flag=false;
             if(value->nextE != 0)
             {
                 tempElements.append(value->nextE);
                 /*
-                //нет ли уже этого элемента в curent
+                //РЅРµС‚ Р»Рё СѓР¶Рµ СЌС‚РѕРіРѕ СЌР»РµРјРµРЅС‚Р° РІ curent
                 foreach(ShemE* element2, curent->elements)
                 {
                     if(value->nextE == element2)
                     {
-                        flag=true;//элемент уже есть
+                        flag=true;//СЌР»РµРјРµРЅС‚ СѓР¶Рµ РµСЃС‚СЊ
                         break;
                     }
                 }
@@ -120,11 +120,11 @@ CurrentShem* Shem::next(CurrentShem * curent)
                 tempKol++;
             }
         }
-        //нужно когда не все входы заняты у элемента на который указывет провод
-        if(tempKol != maxKol)//когда не все выходы заняты
-            tempElements.append(element);//тот элемент который не имеет выходов(последний так вооюще никогда-у1,у2)
+        //РЅСѓР¶РЅРѕ РєРѕРіРґР° РЅРµ РІСЃРµ РІС…РѕРґС‹ Р·Р°РЅСЏС‚С‹ Сѓ СЌР»РµРјРµРЅС‚Р° РЅР° РєРѕС‚РѕСЂС‹Р№ СѓРєР°Р·С‹РІРµС‚ РїСЂРѕРІРѕРґ
+        if(tempKol != maxKol)//РєРѕРіРґР° РЅРµ РІСЃРµ РІС‹С…РѕРґС‹ Р·Р°РЅСЏС‚С‹
+            tempElements.append(element);//С‚РѕС‚ СЌР»РµРјРµРЅС‚ РєРѕС‚РѕСЂС‹Р№ РЅРµ РёРјРµРµС‚ РІС‹С…РѕРґРѕРІ(РїРѕСЃР»РµРґРЅРёР№ С‚Р°Рє РІРѕРѕСЋС‰Рµ РЅРёРєРѕРіРґР°-Сѓ1,Сѓ2)
     }
-    //убрать повторяющиеся указатели
+    //СѓР±СЂР°С‚СЊ РїРѕРІС‚РѕСЂСЏСЋС‰РёРµСЃСЏ СѓРєР°Р·Р°С‚РµР»Рё
     int length =tempElements.size();
     CurrentShem* select = new CurrentShem;
 

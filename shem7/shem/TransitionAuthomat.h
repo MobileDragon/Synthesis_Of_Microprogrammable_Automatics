@@ -3,10 +3,10 @@
 #include <QString>
 struct TransitionAuthomat
 {
-    QString idInput;//какой сигнал активен
-    QString idOut;//сигнал который необходимо активировать
-    QString prevState;//id триггера что хранил 1
-    QString nextState;//триггер который должен активироваться
+    QString idInput;//РєР°РєРѕР№ СЃРёРіРЅР°Р» Р°РєС‚РёРІРµРЅ
+    QString idOut;//СЃРёРіРЅР°Р» РєРѕС‚РѕСЂС‹Р№ РЅРµРѕР±С…РѕРґРёРјРѕ Р°РєС‚РёРІРёСЂРѕРІР°С‚СЊ
+    QString prevState;//id С‚СЂРёРіРіРµСЂР° С‡С‚Рѕ С…СЂР°РЅРёР» 1
+    QString nextState;//С‚СЂРёРіРіРµСЂ РєРѕС‚РѕСЂС‹Р№ РґРѕР»Р¶РµРЅ Р°РєС‚РёРІРёСЂРѕРІР°С‚СЊСЃСЏ
 };
 
 #endif // TRANSITIONAUTHOMAT_H

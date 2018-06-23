@@ -15,11 +15,11 @@ public:
     ConnectAtBus();
     ConnectAtBus(AuthomatBus* bus, int numSlot, int posHeight);
     bool setPosY(int pos);//
-    bool setPosHeight(int height);//Height считается сверху вниз(Y относительно шины)
+    bool setPosHeight(int height);//Height СЃС‡РёС‚Р°РµС‚СЃСЏ СЃРІРµСЂС…Сѓ РІРЅРёР·(Y РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ С€РёРЅС‹)
     void setBus(AuthomatBus* bus);
     void setSlot(int numSlot);
 
-    QPoint getPosConect();//подключение проводов
+    QPoint getPosConect();//РїРѕРґРєР»СЋС‡РµРЅРёРµ РїСЂРѕРІРѕРґРѕРІ
 
     bool isOnclic(int x,int y);
 protected:

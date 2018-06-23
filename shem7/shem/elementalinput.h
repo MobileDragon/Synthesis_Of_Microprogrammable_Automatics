@@ -2,7 +2,7 @@
 #define ELEMENTALINPUT_H
 #include "element.h"
 
-class ElementalInput: public Element//входной сигнал
+class ElementalInput: public Element//РІС…РѕРґРЅРѕР№ СЃРёРіРЅР°Р»
 {
 public:
     ElementalInput();

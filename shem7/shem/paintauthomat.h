@@ -19,22 +19,22 @@ public:
     explicit paintAuthomat(QList<TransitionAuthomat> list_transit, PaintWidget *parent = 0);
 
     void setMapBus();
-    QList<QString> getListInputs();//вернет список входов на автомат
+    QList<QString> getListInputs();//РІРµСЂРЅРµС‚ СЃРїРёСЃРѕРє РІС…РѕРґРѕРІ РЅР° Р°РІС‚РѕРјР°С‚
 
 private:
-    int spaceConnect;//расстояние между выводами из шин
+    int spaceConnect;//СЂР°СЃСЃС‚РѕСЏРЅРёРµ РјРµР¶РґСѓ РІС‹РІРѕРґР°РјРё РёР· С€РёРЅ
 
-    QList<TransitionAuthomat> listTransit;//переходы
-    QMap<int, ShemAtBush> mapBush;//карта шин
-    void paintMainInputs();//отрисовка первой шины(ее позиция) и входы на неё
+    QList<TransitionAuthomat> listTransit;//РїРµСЂРµС…РѕРґС‹
+    QMap<int, ShemAtBush> mapBush;//РєР°СЂС‚Р° С€РёРЅ
+    void paintMainInputs();//РѕС‚СЂРёСЃРѕРІРєР° РїРµСЂРІРѕР№ С€РёРЅС‹(РµРµ РїРѕР·РёС†РёСЏ) Рё РІС…РѕРґС‹ РЅР° РЅРµС‘
 
-    //AuthomatBus busBuffer;//список шин
+    //AuthomatBus busBuffer;//СЃРїРёСЃРѕРє С€РёРЅ
     //virtual void mousePressEvent(QMouseEvent *event);
     //virtual void mouseReleaseEvent(QMouseEvent *event);
     //virtual void mouseMoveEvent(QMouseEvent *event);
     virtual void paintEvent(QPaintEvent *event);
 
-    QList<AuthomatBus*> bBuffer;//список нарисованых шин(кривые)
+    QList<AuthomatBus*> bBuffer;//СЃРїРёСЃРѕРє РЅР°СЂРёСЃРѕРІР°РЅС‹С… С€РёРЅ(РєСЂРёРІС‹Рµ)
     //QList<QString> getInputs();
     
 signals:

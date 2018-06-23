@@ -3,16 +3,16 @@
 #include "element.h"
 #include "authomatbus.h"
 
-class ElementalOutFromBus : public Element//вход на схему, выход из шины
+class ElementalOutFromBus : public Element//РІС…РѕРґ РЅР° СЃС…РµРјСѓ, РІС‹С…РѕРґ РёР· С€РёРЅС‹
 {
 public:
 
     ElementalOutFromBus(QString nameOutput, QString id, AuthomatBus* bus, int numSlot, int posHeight);
-    void connectAtBus(AuthomatBus* bus, int numSlot, int posHeight);//подключение к шине
+    void connectAtBus(AuthomatBus* bus, int numSlot, int posHeight);//РїРѕРґРєР»СЋС‡РµРЅРёРµ Рє С€РёРЅРµ
     //
 
     void setPosY(int pos);//
-   // bool setPosHeight(int height);//Height считается сверху вниз(Y относительно шины)
+   // bool setPosHeight(int height);//Height СЃС‡РёС‚Р°РµС‚СЃСЏ СЃРІРµСЂС…Сѓ РІРЅРёР·(Y РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ С€РёРЅС‹)
 
     void draw(QPainter*);
     void move(int x,int y);
@@ -21,7 +21,7 @@ public:
 
 
 private:
-    int heightAtBus;//высота счаитается сверху вниз
+    int heightAtBus;//РІС‹СЃРѕС‚Р° СЃС‡Р°РёС‚Р°РµС‚СЃСЏ СЃРІРµСЂС…Сѓ РІРЅРёР·
     AuthomatBus* curBus;
     int curSlot;
 

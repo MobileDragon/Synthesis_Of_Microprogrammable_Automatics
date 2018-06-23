@@ -2,7 +2,7 @@
 #define ELEMENTALOUTPUT_H
 #include "element.h"
 
-class ElementalOutput: public Element//выходной сигнал
+class ElementalOutput: public Element//РІС‹С…РѕРґРЅРѕР№ СЃРёРіРЅР°Р»
 {
 public:
     ElementalOutput();

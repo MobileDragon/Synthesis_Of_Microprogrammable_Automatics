@@ -1,10 +1,10 @@
 #include "elementaloutfrombus.h"
 
 
-ElementalOutFromBus::ElementalOutFromBus(QString nameOutput, QString id, AuthomatBus *bus, int numSlot, int posHeight):Element(nameOutput, id)//добавить всем, а здесь пока к заголовку
+ElementalOutFromBus::ElementalOutFromBus(QString nameOutput, QString id, AuthomatBus *bus, int numSlot, int posHeight):Element(nameOutput, id)//РґРѕР±Р°РІРёС‚СЊ РІСЃРµРј, Р° Р·РґРµСЃСЊ РїРѕРєР° Рє Р·Р°РіРѕР»РѕРІРєСѓ
 {
     connectAtBus(bus, numSlot, posHeight);
-    generic(nameOutput);//id хранить по нему будет взаимодействие работать
+    generic(nameOutput);//id С…СЂР°РЅРёС‚СЊ РїРѕ РЅРµРјСѓ Р±СѓРґРµС‚ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёРµ СЂР°Р±РѕС‚Р°С‚СЊ
     this->id=id;
 }
 
@@ -55,7 +55,7 @@ void ElementalOutFromBus::setPosY(int pos)
     setHeightAtBus(posHeight);
 }
 
-void ElementalOutFromBus::generic(QString nameOutput)//заполняй
+void ElementalOutFromBus::generic(QString nameOutput)//Р·Р°РїРѕР»РЅСЏР№
 {
     posx=10;
     posy=20;

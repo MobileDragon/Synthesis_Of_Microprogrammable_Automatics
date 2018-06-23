@@ -11,7 +11,7 @@
 //#include "wireofe.h"
 #include <QMap>
 
-class Element//виртуальный класс для отрисовки элементарных и сложных логических элементов
+class Element//РІРёСЂС‚СѓР°Р»СЊРЅС‹Р№ РєР»Р°СЃСЃ РґР»СЏ РѕС‚СЂРёСЃРѕРІРєРё СЌР»РµРјРµРЅС‚Р°СЂРЅС‹С… Рё СЃР»РѕР¶РЅС‹С… Р»РѕРіРёС‡РµСЃРєРёС… СЌР»РµРјРµРЅС‚РѕРІ
 {
 public:
     Element();
@@ -33,28 +33,28 @@ public:
     void setPosY(int y);
     virtual void move(int x,int y);
 
-    QPoint getPosInput(int numIn);//берет входы из массива wiresPos
+    QPoint getPosInput(int numIn);//Р±РµСЂРµС‚ РІС…РѕРґС‹ РёР· РјР°СЃСЃРёРІР° wiresPos
     QPoint getPosOutput(int numOut);
 
     QString type;
-    QString name;//имя
-    QString id;//операция которая выходит("X1+~X2")
+    QString name;//РёРјСЏ
+    QString id;//РѕРїРµСЂР°С†РёСЏ РєРѕС‚РѕСЂР°СЏ РІС‹С…РѕРґРёС‚("X1+~X2")
 
 
-protected://добавить имя и время для быстрой подсказки
+protected://РґРѕР±Р°РІРёС‚СЊ РёРјСЏ Рё РІСЂРµРјСЏ РґР»СЏ Р±С‹СЃС‚СЂРѕР№ РїРѕРґСЃРєР°Р·РєРё
     int width;
     int height;
     int posx;
     int posy;
     int diffX;
     int diffY;
-    int numInput;//c 0 везде с 0 начинается
+    int numInput;//c 0 РІРµР·РґРµ СЃ 0 РЅР°С‡РёРЅР°РµС‚СЃСЏ
     int numOutput;
 
     int interval;
-    //и так далее заполнять из базы
-    QMap <int,QPoint> wiresPos;//список точек для подключения проводов
-    //QVector<WireOfE> wiresPos;//необходим ассоциативный список
+    //Рё С‚Р°Рє РґР°Р»РµРµ Р·Р°РїРѕР»РЅСЏС‚СЊ РёР· Р±Р°Р·С‹
+    QMap <int,QPoint> wiresPos;//СЃРїРёСЃРѕРє С‚РѕС‡РµРє РґР»СЏ РїРѕРґРєР»СЋС‡РµРЅРёСЏ РїСЂРѕРІРѕРґРѕРІ
+    //QVector<WireOfE> wiresPos;//РЅРµРѕР±С…РѕРґРёРј Р°СЃСЃРѕС†РёР°С‚РёРІРЅС‹Р№ СЃРїРёСЃРѕРє
 };
 
 #endif // ELEMENT_H

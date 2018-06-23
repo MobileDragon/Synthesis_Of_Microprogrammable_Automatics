@@ -22,40 +22,40 @@ ShemE::ShemE(ShemE &element)
 
 
 
-ShemE::ShemE(QString name, QString id)//получать список выходов из базы
+ShemE::ShemE(QString name, QString id)//РїРѕР»СѓС‡Р°С‚СЊ СЃРїРёСЃРѕРє РІС‹С…РѕРґРѕРІ РёР· Р±Р°Р·С‹
 {
     QVector<int> massOutput = getOut(name);
     this->name=name;
     this->id=id;
-    //заполниш после перемещения
-    foreach(int n,massOutput)//massOutput получать из базы//получает оди номер провода
+    //Р·Р°РїРѕР»РЅРёС€ РїРѕСЃР»Рµ РїРµСЂРµРјРµС‰РµРЅРёСЏ
+    foreach(int n,massOutput)//massOutput РїРѕР»СѓС‡Р°С‚СЊ РёР· Р±Р°Р·С‹//РїРѕР»СѓС‡Р°РµС‚ РѕРґРё РЅРѕРјРµСЂ РїСЂРѕРІРѕРґР°
     {
         this->wire.insert(n, new currentWire());
         //wire.value(1).nextWire=5;
     }
 }
 
-ShemE::ShemE(QString id,int kolOut)//вилка
+ShemE::ShemE(QString id,int kolOut)//РІРёР»РєР°
 {
-    this->name=QString("%1").arg(kolOut);//имя содержит только число развлетлений
+    this->name=QString("%1").arg(kolOut);//РёРјСЏ СЃРѕРґРµСЂР¶РёС‚ С‚РѕР»СЊРєРѕ С‡РёСЃР»Рѕ СЂР°Р·РІР»РµС‚Р»РµРЅРёР№
     this->id=id;
-    for(int i=1;i<=kolOut;i++)//номера выходов
+    for(int i=1;i<=kolOut;i++)//РЅРѕРјРµСЂР° РІС‹С…РѕРґРѕРІ
     {
-        this->wire.insert(i, new currentWire());//список выходов с указателями
+        this->wire.insert(i, new currentWire());//СЃРїРёСЃРѕРє РІС‹С…РѕРґРѕРІ СЃ СѓРєР°Р·Р°С‚РµР»СЏРјРё
     }
 }
 
 
-ShemE::ShemE(QString name)//использовать для добавления входов(X)
-{//id и name должны передаваться одинаковые
+ShemE::ShemE(QString name)//РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РІС…РѕРґРѕРІ(X)
+{//id Рё name РґРѕР»Р¶РЅС‹ РїРµСЂРµРґР°РІР°С‚СЊСЃСЏ РѕРґРёРЅР°РєРѕРІС‹Рµ
     this->name=name;
     this->id=name;
 
     this->wire.insert(0, new currentWire());
 }
 
-ShemE::ShemE(QString name,QString id, bool)//использовать для добавления ТРИГГГЕРОВ(rs)
-{//id и name должны передаваться одинаковые
+ShemE::ShemE(QString name,QString id, bool)//РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РўР РР“Р“Р“Р•Р РћР’(rs)
+{//id Рё name РґРѕР»Р¶РЅС‹ РїРµСЂРµРґР°РІР°С‚СЊСЃСЏ РѕРґРёРЅР°РєРѕРІС‹Рµ
     this->name=name;
     this->id=id;
 
@@ -63,7 +63,7 @@ ShemE::ShemE(QString name,QString id, bool)//использовать для добавления ТРИГГГЕ
     this->wire.insert(3, new currentWire());
 }
 
-ShemE::ShemE(int numY, QString nameOut)//использовать для добавления выходов(имя запис в id)(Y)
+ShemE::ShemE(int numY, QString nameOut)//РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РІС‹С…РѕРґРѕРІ(РёРјСЏ Р·Р°РїРёСЃ РІ id)(Y)
 {
     QString name;
     if(nameOut.length()<1)
@@ -97,8 +97,8 @@ QVector<int> ShemE::getInput(QString name)
         listInputs.append(0);
         return listInputs;
     }
-    //в базе нет вписка входов:( есть число входов и выходов нусерация выходов сразу после входов:)
-    //нумерация начинается с 0
+    //РІ Р±Р°Р·Рµ РЅРµС‚ РІРїРёСЃРєР° РІС…РѕРґРѕРІ:( РµСЃС‚СЊ С‡РёСЃР»Рѕ РІС…РѕРґРѕРІ Рё РІС‹С…РѕРґРѕРІ РЅСѓСЃРµСЂР°С†РёСЏ РІС‹С…РѕРґРѕРІ СЃСЂР°Р·Сѓ РїРѕСЃР»Рµ РІС…РѕРґРѕРІ:)
+    //РЅСѓРјРµСЂР°С†РёСЏ РЅР°С‡РёРЅР°РµС‚СЃСЏ СЃ 0
 
     QString t="";
     QSqlQuery *query = BDE::getInstance()->make(t+"SELECT wires.numInput, elements.name"
@@ -116,8 +116,8 @@ QVector<int> ShemE::getInput(QString name)
 QVector<int> ShemE::getOut(QString name)
 {
     QVector<int> listOut(0);
-    //в базе нет вписка входов:( есть число входов и выходов нусерация выходов сразу после входов:)
-    //нумерация начинается с 0
+    //РІ Р±Р°Р·Рµ РЅРµС‚ РІРїРёСЃРєР° РІС…РѕРґРѕРІ:( РµСЃС‚СЊ С‡РёСЃР»Рѕ РІС…РѕРґРѕРІ Рё РІС‹С…РѕРґРѕРІ РЅСѓСЃРµСЂР°С†РёСЏ РІС‹С…РѕРґРѕРІ СЃСЂР°Р·Сѓ РїРѕСЃР»Рµ РІС…РѕРґРѕРІ:)
+    //РЅСѓРјРµСЂР°С†РёСЏ РЅР°С‡РёРЅР°РµС‚СЃСЏ СЃ 0
 
     QString t="";
     QSqlQuery *queryOut = BDE::getInstance()->make(t+"SELECT wires.numOutput, elements.name"

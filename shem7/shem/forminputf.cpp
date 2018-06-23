@@ -7,14 +7,14 @@ FormInputF::FormInputF(QWidget *pwgt) :
     chek = new QCheckBox;
 
     isNext=false;
-    this->setWindowTitle("Нова схема");
-    QLabel* plblFormul    = new QLabel("Введіть функцію");
-    QLabel* plblEkonomChek     = new QLabel("Економічне побудування");
+    this->setWindowTitle("РќРѕРІР° СЃС…РµРјР°");
+    QLabel* plblFormul    = new QLabel("Р’РІРµРґС–С‚СЊ С„СѓРЅРєС†С–СЋ");
+    QLabel* plblEkonomChek     = new QLabel("Р•РєРѕРЅРѕРјС–С‡РЅРµ РїРѕР±СѓРґСѓРІР°РЅРЅСЏ");
 
     plblFormul->setBuddy(m_ptxtFormul);
 
-    nextB = new QPushButton("Далі");
-    QPushButton* pcmdCancel = new QPushButton("Вихід");
+    nextB = new QPushButton("Р”Р°Р»С–");
+    QPushButton* pcmdCancel = new QPushButton("Р’РёС…С–Рґ");
 
     connect(nextB, SIGNAL(clicked()), SLOT(nextClk()));
     connect(pcmdCancel, SIGNAL(clicked()), SLOT(cancelClk()));

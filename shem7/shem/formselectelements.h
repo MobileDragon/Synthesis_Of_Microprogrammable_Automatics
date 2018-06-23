@@ -37,7 +37,7 @@ private:
     void field_tableOfBase(QStandardItemModel* table, bool flag);
     void updateListBase();
     void updateListSelected();
-    QVector<column> getListElements(QList<QString> dontSelect, bool flag);//flag=true значит только из списка
+    QVector<column> getListElements(QList<QString> dontSelect, bool flag);//flag=true Р·РЅР°С‡РёС‚ С‚РѕР»СЊРєРѕ РёР· СЃРїРёСЃРєР°
     QString name;
     PaintWidget* w;
 signals:
